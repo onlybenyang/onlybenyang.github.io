@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>笨笨和羊</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Android 是基于Java的，很多时候可以用Java的思想来等同思考，但是却不能和Java程序直接一个Main函数就可以在里面随便new对象来用，像Activity，Service这些必须依靠一个context才可以创建。这是因为Android整体架构是基于组建的应用设计模式，像Activity，Service这些组件的运行需要一个完整的Android工程环境，每个组件就是这个环境中的一个场景">
+<meta name="keywords" content="react-native js android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笨笨和羊">
+<meta property="og:url" content="http://yoursite.com/2019/02/03/什么是Context/index.html">
+<meta property="og:site_name" content="笨笨和羊">
+<meta property="og:description" content="Android 是基于Java的，很多时候可以用Java的思想来等同思考，但是却不能和Java程序直接一个Main函数就可以在里面随便new对象来用，像Activity，Service这些必须依靠一个context才可以创建。这是因为Android整体架构是基于组建的应用设计模式，像Activity，Service这些组件的运行需要一个完整的Android工程环境，每个组件就是这个环境中的一个场景">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="e:/works/github/Note/res/context_struct.jpg">
+<meta property="og:image" content="e:/works/github/Note/res/context_area.jpg">
+<meta property="og:updated_time" content="2019-02-03T15:49:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="笨笨和羊">
+<meta name="twitter:description" content="Android 是基于Java的，很多时候可以用Java的思想来等同思考，但是却不能和Java程序直接一个Main函数就可以在里面随便new对象来用，像Activity，Service这些必须依靠一个context才可以创建。这是因为Android整体架构是基于组建的应用设计模式，像Activity，Service这些组件的运行需要一个完整的Android工程环境，每个组件就是这个环境中的一个场景">
+<meta name="twitter:image" content="e:/works/github/Note/res/context_struct.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="笨笨和羊" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">笨笨和羊</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-什么是Context" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/03/什么是Context/" class="article-date">
+  <time datetime="2019-02-03T15:49:26.000Z" itemprop="datePublished">2019-02-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Android 是基于Java的，很多时候可以用Java的思想来等同思考，但是却不能和Java程序直接一个Main函数就可以在里面随便new对象来用，像Activity，Service这些必须依靠一个context才可以创建。这是因为Android整体架构是基于组建的应用设计模式，像Activity，Service这些组件的运行需要一个完整的Android工程环境，每个组件就是这个环境中的一个场景，而Context就是这些场景的一些相关信息（也就是上下文环境）。</p>
+<p>总结下，Context是维持Android程序中各组件能够正常工作的一个核心功能类。</p>
+<p><em>源码中的注释是这么来解释Context的：Context提供了关于应用环境全局信息的接口。</em></p>
+<p>####Context继承关系图：</p>
+<p><img src="E:\works\github\Note\res\context_struct.jpg" alt="context_struct"></p>
+<ul>
+<li>Context类本身是一个纯abstract类，它有两个具体的实现子类：ContextImpl和</li>
+<li>ContextWrapper。一个包装类而已，ContextWrapper构造函数中必须包含一个真正的Context引用，同时ContextWrapper中提供了attachBaseContext（）用于给ContextWrapper对象中指定真正的Context对象，调用ContextWrapper的方法都会被转向其所包含的真正的Context对象。</li>
+<li>ContextThemeWrapper类。内部包含了与主题（Theme）相关的接口，这里所说的主题就是指在AndroidManifest.xml中通过android：theme为Application元素或者Activity元素指定的主题。当然，只有Activity才需要主题，Service是不需要主题的，因为Service是没有界面的后台场景，所以Service直接继承于ContextWrapper，Application同理。</li>
+<li><p>ContextImpl类。真正实现了Context中的所有函数，应用程序中所调用的各种Context类的方法，其实现均来自于该类。</p>
+<p><strong>总结：Context的两个子类分工明确，其中ContextImpl是Context的具体实现类，ContextWrapper是Context的包装类。Activity，Application，Service虽都继承自ContextWrapper（Activity继承自ContextWrapper的子类ContextThemeWrapper），但它们初始化的过程中都会创建ContextImpl对象，由ContextImpl实现Context中的方法。</strong></p>
+</li>
+</ul>
+<h4 id="Context作用域"><a href="#Context作用域" class="headerlink" title="Context作用域"></a>Context作用域</h4><p><img src="E:\works\github\Note\res\context_area.jpg" alt="context_area"></p>
+<ol>
+<li>如果我们用ApplicationContext去启动一个LaunchMode为standard的Activity的时候会报错<code>android.util.AndroidRuntimeException: Calling startActivity from outside of an Activity context requires the FLAG_ACTIVITY_NEW_TASK flag. Is this really what you want?</code>这是因为非Activity类型的Context并没有所谓的任务栈，所以待启动的Activity就找不到栈了。解决这个问题的方法就是为待启动的Activity指定FLAG_ACTIVITY_NEW_TASK标记位，这样启动的时候就为它创建一个新的任务栈，而此时Activity是以singleTask模式启动的。所有这种用Application启动Activity的方式不推荐使用，Service同Application。</li>
+<li><p>在Application和Service中去layout inflate也是合法的，但是会使用系统默认的主题样式，如果你自定义了某些样式可能不会被使用。所以这种方式也不推荐使用。</p>
+<p><strong>总结：凡是跟UI相关的，都应该使用Activity做为Context来处理；其他的一些操作，Service,Activity,Application等实例都可以，当然了，注意Context引用的持有，防止内存泄漏。</strong></p>
+</li>
+</ol>
+<h4 id="Context引起的内存泄露"><a href="#Context引起的内存泄露" class="headerlink" title="Context引起的内存泄露"></a>Context引起的内存泄露</h4><p>这个是在开发中需要注意的问题，因为不同的context对象所在的场景的生命周期不一样，有些时候某个场景中的context对象已经被GC了，但这个场景还在使用这个context，so，oom出现了。</p>
+<p>先写下正确使用Context的note：</p>
+<p>使用Context的正确姿势：</p>
+<ol>
+<li>当Application的Context能搞定的情况下，并且生命周期长的对象，优先使用Application的Context。</li>
+<li>不要让生命周期长于Activity的对象持有到Activity的引用。</li>
+<li>尽量不要在Activity中使用非静态内部类，因为非静态内部类会隐式持有外部类实例的引用，如果使用静态内部类，将外部实例引用作为弱引用持有。</li>
+</ol>
+<p><strong>两个使用Context造成OOM的例子</strong></p>
+<p><strong>1. 错误的单例模式</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line">    <span class="keyword">private</span> Context mContext;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mContext = context;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> Singleton(context);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是一个非线程安全的单例模式，instance作为静态对象，其生命周期要长于普通的对象，其中也包含Activity，假如Activity A去getInstance获得instance对象，传入this，常驻内存的Singleton保存了你传入的Activity A对象，并一直持有，即使Activity被销毁掉，但因为它的引用还存在于一个Singleton中，就不可能被GC掉，这样就导致了内存泄漏。</p>
+<p><strong>2. View持有Activity引用</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Drawable mDrawable;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle saveInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(saveInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        ImageView iv = <span class="keyword">new</span> ImageView(<span class="keyword">this</span>);</span><br><span class="line">        mDrawable = getResources().getDrawable(R.drawable.ic_launcher);</span><br><span class="line">        iv.setImageDrawable(mDrawable);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有一个静态的Drawable对象当ImageView设置这个Drawable时，ImageView保存了mDrawable的引用，而ImageView传入的this是MainActivity的mContext，因为被static修饰的mDrawable是常驻内存的，MainActivity是它的间接引用，MainActivity被销毁时，也不能被GC掉，所以造成内存泄漏。</p>
+<p>参考：<a href="https://juejin.im/entry/573b27e7df0eea005e71c425" target="_blank" rel="noopener">https://juejin.im/entry/573b27e7df0eea005e71c425</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/03/什么是Context/" data-id="cjrp363oa0009zaxhj8c0swjg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/02/03/Glide缓存/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/03/创建和生成本地或远程Maven仓库/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/03/Android_N的行为变更/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/零散知识/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/Okhttp3的Interceptor/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/Notification note/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/Service note/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Thomas.Lee<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

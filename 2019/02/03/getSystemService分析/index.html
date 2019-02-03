@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>笨笨和羊</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="当我们需要获得系统服务的时候，就会使用Context.getSystemService来获得一个对应Service 的Manager。而因为Android内部的实现，所以获得的这个Manager是一个单例。 首先，理清下getSystemService的原理，然后列出一些常用的SystemService。 getSystemService原理1234graph LRContextWrapperIm">
+<meta name="keywords" content="react-native js android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笨笨和羊">
+<meta property="og:url" content="http://yoursite.com/2019/02/03/getSystemService分析/index.html">
+<meta property="og:site_name" content="笨笨和羊">
+<meta property="og:description" content="当我们需要获得系统服务的时候，就会使用Context.getSystemService来获得一个对应Service 的Manager。而因为Android内部的实现，所以获得的这个Manager是一个单例。 首先，理清下getSystemService的原理，然后列出一些常用的SystemService。 getSystemService原理1234graph LRContextWrapperIm">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-03T15:49:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="笨笨和羊">
+<meta name="twitter:description" content="当我们需要获得系统服务的时候，就会使用Context.getSystemService来获得一个对应Service 的Manager。而因为Android内部的实现，所以获得的这个Manager是一个单例。 首先，理清下getSystemService的原理，然后列出一些常用的SystemService。 getSystemService原理1234graph LRContextWrapperIm">
+  
+    <link rel="alternate" href="/atom.xml" title="笨笨和羊" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">笨笨和羊</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-getSystemService分析" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/03/getSystemService分析/" class="article-date">
+  <time datetime="2019-02-03T15:49:26.000Z" itemprop="datePublished">2019-02-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当我们需要获得系统服务的时候，就会使用<em>Context.getSystemService</em>来获得一个对应Service 的Manager。而因为Android内部的实现，所以获得的这个Manager是一个单例。</p>
+<p>首先，理清下getSystemService的原理，然后列出一些常用的SystemService。</p>
+<h4 id="getSystemService原理"><a href="#getSystemService原理" class="headerlink" title="getSystemService原理"></a>getSystemService原理</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line"></span><br><span class="line">ContextWrapperImpl(ContextWrapperImpl)--&gt;ContextWrapper(ContextWrapper)</span><br><span class="line">ContextWrapper(ContextWrapper)--&gt;Context(Context)</span><br></pre></td></tr></table></figure>
+<p>我们最后可以在ContextWrapperImpl找到getSystemService的实现代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">getSystemService</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> SystemServiceRegistry.getSystemService(<span class="keyword">this</span>, name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>继续看SystemServiceRegistry code</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">getSystemService</span><span class="params">(ContextImpl ctx, String name)</span> </span>&#123;</span><br><span class="line">    ServiceFetcher&lt;?&gt; fetcher = SYSTEM_SERVICE_FETCHERS.get(name);</span><br><span class="line">    <span class="keyword">return</span> fetcher != <span class="keyword">null</span> ? fetcher.getService(ctx) : <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不去纠结SYSTEM_SERVICE_FETCHERS的实现，ServiceFetcher就是一个装了我们想要的Manager的容器。而这些服务是什么时候装到这个容器的，看SystemServiceRegistry 的名称就就知道肯定是在这里进行的。注册 code 如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">registerService</span><span class="params">(String serviceName, Class&lt;T&gt; serviceClass,</span></span></span><br><span class="line"><span class="function"><span class="params">        ServiceFetcher&lt;T&gt; serviceFetcher)</span> </span>&#123;</span><br><span class="line">    SYSTEM_SERVICE_NAMES.put(serviceClass, serviceName);</span><br><span class="line">    SYSTEM_SERVICE_FETCHERS.put(serviceName, serviceFetcher);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一段静态代码，在JVM加载这个类的时候就被执行。所以大概看getSystemService很简单。</p>
+<h4 id="常用SystemService"><a href="#常用SystemService" class="headerlink" title="常用SystemService"></a>常用SystemService</h4><ul>
+<li><a href="https://developer.android.com/reference/android/content/Context" target="_blank" rel="noopener">官方文档</a></li>
+</ul>
+<h5 id="1-ActivityManager：与系统中正在运行的所有活动进行交互"><a href="#1-ActivityManager：与系统中正在运行的所有活动进行交互" class="headerlink" title="1. ActivityManager：与系统中正在运行的所有活动进行交互"></a>1. ActivityManager：与系统中正在运行的所有活动进行交互</h5><p>获取方法：<br> <code>ActivityManager activityManager= (ActivityManager) getSystemService(ACTIVITY_SERVICE);</code><br> ActivityManager常用的方法：</p>
+<ul>
+<li><code>getRunningAppProcesses()</code>：获取系统中正在运行的所有的进程的信息。</li>
+<li><code>getRunningServices()</code>：获取系统中正在运行的所有的服务的信息。</li>
+<li><code>getMemoryInfo()</code>：获取系统内存信息。</li>
+<li><code>getDeviceConfigurationInfo()</code>：获取设备的配置属性。</li>
+</ul>
+<h5 id="2-NotificationManager：通知用户发生的事件"><a href="#2-NotificationManager：通知用户发生的事件" class="headerlink" title="2. NotificationManager：通知用户发生的事件"></a>2. NotificationManager：通知用户发生的事件</h5><p>获取方法：</p>
+<p><code>NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);</code></p>
+<p>一般常用方法：</p>
+<ul>
+<li><code>notify()</code>: 有很多个重载方法，最重要的参数是Notification</li>
+</ul>
+<h5 id="3-LocationManager：提供了系统位置服务的访问"><a href="#3-LocationManager：提供了系统位置服务的访问" class="headerlink" title="3. LocationManager：提供了系统位置服务的访问"></a>3. LocationManager：提供了系统位置服务的访问</h5><p>获取LocationManager对象的方法:<br> <code>LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);</code><br> LocationManager常用方法：</p>
+<ul>
+<li><code>getAllProviders()</code>：获取所有能提供位置服务的Provider</li>
+<li><code>getLastKnownLocation()</code>：获取上次开启位置服务记录的位置</li>
+<li><code>requestLocationUpdates()</code>：注册位置更新的监听者</li>
+</ul>
+<h5 id="4-ConnectivityManager：关于网络连接状态的查询的类"><a href="#4-ConnectivityManager：关于网络连接状态的查询的类" class="headerlink" title="4. ConnectivityManager：关于网络连接状态的查询的类"></a>4. ConnectivityManager：关于网络连接状态的查询的类</h5><p>获取ConnectivityManager方法：</p>
+<p><code>ConnectivityManager connectivity = (ConnectivityManager) context  
+                .getSystemService(Context.CONNECTIVITY_SERVICE);</code></p>
+<p>ConnectivityManager的主要作用是：</p>
+<ul>
+<li>监视网络连接（Wi-Fi、GPRS、UMTS、等）</li>
+<li>当网络连通性的变化发送广播意图</li>
+<li>当连接的网络丢失，会自动连接别的网络</li>
+<li>提供一个允许应用程序查询可用网络的粗粒度或细粒度的应用程序接口</li>
+<li>提供一个允许应用程序请求和选择网络的应用程序的接口</li>
+</ul>
+<p>常用代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isNetworkAvailable</span><span class="params">(Context context)</span> </span>&#123;  </span><br><span class="line">        ConnectivityManager connectivity = (ConnectivityManager) context  </span><br><span class="line">                .getSystemService(Context.CONNECTIVITY_SERVICE);  </span><br><span class="line">        <span class="keyword">if</span> (connectivity != <span class="keyword">null</span>) &#123;  </span><br><span class="line">            NetworkInfo info = connectivity.getActiveNetworkInfo();  </span><br><span class="line">            <span class="keyword">if</span> (info != <span class="keyword">null</span> &amp;&amp; info.isConnected())   </span><br><span class="line">            &#123;  </span><br><span class="line">                <span class="comment">// 当前网络是连接的  </span></span><br><span class="line">                <span class="keyword">if</span> (info.getState() == NetworkInfo.State.CONNECTED)   </span><br><span class="line">                &#123;  </span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/03/getSystemService分析/" data-id="cjrp363o50007zaxhunc6npg8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/02/03/dagger2小结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/03/Glide缓存/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/03/Android_N的行为变更/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/零散知识/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/Okhttp3的Interceptor/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/Notification note/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/Service note/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Thomas.Lee<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
