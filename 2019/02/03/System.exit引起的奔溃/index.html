@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>笨笨和羊</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="System.exit(0)：终止当前正在运行的 Java 虚拟机，结束app的主进程。参数用作状态码；根据惯例，非 0 的状态码表示异常终止。System.exit(0)正常终止程序，有时候在退出安卓应用会使用到。如果app中有一个service，在执行System.exit(0)时service还存在，那么会发现过一会这个Service在被销毁后又被重启了。如果这个Service中用到了主线程">
+<meta name="keywords" content="react-native js android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笨笨和羊">
+<meta property="og:url" content="http://yoursite.com/2019/02/03/System.exit引起的奔溃/index.html">
+<meta property="og:site_name" content="笨笨和羊">
+<meta property="og:description" content="System.exit(0)：终止当前正在运行的 Java 虚拟机，结束app的主进程。参数用作状态码；根据惯例，非 0 的状态码表示异常终止。System.exit(0)正常终止程序，有时候在退出安卓应用会使用到。如果app中有一个service，在执行System.exit(0)时service还存在，那么会发现过一会这个Service在被销毁后又被重启了。如果这个Service中用到了主线程">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-03T15:49:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="笨笨和羊">
+<meta name="twitter:description" content="System.exit(0)：终止当前正在运行的 Java 虚拟机，结束app的主进程。参数用作状态码；根据惯例，非 0 的状态码表示异常终止。System.exit(0)正常终止程序，有时候在退出安卓应用会使用到。如果app中有一个service，在执行System.exit(0)时service还存在，那么会发现过一会这个Service在被销毁后又被重启了。如果这个Service中用到了主线程">
+  
+    <link rel="alternate" href="/atom.xml" title="笨笨和羊" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">笨笨和羊</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-System.exit引起的奔溃" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/03/System.exit引起的奔溃/" class="article-date">
+  <time datetime="2019-02-03T15:49:26.000Z" itemprop="datePublished">2019-02-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>System.exit(0)：终止当前正在运行的 Java 虚拟机，结束app的主进程。参数用作状态码；根据惯例，非 0 的状态码表示异常终止。System.exit(0)正常终止程序，有时候在退出安卓应用会使用到。<br>如果app中有一个service，在执行System.exit(0)时service还存在，那么会发现过一会这个Service在被销毁后又被重启了。如果这个Service中用到了主线程的对象（资源），那么就很容易发生NullPointException。<br>而这个Service被重启的原因是因为在onStartCommand中返回了默认值START_STICKY（1），可以通过把返回值修改为START_NOT_STICKY来防止Service重启。</p>
+<ol>
+<li>START_STICKY:粘性<pre><code>当Service因*内存不足而被系统kill后，一段时间后内存再次空闲时，系统将会尝试重新创建此Service，一旦创建成功后将回调onStartCommand方法，但其中的Intent将是null，除非有挂起的Intent，如pendingintent，这个状态下比较适用于不执行命令、但无限期运行并等待作业的媒体播放器或类似服务*。
+</code></pre></li>
+<li>START_NOT_STICKY:不粘性<pre><code>*当Service因内存不足而被系统kill后，即使系统内存再次空闲时，系统也不会尝试重新创建此Service。除非程序中再次调用startService启动此Service，这是最安全的选项，可以避免在不必要时以及应用能够轻松重启所有未完成的作业时运行服务*。
+</code></pre></li>
+<li>START_REDELIVER_INTENT:重新传送Intent<pre><code>*当Service因内存不足而被系统kill后，则会重建服务，并通过传递给服务的最后一个 Intent 调用 onStartCommand()，任何挂起 Intent均依次传递。与START_STICKY不同的是，其中的传递的Intent将是非空，是最后一次调用startService中的intent。这个值适用于主动执行应该立即恢复的作业（例如下载文件）的服务。*
+</code></pre></li>
+</ol>
+<p>除了上述的方法可以解决这个问题外，在使用Service时也可以通过避免使用外部app的对象和及时调用stopService或者在Service中调用stopSelf；其实直接在Serivce的onDestroy中调用System.exit(0)也可以。</p>
+<ul>
+<li>Service存在于主进程，所以最好不要在Service中进行耗时操作，不过可以在Service中用一个Thread，Service中的Thread与Activity的Thread相比更好些，不依赖于UI的存在。</li>
+</ul>
+<p>参考链接：</p>
+<ol>
+<li><a href="http://zy77612.iteye.com/blog/1292649" target="_blank" rel="noopener">Android Service 解析</a></li>
+<li><a href="https://blog.csdn.net/qq_34723470/article/details/73349363" target="_blank" rel="noopener">System.exit(0)后服务重启</a></li>
+<li><a href="https://blog.csdn.net/iispring/article/details/48169339" target="_blank" rel="noopener">Android中bindService的使用及Service生命周期</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/03/System.exit引起的奔溃/" data-id="cjrpqlm2h00044zxh3vxvpqew" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/02/03/Service note/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/03/Okhttp3的Interceptor/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/03/Glide缓存/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/零散知识/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/Notification note/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/Service note/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/System.exit引起的奔溃/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Thomas.Lee<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

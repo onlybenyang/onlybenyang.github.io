@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>笨笨和羊</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="配置 dagger2 到工程 根目录下的build.gradle 12345buildscript &amp;#123;    dependencies &amp;#123;        classpath &apos;com.neenbedankt.gradle.plugins:android-apt:1.8&apos;    &amp;#125;&amp;#125;  app下的build.gradle 123456apply plugin:">
+<meta name="keywords" content="react-native js android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笨笨和羊">
+<meta property="og:url" content="http://yoursite.com/2019/02/03/dagger2小结/index.html">
+<meta property="og:site_name" content="笨笨和羊">
+<meta property="og:description" content="配置 dagger2 到工程 根目录下的build.gradle 12345buildscript &amp;#123;    dependencies &amp;#123;        classpath &apos;com.neenbedankt.gradle.plugins:android-apt:1.8&apos;    &amp;#125;&amp;#125;  app下的build.gradle 123456apply plugin:">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-03T15:49:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="笨笨和羊">
+<meta name="twitter:description" content="配置 dagger2 到工程 根目录下的build.gradle 12345buildscript &amp;#123;    dependencies &amp;#123;        classpath &apos;com.neenbedankt.gradle.plugins:android-apt:1.8&apos;    &amp;#125;&amp;#125;  app下的build.gradle 123456apply plugin:">
+  
+    <link rel="alternate" href="/atom.xml" title="笨笨和羊" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">笨笨和羊</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-dagger2小结" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/03/dagger2小结/" class="article-date">
+  <time datetime="2019-02-03T15:49:26.000Z" itemprop="datePublished">2019-02-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="配置-dagger2-到工程"><a href="#配置-dagger2-到工程" class="headerlink" title="配置 dagger2 到工程"></a>配置 dagger2 到工程</h3><ul>
+<li><p>根目录下的build.gradle</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>app下的build.gradle</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: 'com.neenbedankt.android-apt'</span><br><span class="line">dependencies &#123;</span><br><span class="line">    apt 'com.google.dagger:dagger-compiler:2.4'</span><br><span class="line">    compile 'com.google.dagger:dagger:2.4'</span><br><span class="line">    provided 'org.glassfish:javax.annotation:10.0-b28' // @Inject的包</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="dagger2工程的结构与使用"><a href="#dagger2工程的结构与使用" class="headerlink" title="dagger2工程的结构与使用"></a>dagger2工程的结构与使用</h3><p>通常一个 dagger2 工程会用到 <strong>@Inject, @Module, @Component, @Scope</strong>这四个注解来对一些类来进行注入管理，来避免在使用它们的时候进行new的初始化操作。</p>
+<p>最简单的使用： @Inject + @Component</p>
+<ul>
+<li>Dag.java<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dag</span> </span>&#123;</span><br><span class="line">    String move;</span><br><span class="line">    <span class="meta">@Inject</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Dag</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        move = <span class="keyword">new</span> String(<span class="string">"run, run"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getMove</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> move;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *用<span class="doctag">@Component</span>表示这个接口是一个连接器，</span></span><br><span class="line"><span class="comment"> *能用<span class="doctag">@Component</span>注解的只能是interface或者抽象类</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AnimalComponent</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 需要用到这个连接器的对象，就是这个对象里面有需要注入的属性</span></span><br><span class="line"><span class="comment">     * （被标记为<span class="doctag">@Inject</span>的属性）</span></span><br><span class="line"><span class="comment">     * 这个方法名可以随意更改，但就用inject即可。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">inject</span><span class="params">(MainActivity activity)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>MainActivity.javax<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject</span></span><br><span class="line">Dag dag;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.activity_main);</span><br><span class="line">    <span class="comment">//dagger2生成的类，生成组件进行构造，并注入</span></span><br><span class="line">    DaggerAnimalComponent.builder()</span><br><span class="line">            .build()</span><br><span class="line">            .inject(<span class="keyword">this</span>);</span><br><span class="line">    tv = (TextView) <span class="keyword">this</span>.findViewById(R.id.text);</span><br><span class="line">    tv.setText(dag.getMove());</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>屏幕上会显示 “run, run”，这种使用方法对于第三方我们无法在构造方法上添加注解和一些有多个构造方法的类中是无法使用的，对于一个类而言，<strong>@Inject</strong> 只能注解一个构造方法。所以这个时候，需要引入 <strong>@Module</strong> 来统一对可以注入类的模块化管理。</p>
+<ul>
+<li>AnimalModule.java<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//@Module注解表示这个类提供生成一些实例用于注入</span></span><br><span class="line"><span class="meta">@Module</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnimalModule</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Provides</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Dag <span class="title">provideDag</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Dag();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@Provides</span> 注解表示这个方法是用来创建某个实例对象的，这里我们创建返回Cat对象</span></span><br><span class="line"><span class="comment">    * 方法名随便，一般用provideXXX结构</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span> 返回注入对象</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="meta">@Provides</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Cat <span class="title">provideCat</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Cat(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>修改 AnimalComponent.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这里表示Component会从MainModule类中拿那些用@Provides注解的方法来生成需要注入的实例</span></span><br><span class="line"><span class="meta">@Component</span>(modules = AnimalModule.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AnimalComponent</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">inject</span><span class="params">(MainActivity activity)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样在 MainActivity.java 就可以注入使用Cat的对象了</p>
+<ul>
+<li>Cat.java<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cat</span> </span>&#123;</span><br><span class="line">    String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Cat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = <span class="string">"None"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Cat</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Cat有两个构造方法，一个不带参，一个带参。当我们需要使用不带参的Cat来注入的时候，可以在 AnimalModule 中写<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Provides</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Cat <span class="title">provideCat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Cat();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>需要使用带参的Cat，不仅需要提供一个Cat的对象，还需要对Cat的参数进行注入，代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Provides</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Cat <span class="title">provideCat</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Cat(name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*这里提供了一个生成String的方法，在这个Module里生成Cat实例时，</span></span><br><span class="line"><span class="comment">会查找到这里为上面提供String类型的参数</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="meta">@Provides</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">provideString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Jony"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>Dagger2是先从@Privodes查找类实例，如果找到了就用@Module提供的方法来创建类实例，如果没有就从构造函数里用@Inject注解的生成类实例，如果二者都没有，则报错，简而言之，就是@Module的优先级高于@Inject。</li>
+<li>在providePoetry(String)方法中，String这个参数也是要注入提供的，必须也要有在同一个连接器里面有提供，其中在构建类实例的时候，会按照以下顺序执行：<ol>
+<li>从Module中查找类实例创建方法</li>
+<li>Module中存在创建方法，则看此创建方法有没有参数<ol>
+<li>如果有参数，这些参数也是由Component提供的，返回步骤1逐一生成参数类实例，最后再生成最终类实例</li>
+<li>如果无参数，则直接由这个方法生成最终类实例</li>
+</ol>
+</li>
+<li>Module中没有创建方法，则从构造函数里面找那个用@Inject注解的构造函数<ol>
+<li>如果该构造函数有参数，则也是返回到步骤1逐一生成参数类实例，最后调用该构造函数生成类实例</li>
+<li>如果该构造函数无参数，则直接调用该构造函数生成类实例</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<p>有了 @Inject, @Component, @Module 基本上注入的类就可以实现来使用了，但是被注入的类在注入这些对象来使用的时候，会遇到多次注入的情况（非单例模式）。如果我们对于一些类，希望用单例的方式来使用，<strong>这个时候我们就会用到 @Scope 标记当前生成对象的使用范围，标识一个类型的注射器只实例化一次，在同一个作用域内，只会生成一个实例，然后在此作用域内共用一个实例。</strong><br>实现如下：<br>首先，自定义一个 @Scope 注解<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scope</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> ZooScope &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>同时在Module与Component加上这个自定义Scope:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ZooScope</span></span><br><span class="line"><span class="meta">@Component</span>(modules = AnimalModule.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AnimalComponent</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">inject</span><span class="params">(MainActivity activity)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Module</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnimalModule</span> </span>&#123;</span><br><span class="line">    <span class="meta">@ZooScope</span></span><br><span class="line">    <span class="meta">@Provides</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Dag <span class="title">provideDag</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Dag();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ZooScope</span></span><br><span class="line">    <span class="meta">@Provides</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Cat <span class="title">provideCat</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Cat(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/03/dagger2小结/" data-id="cjrpqlm2q00064zxhc9ibl6v2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/02/03/Okhttp3的Interceptor/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/03/getSystemService分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/03/Glide缓存/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/零散知识/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/Notification note/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/Service note/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/System.exit引起的奔溃/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Thomas.Lee<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

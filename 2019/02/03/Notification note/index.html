@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>笨笨和羊</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="通知是Android中常用的一个消息显示方式，主要是面向用户的，但是现在部分国产手机会把新安装的app的通知权限默认关闭了，需要我们去检查是否app可以发送通知，不行的话需要通知用户去开启通知开关。 实际上在uses-permission中并没有通知权限。 Android 3.0 (API level 11)之前做法1234567NotificationManager mNotifyMgr = (">
+<meta name="keywords" content="react-native js android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笨笨和羊">
+<meta property="og:url" content="http://yoursite.com/2019/02/03/Notification note/index.html">
+<meta property="og:site_name" content="笨笨和羊">
+<meta property="og:description" content="通知是Android中常用的一个消息显示方式，主要是面向用户的，但是现在部分国产手机会把新安装的app的通知权限默认关闭了，需要我们去检查是否app可以发送通知，不行的话需要通知用户去开启通知开关。 实际上在uses-permission中并没有通知权限。 Android 3.0 (API level 11)之前做法1234567NotificationManager mNotifyMgr = (">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-03T15:49:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="笨笨和羊">
+<meta name="twitter:description" content="通知是Android中常用的一个消息显示方式，主要是面向用户的，但是现在部分国产手机会把新安装的app的通知权限默认关闭了，需要我们去检查是否app可以发送通知，不行的话需要通知用户去开启通知开关。 实际上在uses-permission中并没有通知权限。 Android 3.0 (API level 11)之前做法1234567NotificationManager mNotifyMgr = (">
+  
+    <link rel="alternate" href="/atom.xml" title="笨笨和羊" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">笨笨和羊</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Notification note" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/03/Notification note/" class="article-date">
+  <time datetime="2019-02-03T15:49:26.000Z" itemprop="datePublished">2019-02-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通知是Android中常用的一个消息显示方式，主要是面向用户的，但是现在部分国产手机会把新安装的app的通知权限默认关闭了，需要我们去检查是否app可以发送通知，不行的话需要通知用户去开启通知开关。</p>
+<p><strong>实际上在uses-permission中并没有通知权限。</strong></p>
+<h3 id="Android-3-0-API-level-11-之前做法"><a href="#Android-3-0-API-level-11-之前做法" class="headerlink" title="Android 3.0 (API level 11)之前做法"></a>Android 3.0 (API level 11)之前做法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);</span><br><span class="line">PendingIntent contentIntent = PendingIntent.getActivity(<span class="keyword">this</span>, <span class="number">0</span>, <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class), <span class="number">0</span>);</span><br><span class="line"><span class="comment">//直接new Notification</span></span><br><span class="line">Notification notification = <span class="keyword">new</span> Notification(icon, tickerText, when);</span><br><span class="line">notification.setLatestEventInfo(<span class="keyword">this</span>, title, content, contentIntent);</span><br><span class="line"></span><br><span class="line">mNotifyMgr.notify(NOTIFICATIONS_ID, notification);</span><br></pre></td></tr></table></figure>
+<h3 id="Android-3-0-API-level-11-及更高版本的做法"><a href="#Android-3-0-API-level-11-及更高版本的做法" class="headerlink" title="Android 3.0 (API level 11)及更高版本的做法"></a>Android 3.0 (API level 11)及更高版本的做法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);</span><br><span class="line">PendingIntent contentIntent = PendingIntent.getActivity(<span class="keyword">this</span>, <span class="number">0</span>, <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class), <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 通过Notification Builder来创建</span></span><br><span class="line">Notification notification = <span class="keyword">new</span> Notification.Builder(<span class="keyword">this</span>)</span><br><span class="line">            .setSmallIcon(R.drawable.notification_icon)</span><br><span class="line">            .setContentTitle(<span class="string">"My notification"</span>)</span><br><span class="line">            .setContentText(<span class="string">"Hello World!"</span>)</span><br><span class="line">            .setContentIntent(contentIntent)</span><br><span class="line">            .build();   <span class="comment">// getNotification()  deprecated in API level 16</span></span><br><span class="line"></span><br><span class="line">mNotifyMgr.notify(NOTIFICATIONS_ID, notification);</span><br></pre></td></tr></table></figure>
+<p>但是这种做法是不兼容Android 3.0之前的版本的</p>
+<h3 id="兼容Android-3-0之前的版本"><a href="#兼容Android-3-0之前的版本" class="headerlink" title="兼容Android 3.0之前的版本"></a>兼容Android 3.0之前的版本</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);</span><br><span class="line">PendingIntent contentIntent = PendingIntent.getActivity(<span class="keyword">this</span>, <span class="number">0</span>, <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class), <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 使用NotificationCompat来兼容3.0之前的版本</span></span><br><span class="line">NotificationCompat.Builder mBuilder = <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>)</span><br><span class="line">            .setSmallIcon(R.drawable.notification_icon)</span><br><span class="line">            .setContentTitle(<span class="string">"My notification"</span>)</span><br><span class="line">            .setContentText(<span class="string">"Hello World!"</span>)</span><br><span class="line">            .setContentIntent(contentIntent);</span><br><span class="line"></span><br><span class="line">mNotifyMgr.notify(NOTIFICATIONS_ID, mBuilder.build());</span><br></pre></td></tr></table></figure>
+<p>这个是目前比较通用的一种做法。后面主要说这种做法的细节</p>
+<p>对于一个通知而言，只需要三个最基础的东西：icon，content title，content text.而NotificationCompat会默认为我们设置优先级，显示时机 ，通知音频的输出方向。</p>
+<ul>
+<li>priority: PRIORITY_DEFAULT</li>
+<li>when: System.currentTimeMillis()</li>
+<li>audio stream: STREAM_DEFAULT</li>
+</ul>
+<p>在代码看到的PendingIntent，是为了在用户点击了通知后，需要跳转到app的哪一个Activity去。其实也可以不是一个Activity，而是启动一个Service。</p>
+<h3 id="使用Notification需要用到的一些方法"><a href="#使用Notification需要用到的一些方法" class="headerlink" title="使用Notification需要用到的一些方法"></a>使用Notification需要用到的一些方法</h3><h4 id="更新通知"><a href="#更新通知" class="headerlink" title="更新通知"></a>更新通知</h4><p>更新通知很简单，只需再次发送相同ID的通知即可，如果之前的通知依然存在则会更新通知属性，如果之前通知不存在则重新创建。</p>
+<h4 id="取消通知"><a href="#取消通知" class="headerlink" title="取消通知"></a>取消通知</h4><ul>
+<li>点击通知栏的清除按钮，会清除所有可清除的通知</li>
+<li>设置了 setAutoCancel() 或 FLAG_AUTO_CANCEL的通知，点击该通知时会清除它</li>
+<li>通过 NotificationManager 调用 cancel() 方法清除指定ID的通知</li>
+<li>通过 NotificationManager 调用 cancelAll() 方法清除所有该应用之前发送的通知</li>
+</ul>
+<h4 id="设置通知类型"><a href="#设置通知类型" class="headerlink" title="设置通知类型"></a>设置通知类型</h4><ul>
+<li><p><strong>大视图通知</strong></p>
+</li>
+<li><p><strong>普通视图通知</strong></p>
+</li>
+</ul>
+<p>默认情况下为普通视图，可通过<code>NotificationCompat.Builder.setStyle()</code>设置大视图。</p>
+<p><em>注: 大视图(Big Views)由Android 4.1(API level 16)开始引入，且仅支持Android 4.1及更高版本。</em></p>
+<h4 id="在通知上设置进度条"><a href="#在通知上设置进度条" class="headerlink" title="在通知上设置进度条"></a>在通知上设置进度条</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">mBuilder = <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>);</span><br><span class="line"><span class="keyword">new</span> Thread(</span><br><span class="line">    <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> incr;</span><br><span class="line">            <span class="keyword">for</span> (incr = <span class="number">0</span>; incr &lt;= <span class="number">100</span>; incr+=<span class="number">5</span>) &#123;</span><br><span class="line">                mBuilder.setProgress(<span class="number">100</span>, incr, <span class="keyword">false</span>);</span><br><span class="line">                mNotifyManager.notify(id, mBuilder.build());</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">// Sleep for 5 seconds</span></span><br><span class="line">                    Thread.sleep(<span class="number">5</span>*<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    Log.d(TAG, <span class="string">"sleep failure"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            mBuilder.setContentText(<span class="string">"Download complete"</span>)<span class="comment">//下载完成           </span></span><br><span class="line">                    .setProgress(<span class="number">0</span>,<span class="number">0</span>,<span class="keyword">false</span>);    <span class="comment">//移除进度条</span></span><br><span class="line">            mNotifyManager.notify(id, mBuilder.build());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">).start();</span><br></pre></td></tr></table></figure>
+<p><code>setProgress(0, 0, true)</code>设置不确定的进度条</p>
+<h4 id="浮动通知-Heads-up-Notifications"><a href="#浮动通知-Heads-up-Notifications" class="headerlink" title="浮动通知(Heads-up Notifications)"></a><strong>浮动通知(Heads-up Notifications)</strong></h4><p>Android 5.0(API level 21)开始，当屏幕未上锁且亮屏时，通知可以以小窗口形式显示。用户可以在不离开当前应用前提下操作该通知。</p>
+<p>以下两种情况会显示浮动通知:</p>
+<ul>
+<li>setFullScreenIntent()，如上述示例。</li>
+<li>通知拥有高优先级且使用了铃声和振动</li>
+</ul>
+<h4 id="锁屏通知"><a href="#锁屏通知" class="headerlink" title="锁屏通知"></a><strong>锁屏通知</strong></h4><p>Android 5.0(API level 21)开始，通知可以显示在锁屏上。用户可以通过设置选择是否允许敏感的通知内容显示在安全的锁屏上。<br>你的应用可以通过<code>setVisibility()</code>控制通知的显示等级:</p>
+<ul>
+<li>VISIBILITY_PRIVATE : 显示基本信息，如通知的图标，但隐藏通知的全部内容</li>
+<li>VISIBILITY_PUBLIC : 显示通知的全部内容</li>
+<li>VISIBILITY_SECRET : 不显示任何内容，包括图标</li>
+</ul>
+<h3 id="保留Activity返回栈"><a href="#保留Activity返回栈" class="headerlink" title="保留Activity返回栈"></a><strong>保留Activity返回栈</strong></h3><h4 id="常规Activity"><a href="#常规Activity" class="headerlink" title="常规Activity"></a><strong>常规Activity</strong></h4><p>默认情况下，从通知启动一个Activity，按返回键会回到主屏幕。但某些时候有按返回键仍然留在当前应用的需求，这就要用到<code>TaskStackBuilder</code>了。</p>
+<p>1、在manifest中定义Activity的关系</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Android 4.0.3 及更早版本</span><br><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">".ResultActivity"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:name</span>=<span class="string">"android.support.PARENT_ACTIVITY"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:value</span>=<span class="string">".MainActivity"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line"></span><br><span class="line">Android 4.1 及更高版本</span><br><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">".ResultActivity"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:parentActivityName</span>=<span class="string">".MainActivity"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2、创建返回栈PendingIntent</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Intent resultIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class);</span><br><span class="line">TaskStackBuilder stackBuilder = TaskStackBuilder.create(<span class="keyword">this</span>);</span><br><span class="line"><span class="comment">// 添加返回栈</span></span><br><span class="line">stackBuilder.addParentStack(ResultActivity.class);</span><br><span class="line"><span class="comment">// 添加Intent到栈顶</span></span><br><span class="line">stackBuilder.addNextIntent(resultIntent);</span><br><span class="line"><span class="comment">// 创建包含返回栈的pendingIntent</span></span><br><span class="line">PendingIntent resultPendingIntent =</span><br><span class="line">        stackBuilder.getPendingIntent(<span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</span><br><span class="line"></span><br><span class="line">NotificationCompat.Builder builder = <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>);</span><br><span class="line">builder.setContentIntent(resultPendingIntent);</span><br><span class="line">NotificationManager mNotificationManager =</span><br><span class="line">    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);</span><br><span class="line">mNotificationManager.notify(id, builder.build());</span><br></pre></td></tr></table></figure>
+<p>上述操作后，从通知启动ResultActivity，按返回键会回到MainActivity，而不是主屏幕。</p>
+<h4 id="特殊Activity"><a href="#特殊Activity" class="headerlink" title="特殊Activity"></a><strong>特殊Activity</strong></h4><p>默认情况下，从通知启动的Activity会在近期任务列表里出现。如果不需要在近期任务里显示，则需要做以下操作:</p>
+<p>1、在manifest中定义Activity</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">".ResultActivity"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:launchMode</span>=<span class="string">"singleTask"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:taskAffinity</span>=<span class="string">""</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:excludeFromRecents</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2、构建PendingIntent</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">NotificationCompat.Builder builder = <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>);</span><br><span class="line">Intent notifyIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Sets the Activity to start in a new, empty task</span></span><br><span class="line">notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);</span><br><span class="line"></span><br><span class="line">PendingIntent notifyPendingIntent =</span><br><span class="line">        PendingIntent.getActivity(<span class="keyword">this</span>, <span class="number">0</span>, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);</span><br><span class="line"></span><br><span class="line">builder.setContentIntent(notifyPendingIntent);</span><br><span class="line">NotificationManager mNotificationManager =</span><br><span class="line">    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);</span><br><span class="line">mNotificationManager.notify(id, builder.build());</span><br></pre></td></tr></table></figure>
+<p>上述操作后，从通知启动ResultActivity，此Activity不会出现在近期任务列表中。</p>
+<h4 id="常见的Flags"><a href="#常见的Flags" class="headerlink" title="常见的Flags"></a><strong>常见的Flags</strong></h4><ul>
+<li>FLAG_AUTO_CANCEL<br>当通知被用户点击之后会自动被清除(cancel)</li>
+<li>FLAG_INSISTENT<br>在用户响应之前会一直重复提醒音</li>
+<li>FLAG_ONGOING_EVENT<br>表示正在运行的事件</li>
+<li>FLAG_NO_CLEAR<br>通知栏点击“清除”按钮时，该通知将不会被清除</li>
+<li>FLAG_FOREGROUND_SERVICE<br>表示当前服务是前台服务</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/03/Notification note/" data-id="cjrpqlm2900024zxh0hxt2i16" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/02/03/零散知识/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/03/Service note/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/03/Glide缓存/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/零散知识/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/Notification note/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/Service note/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/03/System.exit引起的奔溃/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Thomas.Lee<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
