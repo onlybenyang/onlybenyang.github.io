@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="android, glide,">
 
 
 
@@ -79,14 +79,20 @@
 
 
 
-<meta name="keywords" content="react-native js android">
-<meta property="og:type" content="website">
-<meta property="og:title" content="笨笨和羊">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="modal的使用modal在react native 中可以看作是一个覆盖在最上层的窗口，当它出现时会占据所有的屏幕，且用户无法对下层的UI进行操作。这样看起来有些霸道，但也正因为无法操作下层的UI，我们可以随意定义modal上的UI和操作而不用担心影响到下层UI。所以，modal在我们的想象力下可以自定义成为许多自定义控件。 基本知识 Modal组件可以用来覆盖包含React Native根视图">
+<meta name="keywords" content="android, glide">
+<meta property="og:type" content="article">
+<meta property="og:title" content="new page">
+<meta property="og:url" content="http://yoursite.com/2019/02/05/react_native/modal使用心得/index.html">
 <meta property="og:site_name" content="笨笨和羊">
+<meta property="og:description" content="modal的使用modal在react native 中可以看作是一个覆盖在最上层的窗口，当它出现时会占据所有的屏幕，且用户无法对下层的UI进行操作。这样看起来有些霸道，但也正因为无法操作下层的UI，我们可以随意定义modal上的UI和操作而不用担心影响到下层UI。所以，modal在我们的想象力下可以自定义成为许多自定义控件。 基本知识 Modal组件可以用来覆盖包含React Native根视图">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/459873/201602/459873-20160229223956236-1761782240.png">
+<meta property="og:updated_time" content="2019-02-05T02:15:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="笨笨和羊">
+<meta name="twitter:title" content="new page">
+<meta name="twitter:description" content="modal的使用modal在react native 中可以看作是一个覆盖在最上层的窗口，当它出现时会占据所有的屏幕，且用户无法对下层的UI进行操作。这样看起来有些霸道，但也正因为无法操作下层的UI，我们可以随意定义modal上的UI和操作而不用担心影响到下层UI。所以，modal在我们的想象力下可以自定义成为许多自定义控件。 基本知识 Modal组件可以用来覆盖包含React Native根视图">
+<meta name="twitter:image" content="http://images2015.cnblogs.com/blog/459873/201602/459873-20160229223956236-1761782240.png">
 
 
 
@@ -116,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/05/react_native/modal使用心得/">
 
 
 
 
 
-  <title>笨笨和羊</title>
+  <title>new page | 笨笨和羊</title>
   
 
 
@@ -141,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -215,9 +220,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -247,9 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/05/react_native/modal使用心得/" itemprop="url">new page</a></h1>
+          <h1 class="post-title" itemprop="name headline">new page</h1>
         
 
         <div class="post-meta">
@@ -321,9 +324,7 @@
       
 
       
-        
-          
-            <h1 id="modal的使用"><a href="#modal的使用" class="headerlink" title="modal的使用"></a>modal的使用</h1><p>modal在react native 中可以看作是一个覆盖在最上层的窗口，当它出现时会占据所有的屏幕，且用户无法对下层的UI进行操作。这样看起来有些霸道，但也正因为无法操作下层的UI，我们可以随意定义modal上的UI和操作而不用担心影响到下层UI。所以，modal在我们的想象力下可以自定义成为许多自定义控件。</p>
+        <h1 id="modal的使用"><a href="#modal的使用" class="headerlink" title="modal的使用"></a>modal的使用</h1><p>modal在react native 中可以看作是一个覆盖在最上层的窗口，当它出现时会占据所有的屏幕，且用户无法对下层的UI进行操作。这样看起来有些霸道，但也正因为无法操作下层的UI，我们可以随意定义modal上的UI和操作而不用担心影响到下层UI。所以，modal在我们的想象力下可以自定义成为许多自定义控件。</p>
 <h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><ol>
 <li>Modal组件可以用来覆盖包含React Native根视图的原生视图。</li>
 <li>通过 <strong>visible</strong> 属性控制Modal组件是否出现</li>
@@ -346,8 +347,6 @@
 <p>下面会实现一个简单的缩略图的全屏大图查看控件</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;View style=&#123;styles.container&#125;&gt;</span><br><span class="line">            &lt;TouchableOpacity onPress = &#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">true</span>&#125;)&#125;&gt;</span><br><span class="line">                &lt;View&gt;</span><br><span class="line">                    &lt;Image</span><br><span class="line">                        onPress = &#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">true</span>&#125;)&#125;</span><br><span class="line">                        resizeMode=<span class="string">'cover'</span></span><br><span class="line">                        source=&#123;<span class="built_in">require</span>(<span class="string">'./AyaPolly.jpg'</span>)&#125; /&gt;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>TouchableOpacity&gt;</span><br><span class="line">            &lt;Modal</span><br><span class="line">                animationType=<span class="string">'fade'</span></span><br><span class="line">                transparent=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">                visible=&#123;<span class="keyword">this</span>.state.modalVisible&#125;</span><br><span class="line">                onRequestClose=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">false</span>&#125;)&#125;</span><br><span class="line">            &gt;</span><br><span class="line">                &lt;View</span><br><span class="line">                    style = &#123;styles.modalView&#125;</span><br><span class="line">                &gt;</span><br><span class="line">                    &lt;Image</span><br><span class="line">                        style = &#123;styles.bigImage&#125;</span><br><span class="line">                        resizeMode=<span class="string">'contain'</span></span><br><span class="line">                        source=&#123;<span class="built_in">require</span>(<span class="string">'./AyaPolly.jpg'</span>)&#125; /&gt;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>Modal&gt;</span><br><span class="line">        &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const styles = StyleSheet.create(&#123;</span></span><br><span class="line"><span class="regexp">    container: &#123;</span></span><br><span class="line"><span class="regexp">        flex: 1,</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    modalView: &#123;</span></span><br><span class="line"><span class="regexp">        flex: 1,</span></span><br><span class="line"><span class="regexp">        justifyContent: 'center',</span></span><br><span class="line"><span class="regexp">        alignItems: 'center',</span></span><br><span class="line"><span class="regexp">        backgroundColor: '#000000'</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    bigImage: &#123;</span></span><br><span class="line"><span class="regexp">        flex:1,</span></span><br><span class="line"><span class="regexp">        width: '100%'</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure>
 
-          
-        
       
     </div>
     
@@ -362,160 +361,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/05/android/Glide缓存/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="笨笨和羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/05/android/Glide缓存/" itemprop="url">new page</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-05T00:00:00+08:00">
-                2019-02-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/android-glide/" rel="tag"># android, glide</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Glide缓存策略："><a href="#Glide缓存策略：" class="headerlink" title="Glide缓存策略："></a>Glide缓存策略：</h3><ul>
-<li>读缓存：先内存，再磁盘，最后是网络</li>
-<li>写缓存：先磁盘，再内存</li>
-</ul>
-<p><strong>Glide并不会直接把整个原图存到内存中，而是根据imageView的大小，存一个等大小的图片到内存，但是如果是不同size的imageview，但是同一张图片，Glide同样会在内存中存很多个不同size的图片（Picasso只保持有一个原图，而再在显示图片的时候会根据imageview size来显示个缩放后的图片）。</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/05/android/Glide缓存/" rel="next" title="new page">
+                <i class="fa fa-chevron-left"></i> new page
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -525,10 +400,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -536,6 +412,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -556,8 +436,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -617,6 +506,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#modal的使用"><span class="nav-number">1.</span> <span class="nav-text">modal的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本知识"><span class="nav-number">1.1.</span> <span class="nav-text">基本知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modal可以自定义哪些东西"><span class="nav-number">1.2.</span> <span class="nav-text">Modal可以自定义哪些东西</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -750,6 +655,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
