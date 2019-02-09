@@ -230,7 +230,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/05/react_native/modal使用心得/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/Deeplink 被js和native分别监听并各自处理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Thomas.Lee">
@@ -249,7 +249,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/05/react_native/modal使用心得/" itemprop="url">modal的使用</a></h1>
+                <a class="post-title-link" href="/2019/02/09/react_native/Deeplink 被js和native分别监听并各自处理/" itemprop="url">Deeplink 被js和native同时监听并正确处理</a></h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-05T00:00:00+08:00">
-                2019-02-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
+                2019-02-09
               </time>
             
 
@@ -285,7 +285,490 @@
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
                   <a href="/categories/react-native/" itemprop="url" rel="index">
-                    <span itemprop="name">react-native</span>
+                    <span itemprop="name">react native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Deeplink-被js和native同时监听并正确处理"><a href="#Deeplink-被js和native同时监听并正确处理" class="headerlink" title="Deeplink 被js和native同时监听并正确处理"></a>Deeplink 被js和native同时监听并正确处理</h2><p>看标题觉得不明觉厉，因为RN的js部分都在一个MainActivity，其他native页面时另外的activity；而一个Deeplink在一个app中被两个Activity监听到，并且可以各自处理，这基本是不可能的事情。因为在浏览器打开一个 deeplink 的app时如果有2个Activity注册了去监听，那么会让你去选择一个来打开这个deeplink，被选的那个会被唤醒去处理link。</p>
+<p>所以要做到这一点，需要一个中间层的actvity去监听deeplink，然后根据在后台时时那个Activity进行跳转。当然，没有在后台的话，就更加情况看最后需要显示的页面是js的还是native的来进行跳转。大概思路很简单，但实际实现会遇到很多问题。</p>
+<h4 id="react-navigation-的-deeplink不能处理这种复杂的情况"><a href="#react-navigation-的-deeplink不能处理这种复杂的情况" class="headerlink" title="react navigation 的 deeplink不能处理这种复杂的情况"></a>react navigation 的 deeplink不能处理这种复杂的情况</h4><p>react navigation 可以监听到MainActivity的deeplink，并且可以根据uriPredix来提取所需的link信息；但是它只适用与纯RN项目。所以直接放弃react navigation对deeeplink的处理</p>
+<p>####怎么在显示完deeplink页面后，返回到正确的页面</p>
+<p>首先，假设这个App的Launch Activity是RN的MainActivity；要显示deeplink页面是js的一个页面，所以要求MainActivty这个时候要在栈顶来显示页面。</p>
+<p>一般做法：在AndroidManifest.xml文件中给MainActivity注册上deeplink相关的<intent-filter>。但是这样被唤醒后的MainActivity会是重新创建的，因为launchMode=“stantard”，这样在任务栈中就有2个MainActivity，这样显然不合理。</intent-filter></p>
+<p>那我们把launchMode=“singleTop”，这样如果之前栈顶是MainActivity，那么背deeplink唤醒时就会直接使用之前的MainActivity。但是当之前栈顶的是NativeActivity时，也会创建一个新的MainActivity在NativeActivity上面。这样，任务栈就会存在2个MainActivity，新的MainActivity不会有之前js相关的数据状态（redux）。看来，launchMode=“singleTop”也不行。</p>
+<p>不过，要做到退出NativeActivity回到之前那个MainActivity也是可以做到的，把launcMode</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/RN与原生Activty互相跳转/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笨笨和羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/09/react_native/RN与原生Activty互相跳转/" itemprop="url">react所在Activity与其他Activity之间的跳转</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
+                2019-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/react-native/" itemprop="url" rel="index">
+                    <span itemprop="name">react native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>RN可看作是一个特殊的Activity，它的View由React类型的标签来表达，但大部分React标签使用的还是原生的Native控件，这大概就是他为啥叫React Native的原因吧。</p>
+<p>既然RN可以看作是一个Activity，那么Android中Activity之间的跳转通常用intent来实现。</p>
+<h3 id="RN-—-gt-Android"><a href="#RN-—-gt-Android" class="headerlink" title="RN —&gt; Android"></a>RN —&gt; Android</h3><p>因为要调用到Intent去做Activity之间的跳转，所以需要在Native提供一个调用Intent的ReactMethod给JS使用，这样JS触发相应方法后RN所在的特殊Activity就会被新的Activity压到栈下面。</p>
+<p>要让RN和Android可以通信，Native需要从上到下去添加一个bridge来建立通信，bridge的层次依次是： MainApplication—&gt;ReactPackage—&gt;ReactContextBaseJavaModule—&gt;Native Code</p>
+<p>ok，接下来就code table：</p>
+<ol>
+<li>MainApplication因为implements ReactApplication，所以会有getReactNativeHost返回一个ReactNativeHost对象，我们只需要在ReactNativeHost对象中添加我们的ModulePackage就可以了。</li>
+</ol>
+<p>MainApplication.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ReactNativeHost mReactNativeHost = <span class="keyword">new</span> ReactNativeHost(<span class="keyword">this</span>) &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">getUseDeveloperSupport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> BuildConfig.DEBUG;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> List&lt;ReactPackage&gt; <span class="title">getPackages</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.asList(</span><br><span class="line">            <span class="keyword">new</span> ModulePackage()</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ReactNativeHost <span class="title">getReactNativeHost</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> mReactNativeHost;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>实现一个ModulePackage implements ReactPackage，去实现createNativeModules方法，将自己的ReactModule类放进去。</li>
+</ol>
+<p>ModulePackage.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;NativeModule&gt; <span class="title">createNativeModules</span><span class="params">(ReactApplicationContext reactContext)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.&lt;NativeModule&gt;asList(</span><br><span class="line">            <span class="keyword">new</span> ReactModule(reactContext)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>实现 ReactModule extends ReactContextBaseJavaModule，重写getName，getConstants方法，在实现一个@ReactMethod方法给JS调用就好。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReactModule</span> <span class="keyword">extends</span> <span class="title">ReactContextBaseJavaModule</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AppUtilsModule</span><span class="params">(ReactApplicationContext reactContext)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(reactContext);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">getConstants</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.getConstants();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"IntentModule"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ReactMethod</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startTheActivity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Context context = getCurrentActivity();</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(context, SomeActivity.class);</span><br><span class="line">        context.startActivity(intent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样就完成了Native的bridge，后面只要在JS中使用NativeModules.IntentModule.startTheActivity()就可以跳转到Native的SomeActivity。</p>
+<p>至于Android —&gt;RN，如果是需要跳转到RN指定页面，具体没有代码实现，但有个思路是，通过调用一个有参数的ReactMethod，可以通过回调方法把Native的数据传回给JS，这样JS拿到data后根据data用navigator去跳转到指定页面。这样只要在原生代码处调用以下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(SomeActivity.<span class="keyword">this</span>, ReactModule.class);</span><br><span class="line">intent.putExtra(<span class="string">"data"</span>, <span class="string">"homeview"</span>);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure>
+<p>就可以在ReactModule处通过getIntent().getStringExtra(“data”)获得数据，传给JS，实现跳转。</p>
+<p>这个没有实验过，似乎可以通过JS</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/RN基于React的通知组件/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笨笨和羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/09/react_native/RN基于React的通知组件/" itemprop="url">基于react的通知组件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
+                2019-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/react-native/" itemprop="url" rel="index">
+                    <span itemprop="name">react native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="为什么要做一个不用原生控件的通知"><a href="#为什么要做一个不用原生控件的通知" class="headerlink" title="为什么要做一个不用原生控件的通知"></a>为什么要做一个不用原生控件的通知</h2><p>目前React Native的通知控件都会涉及使用到原生控件，但是需要知道IOS的通知行为非常麻烦，需要客户端发送通知给apple server，再由apple server发送通知给客户端显示在通知栏。这个行为会有一些不确定因素：网络不稳定，通知延时等。</p>
+<p>所以，如果降低通知组件的要求：</p>
+<ol>
+<li>不要求app在退出前台后仍然能够收到通知。</li>
+<li>不需要通知显示在通知栏</li>
+</ol>
+<p>但这个自定义通知组件仍然需要遵循其他通知应该有的特性：</p>
+<ol>
+<li>出现通知时，用户仍然可以对app进行操作</li>
+<li>用户可以手动去除通知</li>
+<li>用户可以通过点击通知，触发一些行为</li>
+<li>可以同时收到多条通知，并且用户可以分别触发对应的行为<br>看到第一点要求就果断抛弃Modal，但看了react native官方提供的组件，没有能满足这个要求组件。</li>
+</ol>
+<h2 id="react-native-的-console-warn"><a href="#react-native-的-console-warn" class="headerlink" title="react native 的 console.warn()"></a>react native 的 console.warn()</h2><p>根据上面的综合需求，发现平时最常用到的 console.warn() 就非常满足了这些的需求。<br>通过源码查看RN是如何实现console.warn.</p>
+<h3 id="RN源码"><a href="#RN源码" class="headerlink" title="RN源码"></a>RN源码</h3><ul>
+<li>YellowBox.js 对warn这个组件的具体实现</li>
+<li>AppContainer.js RN的人口，初始化RN界面（其中包含开发者code的界面）</li>
+</ul>
+<p>利用js的console的warn来获得报错信息。然后通过一个ScrollView来显示一个WarningRow(带TouchableHightlight的View)的数组。</p>
+<p>YellowBox.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">console</span>.disableYellowBox || <span class="keyword">this</span>.state.warningMap.size === <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> ScrollView = <span class="built_in">require</span>(<span class="string">'ScrollView'</span>);</span><br><span class="line">    <span class="keyword">const</span> View = <span class="built_in">require</span>(<span class="string">'View'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> &#123;inspecting, stacktraceVisible&#125; = <span class="keyword">this</span>.state;</span><br><span class="line">    <span class="keyword">const</span> inspector = inspecting !== <span class="literal">null</span> ?</span><br><span class="line">      &lt;WarningInspector</span><br><span class="line">        warningInfo=&#123;<span class="keyword">this</span>.state.warningMap.get(inspecting)&#125;</span><br><span class="line">        warning=&#123;inspecting&#125;</span><br><span class="line">        stacktraceVisible=&#123;stacktraceVisible&#125;</span><br><span class="line">        onDismiss=&#123;() =&gt; <span class="keyword">this</span>.dismissWarning(inspecting)&#125;</span><br><span class="line">        onDismissAll=&#123;() =&gt; <span class="keyword">this</span>.dismissWarning(<span class="literal">null</span>)&#125;</span><br><span class="line">        onMinimize=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">inspecting</span>: <span class="literal">null</span>&#125;)&#125;</span><br><span class="line">        toggleStacktrace=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">stacktraceVisible</span>: !stacktraceVisible&#125;)&#125;</span><br><span class="line">      /&gt; :</span><br><span class="line">      <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> rows = [];</span><br><span class="line">    <span class="keyword">this</span>.state.warningMap.forEach(<span class="function">(<span class="params">warningInfo, warning</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!isWarningIgnored(warning)) &#123;</span><br><span class="line">        rows.push(</span><br><span class="line">          &lt;WarningRow</span><br><span class="line">            key=&#123;warning&#125;</span><br><span class="line">            count=&#123;warningInfo.count&#125;</span><br><span class="line">            warning=&#123;warning&#125;</span><br><span class="line">            onPress=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">inspecting</span>: warning&#125;)&#125;</span><br><span class="line">            onDismiss=&#123;() =&gt; <span class="keyword">this</span>.dismissWarning(warning)&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        );</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> listStyle = [</span><br><span class="line">      styles.list,</span><br><span class="line">      <span class="comment">// Additional `0.4` so the 5th row can peek into view.</span></span><br><span class="line">      &#123;<span class="attr">height</span>: <span class="built_in">Math</span>.min(rows.length, <span class="number">4.4</span>) * (rowGutter + rowHeight)&#125;,</span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;View style=&#123;inspector ? styles.fullScreen : listStyle&#125;&gt;</span><br><span class="line">        &lt;ScrollView style=&#123;listStyle&#125; scrollsToTop=&#123;<span class="literal">false</span>&#125;&gt;</span><br><span class="line">          &#123;rows&#125;</span><br><span class="line">        &lt;<span class="regexp">/ScrollView&gt;</span></span><br><span class="line"><span class="regexp">        &#123;inspector&#125;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>View&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过YellowBox.js知道，RN只是用View来显示warning信息的，<em>但是它又是怎么做到显示在UI的最上层，并且不影响其他UI组件的操作呢？</em><br>通过读源码，看到在AppContainer.js中YellowBox作为组件被使用。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">render(): React.Element&lt;*&gt; &#123;</span><br><span class="line">   <span class="keyword">let</span> yellowBox = <span class="literal">null</span>;</span><br><span class="line">   <span class="keyword">if</span> (__DEV__) &#123;</span><br><span class="line">     <span class="keyword">const</span> YellowBox = <span class="built_in">require</span>(<span class="string">'YellowBox'</span>);</span><br><span class="line">     yellowBox = &lt;YellowBox /&gt;;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   return (</span><br><span class="line">     &lt;View style=&#123;styles.appContainer&#125; pointerEvents="box-none"&gt;</span><br><span class="line">       &lt;View</span><br><span class="line">         collapsable=&#123;!this.state.inspector&#125;</span><br><span class="line">         key=&#123;this.state.mainKey&#125;</span><br><span class="line">         pointerEvents="box-none"</span><br><span class="line">         style=&#123;styles.appContainer&#125; ref=&#123;(ref) =&gt; &#123;this._mainRef = ref;&#125;&#125;&gt;</span><br><span class="line">         &#123;this.props.children&#125;</span><br><span class="line">       &lt;/View&gt;</span><br><span class="line">       &#123;yellowBox&#125;</span><br><span class="line">       &#123;this.state.inspector&#125;</span><br><span class="line">     &lt;/View&gt;</span><br><span class="line">   );</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过上面代码，可以看到RootView是由开发者的View（this.props.children），YellowBox（warning）和inspector（猜测是摇一摇后出现的devtool列表）。<br>看到这里就明白RN是通过在把YellowBox作为RootView的一个第二级的子view，再加上一个elevation实现 <em>在UI的最上层，并且不影响其他UI组件的操作</em> 这个要求。</p>
+<h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><p>下载实现一个通知控件的步骤就比较清晰了：</p>
+<ul>
+<li>实现一个简单的view组件</li>
+<li>将notificationView添加到RootView，作为第二级View</li>
+<li>实现一个‘开关’变量控制notificationView的显示与消失<br>如果要实现console.warn随调随用，需要再实现一个proxy达到notificationView中各种回调方法的封装和对外调用接口的实现（隐藏notificationView中各种方法的具体实现）。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/modal使用心得/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笨笨和羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/09/react_native/modal使用心得/" itemprop="url">modal的使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
+                2019-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/react-native/" itemprop="url" rel="index">
+                    <span itemprop="name">react native</span>
                   </a>
                 </span>
 
@@ -345,6 +828,468 @@
 <hr>
 <p>下面会实现一个简单的缩略图的全屏大图查看控件</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;View style=&#123;styles.container&#125;&gt;</span><br><span class="line">            &lt;TouchableOpacity onPress = &#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">true</span>&#125;)&#125;&gt;</span><br><span class="line">                &lt;View&gt;</span><br><span class="line">                    &lt;Image</span><br><span class="line">                        onPress = &#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">true</span>&#125;)&#125;</span><br><span class="line">                        resizeMode=<span class="string">'cover'</span></span><br><span class="line">                        source=&#123;<span class="built_in">require</span>(<span class="string">'./AyaPolly.jpg'</span>)&#125; /&gt;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>TouchableOpacity&gt;</span><br><span class="line">            &lt;Modal</span><br><span class="line">                animationType=<span class="string">'fade'</span></span><br><span class="line">                transparent=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">                visible=&#123;<span class="keyword">this</span>.state.modalVisible&#125;</span><br><span class="line">                onRequestClose=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">false</span>&#125;)&#125;</span><br><span class="line">            &gt;</span><br><span class="line">                &lt;View</span><br><span class="line">                    style = &#123;styles.modalView&#125;</span><br><span class="line">                &gt;</span><br><span class="line">                    &lt;Image</span><br><span class="line">                        style = &#123;styles.bigImage&#125;</span><br><span class="line">                        resizeMode=<span class="string">'contain'</span></span><br><span class="line">                        source=&#123;<span class="built_in">require</span>(<span class="string">'./AyaPolly.jpg'</span>)&#125; /&gt;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>Modal&gt;</span><br><span class="line">        &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const styles = StyleSheet.create(&#123;</span></span><br><span class="line"><span class="regexp">    container: &#123;</span></span><br><span class="line"><span class="regexp">        flex: 1,</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    modalView: &#123;</span></span><br><span class="line"><span class="regexp">        flex: 1,</span></span><br><span class="line"><span class="regexp">        justifyContent: 'center',</span></span><br><span class="line"><span class="regexp">        alignItems: 'center',</span></span><br><span class="line"><span class="regexp">        backgroundColor: '#000000'</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    bigImage: &#123;</span></span><br><span class="line"><span class="regexp">        flex:1,</span></span><br><span class="line"><span class="regexp">        width: '100%'</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/native和js的数据通信/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笨笨和羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/09/react_native/native和js的数据通信/" itemprop="url">native与js通信中传输的数据类型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
+                2019-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/react-native/" itemprop="url" rel="index">
+                    <span itemprop="name">react native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="React-Native官网在原生模块通信只提供了-String-类型的示例。网上也没有其他数据类型通信的demo。"><a href="#React-Native官网在原生模块通信只提供了-String-类型的示例。网上也没有其他数据类型通信的demo。" class="headerlink" title="React Native官网在原生模块通信只提供了 String 类型的示例。网上也没有其他数据类型通信的demo。"></a>React Native官网在原生模块通信只提供了 String 类型的示例。网上也没有其他数据类型通信的demo。</h2><p><strong>@ReactMethod</strong> 注明的方法支持的从 Java传到JS 的参数类型如下，它们会被转为对于的js类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">java -&gt; js:</span><br><span class="line">Boolean -&gt; Bool</span><br><span class="line">Integer -&gt; Number</span><br><span class="line">Double -&gt; Number</span><br><span class="line">Float -&gt; Number</span><br><span class="line">String -&gt; String</span><br><span class="line">Callback -&gt; function</span><br><span class="line">ReadableMap -&gt; Object</span><br><span class="line">ReadableArray -&gt; Array</span><br></pre></td></tr></table></figure></p>
+<p><em>ReadableMap</em> 和 <em>ReadableArray</em> 可以把java的字典和数组数据传到js，js拿到的分别是Obeject和array，js的Object都是{}形式的。<br>只是ReadableMap和ReadableArray都只能使用getXX()方法获得信息，不能在java层写入数据。<br>查看源码后发现还有 <em>WritableMap</em> 和 <em>WritableArray</em> 分别继承了ReadableMap和ReadableArray，且都提供了putXX()和pushxx()来让我们写入数据。</p>
+<p>在java使用这两个<strong>WritableMap</strong>和<strong>WritableArray</strong>来传递比较复杂的数据。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/react navigation的deeplink/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笨笨和羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/09/react_native/react navigation的deeplink/" itemprop="url">react navigation中使用deeplink</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
+                2019-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/react-native/" itemprop="url" rel="index">
+                    <span itemprop="name">react native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>DeepLink主要是为了增加用户量的一个技术，主要是可以通过浏览器，短信，Email等信息中的url可以打开我们的app，如果没有安装的话会提示去安装一个的。</p>
+<p>这本来是Android和iOS都有的一个技术，所以这其实是一个Native端的技术，而react navigation只是对它的发送过来的uri进行了处理。</p>
+<p>Android使用deeplink，只需要在特定的Activity注册一个有schema和host（最少需要这两个参数）的<intent-filter>就可以了，然后就可以在那个Activity中通过getIntent拿到这个uri。这套方法放到react native 上唯一的变化就是特定的Activity就是React所依附的，继承了ReactActivity的那个天选者。</intent-filter></p>
+<p>Android要收到deeplink并被唤醒，首先需要在AndroidManifest.xml中的<activity>注册<intent-filter>。如下</intent-filter></activity></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:name</span>=<span class="string">".MainActivity"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:screenOrientation</span>=<span class="string">"portrait"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:launchMode</span>=<span class="string">"singleTask"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:exported</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:windowSoftInputMode</span>=<span class="string">"adjustResize"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.VIEW"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.DEFAULT"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.BROWSABLE"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:scheme</span>=<span class="string">"https"</span> <span class="attr">android:pathPattern</span>=<span class="string">"/.*/apps/.*"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:host</span>=<span class="string">"apps.xxx.com"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:host</span>=<span class="string">"apps.xxx.cn"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>必须配置”android.intent.category.BROWSABLE”才能通过浏览器打开app</li>
+<li>lauchMode 最好设置成 singleTask，避免出现多个MainActivity，同时React Native的特殊性，这样可以让React依赖的Activity在一个单独的任务栈，这样在其他Activity中收到了deeplink，可以正常显示React页面，而另一个任务栈也不存在了。</li>
+<li>除了设置schema和host最好也把path设置好，设置path可以通过 [ path | pathPrefix | pathPattern ]进行设置，这样可以更加精确地指定某个格式的uri才能通过deep link 唤醒app。</li>
+</ul>
+<p>基本上这样配置好，就可以在Android中获得到数据了，代码也很简单：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = getIntent();</span><br><span class="line">Uri data = intent.getData();</span><br><span class="line">Log.w(<span class="string">"ok"</span>, data.getSchema() + data.getHost() + data.getPathSegments()[<span class="number">0</span>]);</span><br></pre></td></tr></table></figure>
+<h4 id="React-Navigation"><a href="#React-Navigation" class="headerlink" title="React Navigation"></a>React Navigation</h4><p>但如果想在react navigation中使用还有事情要做，首先，对使用Navigation的地方增加一个uriPrefix属性的设置来过滤出uri中的需要的path。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;Navigation</span><br><span class="line">    ref = &#123;nav =&gt; window.navigation = nav&#125;</span><br><span class="line">    uriPrefix = &#123; /(?:http|https):\/\/apps\W*\w*\.(?:cn|com)\/apps\// &#125;</span><br><span class="line">    /&gt;</span><br><span class="line"></span><br><span class="line">Object.assign(Navigation.router, &#123;</span><br><span class="line">    getActionForPathAndParams(path, params) &#123;</span><br><span class="line">        let appId = getAppIdFromUrl(path);</span><br><span class="line">        let pageParams = &#123;&apos;app&apos;: &#123;&apos;id&apos;: appId&#125;&#125;</span><br><span class="line">        if (wakeFromBackground) &#123;</span><br><span class="line">            return NavigationActions.push(&#123;</span><br><span class="line">                routeName: &quot;DeepLinkDemo&quot;,</span><br><span class="line">                params: &#123;...pageParams&#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return NavigationActions.reset(&#123;</span><br><span class="line">                index: 0,</span><br><span class="line">                actions: [NavigationActions.navigate(&#123;</span><br><span class="line">                    routeName: &quot;DeepLinkDemo&quot;,</span><br><span class="line">                    params: &#123;...pageParams&#125;</span><br><span class="line">                &#125;)]</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这样使得在 getActionForPathAndParams(path, params) 中能获得<a href="https://apps.xxx.com/apps/{id}后面的id信息作为path。而我们对getActionForPathAndParams进行实现可以做到在不同条件下，通过deeplink唤醒app，react" target="_blank" rel="noopener">https://apps.xxx.com/apps/{id}后面的id信息作为path。而我们对getActionForPathAndParams进行实现可以做到在不同条件下，通过deeplink唤醒app，react</a> navigation如何到达指定页面，可以像平常那样push或者navigate，也可以reset，让那个页面成为根路由。</p>
+<p>当然 uriPrefix并不只是为了让我们可以选择跳转方式而设计的，我们可以为 DeepLinkDemo 配置path这个属性，而只要uriPrefix过滤出来的id为“Demo”，就可以匹配到我们的配置，然后打开DeepLinkDemo 这个页面。配置代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">createAppContainer(createStackNavigator(&#123;</span><br><span class="line">    DeepLinkDemo: &#123;</span><br><span class="line">            screen: DeepLinkDemoPage,</span><br><span class="line">            path: &quot;Demo&quot;,</span><br><span class="line">            navigationOptions:  &#123;</span><br><span class="line">            	header: null</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="React-Native"><a href="#React-Native" class="headerlink" title="React Native"></a>React Native</h4><p>至于在React Native中使用Deeplink，可以直接集成 react navigation 来简单使用【一般没有Native页面和复杂的需求】，也可以使用 React Native 的Linking组件来实现复杂的业务逻辑。</p>
+<p>用Linking方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// app没有启动，deeplink启动app时触发，在后台时不会触发</span><br><span class="line">Linking.getInitialURL()</span><br><span class="line">    .then(url =&gt; &#123;</span><br><span class="line">    if (url) &#123;</span><br><span class="line">        this.isDeepLinkingStart = true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// app在后台，deeplink启动app时触发，第一次启动app不会触发</span><br><span class="line">Linking.addEventListener(&apos;url&apos;, (&#123;url&#125;) =&gt; &#123;</span><br><span class="line">    if (url) &#123;</span><br><span class="line">        this.isDeepLinkingStart = true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>因为这是RN自己组件去监听底层的intent，没有经过react navigation，所以这个时候获得url时没有经过react navigation处理，是 <em>schema://host/path</em> 这样的完整url. 这样做的好处就是不会受限与react navigation，让整个deeplink的跳转更加受我们控制。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/react-native的flex布局/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笨笨和羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/09/react_native/react-native的flex布局/" itemprop="url">react native 的flex布局</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
+                2019-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/react-native/" itemprop="url" rel="index">
+                    <span itemprop="name">react native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="react-native-的flex布局"><a href="#react-native-的flex布局" class="headerlink" title="react native 的flex布局"></a>react native 的flex布局</h1><h2 id="flex-1和flex-0（默认-有什么区别？"><a href="#flex-1和flex-0（默认-有什么区别？" class="headerlink" title="flex=1和flex=0（默认)有什么区别？"></a>flex=1和flex=0（默认)有什么区别？</h2><p>react native是基于flex容器进行设计的，当对component没有显式地设置flex的时候，flex=0，此时的component类似与android中的’content-wrap’，它的长和宽由自身的style来设置，或者在style没有设置长宽的时候由子组件的长宽来设置(包裹子组件)。</p>
+<p>当flex=1且没有同级的组件，那它就会占满父组件或占满屏幕。flex&gt;0时，它就是对一个组件大小权重的设置。</p>
+<h2 id="如何利用flexDirection和flexWrap实现一个GridView"><a href="#如何利用flexDirection和flexWrap实现一个GridView" class="headerlink" title="如何利用flexDirection和flexWrap实现一个GridView"></a>如何利用flexDirection和flexWrap实现一个GridView</h2><p>首先，flexDirection代表子组件放置方向，可以设置’row’(按行放置)或者’column’(按列放置)；flexWrap代表子组件顺着轴线放置，当超过父组件的轴线时，是否进行换行(‘wrap’/‘nowrap’)。<br>为了实现一个GridView，可以使用React Native的ListView(FlatList)，因为只有当子组件超过父组件的轴线时才会换行，所以必须在renderRow中指定子组件的width。在最新的RN中，width和height都可以用百分比来表示，这对于屏幕适配更好，但实现GridView的时候，应该设置width再通过<strong>aspectRatio</strong>去设置height，这样才会达到预期的效果。如果width和height都去设置，会因为ListView的每个cell的height都被styles.grid限制了，使用百分比就达不到预期效果。（<em>styles.grid在styles.item的外层</em>）<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">_renderRow() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;View</span><br><span class="line">            style = &#123;styles.item&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;ListView</span><br><span class="line">    contentContainerStyle=&#123;styles.grid&#125;</span><br><span class="line">    dataSource=&#123;<span class="keyword">this</span>.state.dataSource&#125;</span><br><span class="line">    renderRow=&#123;<span class="keyword">this</span>._renderRow&#125;</span><br><span class="line">&gt;</span><br><span class="line">&lt;<span class="regexp">/ListView&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const styles = StyleSheet.create(&#123;</span></span><br><span class="line"><span class="regexp">    grid: &#123;</span></span><br><span class="line"><span class="regexp">        flexWrap: 'wrap',</span></span><br><span class="line"><span class="regexp">        flexDirection: 'row'</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    item:&#123;</span></span><br><span class="line"><span class="regexp">        width: 200</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure></p>
+<p>所以，在flex的使用不必在每个组件中去写flex:1，也可以通过用百分比设置长宽，或者height/width+aspectRatio来写弹性组件。</p>
+<h2 id="alighItem-justifyContent-和-alignSelf"><a href="#alighItem-justifyContent-和-alignSelf" class="headerlink" title="alighItem, justifyContent 和 alignSelf"></a>alighItem, justifyContent 和 alignSelf</h2><p>这三个属性是设置组件排列顺序的，react native在flex容器有一个主轴和一个副轴，通过用这三个属性来指定组件分别向两个轴的哪个方向放置。</p>
+<ol>
+<li><p>justifyContent 是管主轴方向子组件的排列顺序，在flex布局中，默认的flexDirection是’column’，所以主轴方向是’column’（y轴方向）。可以设置的参数：’flex-start’, ‘flex-end’, ‘center’, ‘stretch’(默认)</p>
+</li>
+<li><p>alighItem 是管副轴方向子组件的排列顺序(默认是x轴方向),可以设置的参数：’flex-start’(默认), ‘flex-end’, ‘center’, ‘space-between’, ‘space-around’</p>
+</li>
+<li><p>alignSelf 是管副轴方向子组件的排列顺序(默认是x轴方向)，但它会覆盖父组件的alignItems，很强大很好用。可以设置的参数：’auto’(默认)，’flex-start’, ‘flex-end’, ‘center’, ‘stretch’(默认)</p>
+</li>
+</ol>
+<h2 id="绝对布局-position-‘absolute’"><a href="#绝对布局-position-‘absolute’" class="headerlink" title="绝对布局 position: ‘absolute’"></a>绝对布局 position: ‘absolute’</h2><p>在某些情况下需要一个组件固定在父组件的某一个位置上，躲开flexDirection的控制，这个时候，可以设置该组件的position: ‘absolute’，此时，这个组件一样是占据了父组件的空间的。<br>那如果想要组件悬浮在父组件的某个指定位置，我们只需要设置<strong>elevation</strong>的值就可以让这个组件跑到父组件的上面，但要小心它会盖住父组件下面的内容。</p>
 
           
         
@@ -572,7 +1517,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -594,7 +1539,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
