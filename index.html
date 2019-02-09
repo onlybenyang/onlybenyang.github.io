@@ -712,151 +712,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/native和js的数据通信/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="笨笨和羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/09/react_native/native和js的数据通信/" itemprop="url">native与js通信中传输的数据类型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
-                2019-02-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/react-native/" itemprop="url" rel="index">
-                    <span itemprop="name">react native</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="native与js通信中传输的数据类型"><a href="#native与js通信中传输的数据类型" class="headerlink" title="native与js通信中传输的数据类型"></a>native与js通信中传输的数据类型</h2><p>React Native官网在原生模块通信只提供了 String 类型的示例。网上也没有其他数据类型通信的demo。</p>
-<p><strong>@ReactMethod</strong> 注明的方法支持的从 Java传到JS 的参数类型如下，它们会被转为对于的js类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">java -&gt; js:</span><br><span class="line">Boolean -&gt; Bool</span><br><span class="line">Integer -&gt; Number</span><br><span class="line">Double -&gt; Number</span><br><span class="line">Float -&gt; Number</span><br><span class="line">String -&gt; String</span><br><span class="line">Callback -&gt; function</span><br><span class="line">ReadableMap -&gt; Object</span><br><span class="line">ReadableArray -&gt; Array</span><br></pre></td></tr></table></figure></p>
-<p><em>ReadableMap</em> 和 <em>ReadableArray</em> 可以把java的字典和数组数据传到js，js拿到的分别是Obeject和array，js的Object都是{}形式的。<br>只是ReadableMap和ReadableArray都只能使用getXX()方法获得信息，不能在java层写入数据。<br>查看源码后发现还有 <em>WritableMap</em> 和 <em>WritableArray</em> 分别继承了ReadableMap和ReadableArray，且都提供了putXX()和pushxx()来让我们写入数据。</p>
-<p>在java使用这两个<strong>WritableMap</strong>和<strong>WritableArray</strong>来传递比较复杂的数据。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/modal使用心得/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -972,6 +827,151 @@
 <hr>
 <p>下面会实现一个简单的缩略图的全屏大图查看控件</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;View style=&#123;styles.container&#125;&gt;</span><br><span class="line">            &lt;TouchableOpacity onPress = &#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">true</span>&#125;)&#125;&gt;</span><br><span class="line">                &lt;View&gt;</span><br><span class="line">                    &lt;Image</span><br><span class="line">                        onPress = &#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">true</span>&#125;)&#125;</span><br><span class="line">                        resizeMode=<span class="string">'cover'</span></span><br><span class="line">                        source=&#123;<span class="built_in">require</span>(<span class="string">'./AyaPolly.jpg'</span>)&#125; /&gt;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>TouchableOpacity&gt;</span><br><span class="line">            &lt;Modal</span><br><span class="line">                animationType=<span class="string">'fade'</span></span><br><span class="line">                transparent=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">                visible=&#123;<span class="keyword">this</span>.state.modalVisible&#125;</span><br><span class="line">                onRequestClose=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">false</span>&#125;)&#125;</span><br><span class="line">            &gt;</span><br><span class="line">                &lt;View</span><br><span class="line">                    style = &#123;styles.modalView&#125;</span><br><span class="line">                &gt;</span><br><span class="line">                    &lt;Image</span><br><span class="line">                        style = &#123;styles.bigImage&#125;</span><br><span class="line">                        resizeMode=<span class="string">'contain'</span></span><br><span class="line">                        source=&#123;<span class="built_in">require</span>(<span class="string">'./AyaPolly.jpg'</span>)&#125; /&gt;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>Modal&gt;</span><br><span class="line">        &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const styles = StyleSheet.create(&#123;</span></span><br><span class="line"><span class="regexp">    container: &#123;</span></span><br><span class="line"><span class="regexp">        flex: 1,</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    modalView: &#123;</span></span><br><span class="line"><span class="regexp">        flex: 1,</span></span><br><span class="line"><span class="regexp">        justifyContent: 'center',</span></span><br><span class="line"><span class="regexp">        alignItems: 'center',</span></span><br><span class="line"><span class="regexp">        backgroundColor: '#000000'</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    bigImage: &#123;</span></span><br><span class="line"><span class="regexp">        flex:1,</span></span><br><span class="line"><span class="regexp">        width: '100%'</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/native和js的数据通信/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笨笨和羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/09/react_native/native和js的数据通信/" itemprop="url">native与js通信中传输的数据类型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
+                2019-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/react-native/" itemprop="url" rel="index">
+                    <span itemprop="name">react native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="native与js通信中传输的数据类型"><a href="#native与js通信中传输的数据类型" class="headerlink" title="native与js通信中传输的数据类型"></a>native与js通信中传输的数据类型</h2><p>React Native官网在原生模块通信只提供了 String 类型的示例。网上也没有其他数据类型通信的demo。</p>
+<p><strong>@ReactMethod</strong> 注明的方法支持的从 Java传到JS 的参数类型如下，它们会被转为对于的js类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">java -&gt; js:</span><br><span class="line">Boolean -&gt; Bool</span><br><span class="line">Integer -&gt; Number</span><br><span class="line">Double -&gt; Number</span><br><span class="line">Float -&gt; Number</span><br><span class="line">String -&gt; String</span><br><span class="line">Callback -&gt; function</span><br><span class="line">ReadableMap -&gt; Object</span><br><span class="line">ReadableArray -&gt; Array</span><br></pre></td></tr></table></figure></p>
+<p><em>ReadableMap</em> 和 <em>ReadableArray</em> 可以把java的字典和数组数据传到js，js拿到的分别是Obeject和array，js的Object都是{}形式的。<br>只是ReadableMap和ReadableArray都只能使用getXX()方法获得信息，不能在java层写入数据。<br>查看源码后发现还有 <em>WritableMap</em> 和 <em>WritableArray</em> 分别继承了ReadableMap和ReadableArray，且都提供了putXX()和pushxx()来让我们写入数据。</p>
+<p>在java使用这两个<strong>WritableMap</strong>和<strong>WritableArray</strong>来传递比较复杂的数据。</p>
 
           
         
