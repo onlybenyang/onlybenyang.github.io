@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="DeepLink主要是为了增加用户量的一个技术，主要是可以通过浏览器，短信，Email等信息中的url可以打开我们的app，如果没有安装的话会提示去安装一个的。 这本来是Android和iOS都有的一个技术，所以这其实是一个Native端的技术，而react navigation只是对它的发送过来的uri进行了处理。 Android使用deeplink，只需要在特定的Activity注册一个有sc">
+<meta name="description" content="DeepLink主要是为了增加用户量的一个技术，主要是可以通过浏览器，短信，Email等信息中的url可以打开我们的app，如果没有安装的话会提示去安装一个的。 这本来是Android和iOS都有的一个技术，所以这其实是一个Native端的技术，而react navigation只是对它的发送过来的uri进行了处理。">
 <meta name="keywords" content="react native, react navigation, deeplink">
 <meta property="og:type" content="article">
 <meta property="og:title" content="react navigation中使用deeplink">
 <meta property="og:url" content="http://yoursite.com/2019/02/09/react_native/react navigation的deeplink/index.html">
 <meta property="og:site_name" content="笨笨和羊">
-<meta property="og:description" content="DeepLink主要是为了增加用户量的一个技术，主要是可以通过浏览器，短信，Email等信息中的url可以打开我们的app，如果没有安装的话会提示去安装一个的。 这本来是Android和iOS都有的一个技术，所以这其实是一个Native端的技术，而react navigation只是对它的发送过来的uri进行了处理。 Android使用deeplink，只需要在特定的Activity注册一个有sc">
+<meta property="og:description" content="DeepLink主要是为了增加用户量的一个技术，主要是可以通过浏览器，短信，Email等信息中的url可以打开我们的app，如果没有安装的话会提示去安装一个的。 这本来是Android和iOS都有的一个技术，所以这其实是一个Native端的技术，而react navigation只是对它的发送过来的uri进行了处理。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-09T02:52:49.000Z">
+<meta property="og:updated_time" content="2019-02-09T16:18:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react navigation中使用deeplink">
-<meta name="twitter:description" content="DeepLink主要是为了增加用户量的一个技术，主要是可以通过浏览器，短信，Email等信息中的url可以打开我们的app，如果没有安装的话会提示去安装一个的。 这本来是Android和iOS都有的一个技术，所以这其实是一个Native端的技术，而react navigation只是对它的发送过来的uri进行了处理。 Android使用deeplink，只需要在特定的Activity注册一个有sc">
+<meta name="twitter:description" content="DeepLink主要是为了增加用户量的一个技术，主要是可以通过浏览器，短信，Email等信息中的url可以打开我们的app，如果没有安装的话会提示去安装一个的。 这本来是Android和iOS都有的一个技术，所以这其实是一个Native端的技术，而react navigation只是对它的发送过来的uri进行了处理。">
 
 
 
@@ -343,8 +343,7 @@
 
       
         <p>DeepLink主要是为了增加用户量的一个技术，主要是可以通过浏览器，短信，Email等信息中的url可以打开我们的app，如果没有安装的话会提示去安装一个的。</p>
-<p>这本来是Android和iOS都有的一个技术，所以这其实是一个Native端的技术，而react navigation只是对它的发送过来的uri进行了处理。</p>
-<p>Android使用deeplink，只需要在特定的Activity注册一个有schema和host（最少需要这两个参数）的<intent-filter>就可以了，然后就可以在那个Activity中通过getIntent拿到这个uri。这套方法放到react native 上唯一的变化就是特定的Activity就是React所依附的，继承了ReactActivity的那个天选者。</intent-filter></p>
+<p>这本来是Android和iOS都有的一个技术，所以这其实是一个Native端的技术，而react navigation只是对它的发送过来的uri进行了处理。<br><a id="more"></a><br>Android使用deeplink，只需要在特定的Activity注册一个有schema和host（最少需要这两个参数）的<intent-filter>就可以了，然后就可以在那个Activity中通过getIntent拿到这个uri。这套方法放到react native 上唯一的变化就是特定的Activity就是React所依附的，继承了ReactActivity的那个天选者。</intent-filter></p>
 <p>Android要收到deeplink并被唤醒，首先需要在AndroidManifest.xml中的<activity>注册<intent-filter>。如下</intent-filter></activity></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:name</span>=<span class="string">".MainActivity"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:screenOrientation</span>=<span class="string">"portrait"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:launchMode</span>=<span class="string">"singleTask"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:exported</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:windowSoftInputMode</span>=<span class="string">"adjustResize"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.VIEW"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.DEFAULT"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.BROWSABLE"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:scheme</span>=<span class="string">"https"</span> <span class="attr">android:pathPattern</span>=<span class="string">"/.*/apps/.*"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:host</span>=<span class="string">"apps.xxx.com"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:host</span>=<span class="string">"apps.xxx.cn"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p><strong>Note</strong>:</p>
