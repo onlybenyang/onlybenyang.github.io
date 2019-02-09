@@ -342,7 +342,7 @@
 </ul>
 <p>利用js的console的warn来获得报错信息。然后通过一个ScrollView来显示一个WarningRow(带TouchableHightlight的View)的数组。</p>
 <p>YellowBox.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">console</span>.disableYellowBox || <span class="keyword">this</span>.state.warningMap.size === <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> ScrollView = <span class="built_in">require</span>(<span class="string">'ScrollView'</span>);</span><br><span class="line">    <span class="keyword">const</span> View = <span class="built_in">require</span>(<span class="string">'View'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> &#123;inspecting, stacktraceVisible&#125; = <span class="keyword">this</span>.state;</span><br><span class="line">    <span class="keyword">const</span> inspector = inspecting !== <span class="literal">null</span> ?</span><br><span class="line">      &lt;WarningInspector</span><br><span class="line">        warningInfo=&#123;<span class="keyword">this</span>.state.warningMap.get(inspecting)&#125;</span><br><span class="line">        warning=&#123;inspecting&#125;</span><br><span class="line">        stacktraceVisible=&#123;stacktraceVisible&#125;</span><br><span class="line">        onDismiss=&#123;() =&gt; <span class="keyword">this</span>.dismissWarning(inspecting)&#125;</span><br><span class="line">        onDismissAll=&#123;() =&gt; <span class="keyword">this</span>.dismissWarning(<span class="literal">null</span>)&#125;</span><br><span class="line">        onMinimize=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">inspecting</span>: <span class="literal">null</span>&#125;)&#125;</span><br><span class="line">        toggleStacktrace=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">stacktraceVisible</span>: !stacktraceVisible&#125;)&#125;</span><br><span class="line">      /&gt; :</span><br><span class="line">      <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> rows = [];</span><br><span class="line">    <span class="keyword">this</span>.state.warningMap.forEach(<span class="function">(<span class="params">warningInfo, warning</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!isWarningIgnored(warning)) &#123;</span><br><span class="line">        rows.push(</span><br><span class="line">          &lt;WarningRow</span><br><span class="line">            key=&#123;warning&#125;</span><br><span class="line">            count=&#123;warningInfo.count&#125;</span><br><span class="line">            warning=&#123;warning&#125;</span><br><span class="line">            onPress=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">inspecting</span>: warning&#125;)&#125;</span><br><span class="line">            onDismiss=&#123;() =&gt; <span class="keyword">this</span>.dismissWarning(warning)&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        );</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> listStyle = [</span><br><span class="line">      styles.list,</span><br><span class="line">      <span class="comment">// Additional `0.4` so the 5th row can peek into view.</span></span><br><span class="line">      &#123;<span class="attr">height</span>: <span class="built_in">Math</span>.min(rows.length, <span class="number">4.4</span>) * (rowGutter + rowHeight)&#125;,</span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;View style=&#123;inspector ? styles.fullScreen : listStyle&#125;&gt;</span><br><span class="line">        &lt;ScrollView style=&#123;listStyle&#125; scrollsToTop=&#123;<span class="literal">false</span>&#125;&gt;</span><br><span class="line">          &#123;rows&#125;</span><br><span class="line">        &lt;<span class="regexp">/ScrollView&gt;</span></span><br><span class="line"><span class="regexp">        &#123;inspector&#125;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>View&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>通过YellowBox.js知道，RN只是用View来显示warning信息的，<em>但是它又是怎么做到显示在UI的最上层，并且不影响其他UI组件的操作呢？</em><br>通过读源码，看到在AppContainer.js中YellowBox作为组件被使用。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">render(): React.Element&lt;*&gt; &#123;</span><br><span class="line">   <span class="keyword">let</span> yellowBox = <span class="literal">null</span>;</span><br><span class="line">   <span class="keyword">if</span> (__DEV__) &#123;</span><br><span class="line">     <span class="keyword">const</span> YellowBox = <span class="built_in">require</span>(<span class="string">'YellowBox'</span>);</span><br><span class="line">     yellowBox = <span class="xml"><span class="tag">&lt;<span class="name">YellowBox</span> /&gt;</span>;</span></span><br><span class="line"><span class="xml">   &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">   return (</span></span><br><span class="line">     &lt;View style=&#123;styles.appContainer&#125; pointerEvents="box-none"&gt;</span><br><span class="line">       &lt;View</span><br><span class="line">         collapsable=&#123;!this.state.inspector&#125;</span><br><span class="line">         key=&#123;this.state.mainKey&#125;</span><br><span class="line">         pointerEvents="box-none"</span><br><span class="line">         style=&#123;styles.appContainer&#125; ref=&#123;(ref) =&gt; &#123;this._mainRef = ref;&#125;&#125;&gt;</span><br><span class="line">         &#123;this.props.children&#125;</span><br><span class="line">       &lt;/View&gt;</span><br><span class="line">       &#123;yellowBox&#125;</span><br><span class="line">       &#123;this.state.inspector&#125;</span><br><span class="line"><span class="xml">     <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span></span><br><span class="line"><span class="xml">   );</span></span><br><span class="line"><span class="xml"> &#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>通过YellowBox.js知道，RN只是用View来显示warning信息的，<em>但是它又是怎么做到显示在UI的最上层，并且不影响其他UI组件的操作呢？</em><br>通过读源码，看到在AppContainer.js中YellowBox作为组件被使用。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">render(): React.Element&lt;*&gt; &#123;</span><br><span class="line">   <span class="keyword">let</span> yellowBox = <span class="literal">null</span>;</span><br><span class="line">   <span class="keyword">if</span> (__DEV__) &#123;</span><br><span class="line">     <span class="keyword">const</span> YellowBox = <span class="built_in">require</span>(<span class="string">'YellowBox'</span>);</span><br><span class="line">     yellowBox = &lt;YellowBox /&gt;;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   return (</span><br><span class="line">     &lt;View style=&#123;styles.appContainer&#125; pointerEvents="box-none"&gt;</span><br><span class="line">       &lt;View</span><br><span class="line">         collapsable=&#123;!this.state.inspector&#125;</span><br><span class="line">         key=&#123;this.state.mainKey&#125;</span><br><span class="line">         pointerEvents="box-none"</span><br><span class="line">         style=&#123;styles.appContainer&#125; ref=&#123;(ref) =&gt; &#123;this._mainRef = ref;&#125;&#125;&gt;</span><br><span class="line">         &#123;this.props.children&#125;</span><br><span class="line">       &lt;/View&gt;</span><br><span class="line">       &#123;yellowBox&#125;</span><br><span class="line">       &#123;this.state.inspector&#125;</span><br><span class="line">     &lt;/View&gt;</span><br><span class="line">   );</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
 <p>通过上面代码，可以看到RootView是由开发者的View（this.props.children），YellowBox（warning）和inspector（猜测是摇一摇后出现的devtool列表）。<br>看到这里就明白RN是通过在把YellowBox作为RootView的一个第二级的子view，再加上一个elevation实现 <em>在UI的最上层，并且不影响其他UI组件的操作</em> 这个要求。</p>
 <h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><p>下载实现一个通知控件的步骤就比较清晰了：</p>
 <ul>
@@ -359,35 +359,6 @@
 
     
 
-    
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>Donate comment here</div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>Donate</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Thomas.Lee WeChat Pay">
-        <p>WeChat Pay</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.jpg" alt="Thomas.Lee Alipay">
-        <p>Alipay</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
     
 
     
@@ -409,8 +380,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/05/android/Glide缓存/" rel="next" title="Glide缓存策略">
-                <i class="fa fa-chevron-left"></i> Glide缓存策略
+              <a href="/2019/02/09/react_native/modal使用心得/" rel="next" title="modal的使用">
+                <i class="fa fa-chevron-left"></i> modal的使用
               </a>
             
           </div>
@@ -419,8 +390,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/09/react_native/react-native的flex布局/" rel="prev" title="react native 的flex布局">
-                react native 的flex布局 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/09/react_native/RN与原生Activty互相跳转/" rel="prev" title="react所在Activity与其他Activity之间的跳转">
+                react所在Activity与其他Activity之间的跳转 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -753,6 +724,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
