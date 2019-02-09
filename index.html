@@ -712,6 +712,151 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/native和js的数据通信/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笨笨和羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/09/react_native/native和js的数据通信/" itemprop="url">native与js通信中传输的数据类型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
+                2019-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/react-native/" itemprop="url" rel="index">
+                    <span itemprop="name">react native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="native与js通信中传输的数据类型"><a href="#native与js通信中传输的数据类型" class="headerlink" title="native与js通信中传输的数据类型"></a>native与js通信中传输的数据类型</h2><p>React Native官网在原生模块通信只提供了 String 类型的示例。网上也没有其他数据类型通信的demo。</p>
+<p><strong>@ReactMethod</strong> 注明的方法支持的从 Java传到JS 的参数类型如下，它们会被转为对于的js类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">java -&gt; js:</span><br><span class="line">Boolean -&gt; Bool</span><br><span class="line">Integer -&gt; Number</span><br><span class="line">Double -&gt; Number</span><br><span class="line">Float -&gt; Number</span><br><span class="line">String -&gt; String</span><br><span class="line">Callback -&gt; function</span><br><span class="line">ReadableMap -&gt; Object</span><br><span class="line">ReadableArray -&gt; Array</span><br></pre></td></tr></table></figure></p>
+<p><em>ReadableMap</em> 和 <em>ReadableArray</em> 可以把java的字典和数组数据传到js，js拿到的分别是Obeject和array，js的Object都是{}形式的。<br>只是ReadableMap和ReadableArray都只能使用getXX()方法获得信息，不能在java层写入数据。<br>查看源码后发现还有 <em>WritableMap</em> 和 <em>WritableArray</em> 分别继承了ReadableMap和ReadableArray，且都提供了putXX()和pushxx()来让我们写入数据。</p>
+<p>在java使用这两个<strong>WritableMap</strong>和<strong>WritableArray</strong>来传递比较复杂的数据。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/modal使用心得/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -875,7 +1020,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/native和js的数据通信/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/react navigation的deeplink/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Thomas.Lee">
@@ -894,7 +1039,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/09/react_native/native和js的数据通信/" itemprop="url">native与js通信中传输的数据类型</a></h1>
+                <a class="post-title-link" href="/2019/02/09/react_native/react navigation的deeplink/" itemprop="url">react navigation中使用deeplink</a></h1>
         
 
         <div class="post-meta">
@@ -968,10 +1113,28 @@
       
         
           
-            <h2 id="native与js通信中传输的数据类型"><a href="#native与js通信中传输的数据类型" class="headerlink" title="native与js通信中传输的数据类型"></a>native与js通信中传输的数据类型</h2><p>React Native官网在原生模块通信只提供了 String 类型的示例。网上也没有其他数据类型通信的demo。</p>
-<p><strong>@ReactMethod</strong> 注明的方法支持的从 Java传到JS 的参数类型如下，它们会被转为对于的js类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">java -&gt; js:</span><br><span class="line">Boolean -&gt; Bool</span><br><span class="line">Integer -&gt; Number</span><br><span class="line">Double -&gt; Number</span><br><span class="line">Float -&gt; Number</span><br><span class="line">String -&gt; String</span><br><span class="line">Callback -&gt; function</span><br><span class="line">ReadableMap -&gt; Object</span><br><span class="line">ReadableArray -&gt; Array</span><br></pre></td></tr></table></figure></p>
-<p><em>ReadableMap</em> 和 <em>ReadableArray</em> 可以把java的字典和数组数据传到js，js拿到的分别是Obeject和array，js的Object都是{}形式的。<br>只是ReadableMap和ReadableArray都只能使用getXX()方法获得信息，不能在java层写入数据。<br>查看源码后发现还有 <em>WritableMap</em> 和 <em>WritableArray</em> 分别继承了ReadableMap和ReadableArray，且都提供了putXX()和pushxx()来让我们写入数据。</p>
-<p>在java使用这两个<strong>WritableMap</strong>和<strong>WritableArray</strong>来传递比较复杂的数据。</p>
+            <p>DeepLink主要是为了增加用户量的一个技术，主要是可以通过浏览器，短信，Email等信息中的url可以打开我们的app，如果没有安装的话会提示去安装一个的。</p>
+<p>这本来是Android和iOS都有的一个技术，所以这其实是一个Native端的技术，而react navigation只是对它的发送过来的uri进行了处理。</p>
+<p>Android使用deeplink，只需要在特定的Activity注册一个有schema和host（最少需要这两个参数）的<intent-filter>就可以了，然后就可以在那个Activity中通过getIntent拿到这个uri。这套方法放到react native 上唯一的变化就是特定的Activity就是React所依附的，继承了ReactActivity的那个天选者。</intent-filter></p>
+<p>Android要收到deeplink并被唤醒，首先需要在AndroidManifest.xml中的<activity>注册<intent-filter>。如下</intent-filter></activity></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:name</span>=<span class="string">".MainActivity"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:screenOrientation</span>=<span class="string">"portrait"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:launchMode</span>=<span class="string">"singleTask"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:exported</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:windowSoftInputMode</span>=<span class="string">"adjustResize"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.VIEW"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.DEFAULT"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.BROWSABLE"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:scheme</span>=<span class="string">"https"</span> <span class="attr">android:pathPattern</span>=<span class="string">"/.*/apps/.*"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:host</span>=<span class="string">"apps.xxx.com"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:host</span>=<span class="string">"apps.xxx.cn"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>必须配置”android.intent.category.BROWSABLE”才能通过浏览器打开app</li>
+<li>lauchMode 最好设置成 singleTask，避免出现多个MainActivity，同时React Native的特殊性，这样可以让React依赖的Activity在一个单独的任务栈，这样在其他Activity中收到了deeplink，可以正常显示React页面，而另一个任务栈也不存在了。</li>
+<li>除了设置schema和host最好也把path设置好，设置path可以通过 [ path | pathPrefix | pathPattern ]进行设置，这样可以更加精确地指定某个格式的uri才能通过deep link 唤醒app。</li>
+</ul>
+<p>基本上这样配置好，就可以在Android中获得到数据了，代码也很简单：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = getIntent();</span><br><span class="line">Uri data = intent.getData();</span><br><span class="line">Log.w(<span class="string">"ok"</span>, data.getSchema() + data.getHost() + data.getPathSegments()[<span class="number">0</span>]);</span><br></pre></td></tr></table></figure>
+<h4 id="React-Navigation"><a href="#React-Navigation" class="headerlink" title="React Navigation"></a>React Navigation</h4><p>但如果想在react navigation中使用还有事情要做，首先，对使用Navigation的地方增加一个uriPrefix属性的设置来过滤出uri中的需要的path。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;Navigation</span><br><span class="line">    ref = &#123;nav =&gt; window.navigation = nav&#125;</span><br><span class="line">    uriPrefix = &#123; /(?:http|https):\/\/apps\W*\w*\.(?:cn|com)\/apps\// &#125;</span><br><span class="line">    /&gt;</span><br><span class="line"></span><br><span class="line">Object.assign(Navigation.router, &#123;</span><br><span class="line">    getActionForPathAndParams(path, params) &#123;</span><br><span class="line">        let appId = getAppIdFromUrl(path);</span><br><span class="line">        let pageParams = &#123;&apos;app&apos;: &#123;&apos;id&apos;: appId&#125;&#125;</span><br><span class="line">        if (wakeFromBackground) &#123;</span><br><span class="line">            return NavigationActions.push(&#123;</span><br><span class="line">                routeName: &quot;DeepLinkDemo&quot;,</span><br><span class="line">                params: &#123;...pageParams&#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return NavigationActions.reset(&#123;</span><br><span class="line">                index: 0,</span><br><span class="line">                actions: [NavigationActions.navigate(&#123;</span><br><span class="line">                    routeName: &quot;DeepLinkDemo&quot;,</span><br><span class="line">                    params: &#123;...pageParams&#125;</span><br><span class="line">                &#125;)]</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这样使得在 getActionForPathAndParams(path, params) 中能获得<a href="https://apps.xxx.com/apps/{id}后面的id信息作为path。而我们对getActionForPathAndParams进行实现可以做到在不同条件下，通过deeplink唤醒app，react" target="_blank" rel="noopener">https://apps.xxx.com/apps/{id}后面的id信息作为path。而我们对getActionForPathAndParams进行实现可以做到在不同条件下，通过deeplink唤醒app，react</a> navigation如何到达指定页面，可以像平常那样push或者navigate，也可以reset，让那个页面成为根路由。</p>
+<p>当然 uriPrefix并不只是为了让我们可以选择跳转方式而设计的，我们可以为 DeepLinkDemo 配置path这个属性，而只要uriPrefix过滤出来的id为“Demo”，就可以匹配到我们的配置，然后打开DeepLinkDemo 这个页面。配置代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">createAppContainer(createStackNavigator(&#123;</span><br><span class="line">    DeepLinkDemo: &#123;</span><br><span class="line">            screen: DeepLinkDemoPage,</span><br><span class="line">            path: &quot;Demo&quot;,</span><br><span class="line">            navigationOptions:  &#123;</span><br><span class="line">            	header: null</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="React-Native"><a href="#React-Native" class="headerlink" title="React Native"></a>React Native</h4><p>至于在React Native中使用Deeplink，可以直接集成 react navigation 来简单使用【一般没有Native页面和复杂的需求】，也可以使用 React Native 的Linking组件来实现复杂的业务逻辑。</p>
+<p>用Linking方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// app没有启动，deeplink启动app时触发，在后台时不会触发</span><br><span class="line">Linking.getInitialURL()</span><br><span class="line">    .then(url =&gt; &#123;</span><br><span class="line">    if (url) &#123;</span><br><span class="line">        this.isDeepLinkingStart = true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// app在后台，deeplink启动app时触发，第一次启动app不会触发</span><br><span class="line">Linking.addEventListener(&apos;url&apos;, (&#123;url&#125;) =&gt; &#123;</span><br><span class="line">    if (url) &#123;</span><br><span class="line">        this.isDeepLinkingStart = true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>因为这是RN自己组件去监听底层的intent，没有经过react navigation，所以这个时候获得url时没有经过react navigation处理，是 <em>schema://host/path</em> 这样的完整url. 这样做的好处就是不会受限与react navigation，让整个deeplink的跳转更加受我们控制。</p>
 
           
         
@@ -1127,169 +1290,6 @@
 </li>
 </ol>
 <h2 id="绝对布局-position-‘absolute’"><a href="#绝对布局-position-‘absolute’" class="headerlink" title="绝对布局 position: ‘absolute’"></a>绝对布局 position: ‘absolute’</h2><p>在某些情况下需要一个组件固定在父组件的某一个位置上，躲开flexDirection的控制，这个时候，可以设置该组件的position: ‘absolute’，此时，这个组件一样是占据了父组件的空间的。<br>那如果想要组件悬浮在父组件的某个指定位置，我们只需要设置<strong>elevation</strong>的值就可以让这个组件跑到父组件的上面，但要小心它会盖住父组件下面的内容。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/react navigation的deeplink/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="笨笨和羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/09/react_native/react navigation的deeplink/" itemprop="url">react navigation中使用deeplink</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
-                2019-02-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/react-native/" itemprop="url" rel="index">
-                    <span itemprop="name">react native</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>DeepLink主要是为了增加用户量的一个技术，主要是可以通过浏览器，短信，Email等信息中的url可以打开我们的app，如果没有安装的话会提示去安装一个的。</p>
-<p>这本来是Android和iOS都有的一个技术，所以这其实是一个Native端的技术，而react navigation只是对它的发送过来的uri进行了处理。</p>
-<p>Android使用deeplink，只需要在特定的Activity注册一个有schema和host（最少需要这两个参数）的<intent-filter>就可以了，然后就可以在那个Activity中通过getIntent拿到这个uri。这套方法放到react native 上唯一的变化就是特定的Activity就是React所依附的，继承了ReactActivity的那个天选者。</intent-filter></p>
-<p>Android要收到deeplink并被唤醒，首先需要在AndroidManifest.xml中的<activity>注册<intent-filter>。如下</intent-filter></activity></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:name</span>=<span class="string">".MainActivity"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:screenOrientation</span>=<span class="string">"portrait"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:launchMode</span>=<span class="string">"singleTask"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:exported</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">android:windowSoftInputMode</span>=<span class="string">"adjustResize"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.VIEW"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.DEFAULT"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.BROWSABLE"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:scheme</span>=<span class="string">"https"</span> <span class="attr">android:pathPattern</span>=<span class="string">"/.*/apps/.*"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:host</span>=<span class="string">"apps.xxx.com"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:host</span>=<span class="string">"apps.xxx.cn"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>Note</strong>:</p>
-<ul>
-<li>必须配置”android.intent.category.BROWSABLE”才能通过浏览器打开app</li>
-<li>lauchMode 最好设置成 singleTask，避免出现多个MainActivity，同时React Native的特殊性，这样可以让React依赖的Activity在一个单独的任务栈，这样在其他Activity中收到了deeplink，可以正常显示React页面，而另一个任务栈也不存在了。</li>
-<li>除了设置schema和host最好也把path设置好，设置path可以通过 [ path | pathPrefix | pathPattern ]进行设置，这样可以更加精确地指定某个格式的uri才能通过deep link 唤醒app。</li>
-</ul>
-<p>基本上这样配置好，就可以在Android中获得到数据了，代码也很简单：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = getIntent();</span><br><span class="line">Uri data = intent.getData();</span><br><span class="line">Log.w(<span class="string">"ok"</span>, data.getSchema() + data.getHost() + data.getPathSegments()[<span class="number">0</span>]);</span><br></pre></td></tr></table></figure>
-<h4 id="React-Navigation"><a href="#React-Navigation" class="headerlink" title="React Navigation"></a>React Navigation</h4><p>但如果想在react navigation中使用还有事情要做，首先，对使用Navigation的地方增加一个uriPrefix属性的设置来过滤出uri中的需要的path。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;Navigation</span><br><span class="line">    ref = &#123;nav =&gt; window.navigation = nav&#125;</span><br><span class="line">    uriPrefix = &#123; /(?:http|https):\/\/apps\W*\w*\.(?:cn|com)\/apps\// &#125;</span><br><span class="line">    /&gt;</span><br><span class="line"></span><br><span class="line">Object.assign(Navigation.router, &#123;</span><br><span class="line">    getActionForPathAndParams(path, params) &#123;</span><br><span class="line">        let appId = getAppIdFromUrl(path);</span><br><span class="line">        let pageParams = &#123;&apos;app&apos;: &#123;&apos;id&apos;: appId&#125;&#125;</span><br><span class="line">        if (wakeFromBackground) &#123;</span><br><span class="line">            return NavigationActions.push(&#123;</span><br><span class="line">                routeName: &quot;DeepLinkDemo&quot;,</span><br><span class="line">                params: &#123;...pageParams&#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return NavigationActions.reset(&#123;</span><br><span class="line">                index: 0,</span><br><span class="line">                actions: [NavigationActions.navigate(&#123;</span><br><span class="line">                    routeName: &quot;DeepLinkDemo&quot;,</span><br><span class="line">                    params: &#123;...pageParams&#125;</span><br><span class="line">                &#125;)]</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>这样使得在 getActionForPathAndParams(path, params) 中能获得<a href="https://apps.xxx.com/apps/{id}后面的id信息作为path。而我们对getActionForPathAndParams进行实现可以做到在不同条件下，通过deeplink唤醒app，react" target="_blank" rel="noopener">https://apps.xxx.com/apps/{id}后面的id信息作为path。而我们对getActionForPathAndParams进行实现可以做到在不同条件下，通过deeplink唤醒app，react</a> navigation如何到达指定页面，可以像平常那样push或者navigate，也可以reset，让那个页面成为根路由。</p>
-<p>当然 uriPrefix并不只是为了让我们可以选择跳转方式而设计的，我们可以为 DeepLinkDemo 配置path这个属性，而只要uriPrefix过滤出来的id为“Demo”，就可以匹配到我们的配置，然后打开DeepLinkDemo 这个页面。配置代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">createAppContainer(createStackNavigator(&#123;</span><br><span class="line">    DeepLinkDemo: &#123;</span><br><span class="line">            screen: DeepLinkDemoPage,</span><br><span class="line">            path: &quot;Demo&quot;,</span><br><span class="line">            navigationOptions:  &#123;</span><br><span class="line">            	header: null</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="React-Native"><a href="#React-Native" class="headerlink" title="React Native"></a>React Native</h4><p>至于在React Native中使用Deeplink，可以直接集成 react navigation 来简单使用【一般没有Native页面和复杂的需求】，也可以使用 React Native 的Linking组件来实现复杂的业务逻辑。</p>
-<p>用Linking方法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// app没有启动，deeplink启动app时触发，在后台时不会触发</span><br><span class="line">Linking.getInitialURL()</span><br><span class="line">    .then(url =&gt; &#123;</span><br><span class="line">    if (url) &#123;</span><br><span class="line">        this.isDeepLinkingStart = true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// app在后台，deeplink启动app时触发，第一次启动app不会触发</span><br><span class="line">Linking.addEventListener(&apos;url&apos;, (&#123;url&#125;) =&gt; &#123;</span><br><span class="line">    if (url) &#123;</span><br><span class="line">        this.isDeepLinkingStart = true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>因为这是RN自己组件去监听底层的intent，没有经过react navigation，所以这个时候获得url时没有经过react navigation处理，是 <em>schema://host/path</em> 这样的完整url. 这样做的好处就是不会受限与react navigation，让整个deeplink的跳转更加受我们控制。</p>
 
           
         
