@@ -379,152 +379,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/05/android/Glide缓存/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="笨笨和羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/05/android/Glide缓存/" itemprop="url">Glide缓存策略</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-05T00:00:00+08:00">
-                2019-02-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Glide缓存策略："><a href="#Glide缓存策略：" class="headerlink" title="Glide缓存策略："></a>Glide缓存策略：</h3><ul>
-<li>读缓存：先内存，再磁盘，最后是网络</li>
-<li>写缓存：先磁盘，再内存</li>
-</ul>
-<p><strong>Glide并不会直接把整个原图存到内存中，而是根据imageView的大小，存一个等大小的图片到内存，但是如果是不同size的imageview，但是同一张图片，Glide同样会在内存中存很多个不同size的图片（Picasso只保持有一个原图，而再在显示图片的时候会根据imageview size来显示个缩放后的图片）。</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/RN与原生Activty互相跳转/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -690,7 +544,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/RN基于React的通知组件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/modal使用心得/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Thomas.Lee">
@@ -709,7 +563,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/09/react_native/RN基于React的通知组件/" itemprop="url">基于react的通知组件</a></h1>
+                <a class="post-title-link" href="/2019/02/09/react_native/modal使用心得/" itemprop="url">modal的使用</a></h1>
         
 
         <div class="post-meta">
@@ -783,34 +637,28 @@
       
         
           
-            <h2 id="为什么要做一个不用原生控件的通知"><a href="#为什么要做一个不用原生控件的通知" class="headerlink" title="为什么要做一个不用原生控件的通知"></a>为什么要做一个不用原生控件的通知</h2><p>目前React Native的通知控件都会涉及使用到原生控件，但是需要知道IOS的通知行为非常麻烦，需要客户端发送通知给apple server，再由apple server发送通知给客户端显示在通知栏。这个行为会有一些不确定因素：网络不稳定，通知延时等。</p>
-<p>所以，如果降低通知组件的要求：</p>
-<ol>
-<li>不要求app在退出前台后仍然能够收到通知。</li>
-<li>不需要通知显示在通知栏</li>
+            <h1 id="modal的使用"><a href="#modal的使用" class="headerlink" title="modal的使用"></a>modal的使用</h1><p>modal在react native 中可以看作是一个覆盖在最上层的窗口，当它出现时会占据所有的屏幕，且用户无法对下层的UI进行操作。这样看起来有些霸道，但也正因为无法操作下层的UI，我们可以随意定义modal上的UI和操作而不用担心影响到下层UI。所以，modal在我们的想象力下可以自定义成为许多自定义控件。</p>
+<h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><ol>
+<li>Modal组件可以用来覆盖包含React Native根视图的原生视图。</li>
+<li>通过 <strong>visible</strong> 属性控制Modal组件是否出现</li>
+<li>在很多情况下需要使用 <strong>transparent</strong> 设置Modal的透明度.</li>
 </ol>
-<p>但这个自定义通知组件仍然需要遵循其他通知应该有的特性：</p>
+<p>透明度的设置： <em>先设置transparent={true},再在子根组件设置backgroundColor: ‘rbga(0,0,0,0.5)’才可以达到预期效果</em></p>
 <ol>
-<li>出现通知时，用户仍然可以对app进行操作</li>
-<li>用户可以手动去除通知</li>
-<li>用户可以通过点击通知，触发一些行为</li>
-<li>可以同时收到多条通知，并且用户可以分别触发对应的行为<br>看到第一点要求就果断抛弃Modal，但看了react native官方提供的组件，没有能满足这个要求组件。</li>
+<li>如果你的代码要在Android上运行，必须实现onRequestClose回调方法来说明在点击back键后Modal的行为。</li>
+<li>记得在 <strong>state</strong> 中保存Modal当前的 <strong>visible</strong> 情况。</li>
 </ol>
-<h2 id="react-native-的-console-warn"><a href="#react-native-的-console-warn" class="headerlink" title="react native 的 console.warn()"></a>react native 的 console.warn()</h2><p>根据上面的综合需求，发现平时最常用到的 console.warn() 就非常满足了这些的需求。<br>通过源码查看RN是如何实现console.warn.</p>
-<h3 id="RN源码"><a href="#RN源码" class="headerlink" title="RN源码"></a>RN源码</h3><ul>
-<li>YellowBox.js 对warn这个组件的具体实现</li>
-<li>AppContainer.js RN的人口，初始化RN界面（其中包含开发者code的界面）</li>
+<h2 id="Modal可以自定义哪些东西"><a href="#Modal可以自定义哪些东西" class="headerlink" title="Modal可以自定义哪些东西"></a>Modal可以自定义哪些东西</h2><ul>
+<li>缩略图的全屏大图查看控件</li>
+<li>一个Alert</li>
+<li>一个自定义，复杂的dialog控件 <img src="http://images2015.cnblogs.com/blog/459873/201602/459873-20160229223956236-1761782240.png" alt="modal dialog"></li>
+<li>一个抽屉控件</li>
+<li>一个下拉列表控件</li>
 </ul>
-<p>利用js的console的warn来获得报错信息。然后通过一个ScrollView来显示一个WarningRow(带TouchableHightlight的View)的数组。</p>
-<p>YellowBox.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">console</span>.disableYellowBox || <span class="keyword">this</span>.state.warningMap.size === <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> ScrollView = <span class="built_in">require</span>(<span class="string">'ScrollView'</span>);</span><br><span class="line">    <span class="keyword">const</span> View = <span class="built_in">require</span>(<span class="string">'View'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> &#123;inspecting, stacktraceVisible&#125; = <span class="keyword">this</span>.state;</span><br><span class="line">    <span class="keyword">const</span> inspector = inspecting !== <span class="literal">null</span> ?</span><br><span class="line">      &lt;WarningInspector</span><br><span class="line">        warningInfo=&#123;<span class="keyword">this</span>.state.warningMap.get(inspecting)&#125;</span><br><span class="line">        warning=&#123;inspecting&#125;</span><br><span class="line">        stacktraceVisible=&#123;stacktraceVisible&#125;</span><br><span class="line">        onDismiss=&#123;() =&gt; <span class="keyword">this</span>.dismissWarning(inspecting)&#125;</span><br><span class="line">        onDismissAll=&#123;() =&gt; <span class="keyword">this</span>.dismissWarning(<span class="literal">null</span>)&#125;</span><br><span class="line">        onMinimize=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">inspecting</span>: <span class="literal">null</span>&#125;)&#125;</span><br><span class="line">        toggleStacktrace=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">stacktraceVisible</span>: !stacktraceVisible&#125;)&#125;</span><br><span class="line">      /&gt; :</span><br><span class="line">      <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> rows = [];</span><br><span class="line">    <span class="keyword">this</span>.state.warningMap.forEach(<span class="function">(<span class="params">warningInfo, warning</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!isWarningIgnored(warning)) &#123;</span><br><span class="line">        rows.push(</span><br><span class="line">          &lt;WarningRow</span><br><span class="line">            key=&#123;warning&#125;</span><br><span class="line">            count=&#123;warningInfo.count&#125;</span><br><span class="line">            warning=&#123;warning&#125;</span><br><span class="line">            onPress=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">inspecting</span>: warning&#125;)&#125;</span><br><span class="line">            onDismiss=&#123;() =&gt; <span class="keyword">this</span>.dismissWarning(warning)&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        );</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> listStyle = [</span><br><span class="line">      styles.list,</span><br><span class="line">      <span class="comment">// Additional `0.4` so the 5th row can peek into view.</span></span><br><span class="line">      &#123;<span class="attr">height</span>: <span class="built_in">Math</span>.min(rows.length, <span class="number">4.4</span>) * (rowGutter + rowHeight)&#125;,</span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;View style=&#123;inspector ? styles.fullScreen : listStyle&#125;&gt;</span><br><span class="line">        &lt;ScrollView style=&#123;listStyle&#125; scrollsToTop=&#123;<span class="literal">false</span>&#125;&gt;</span><br><span class="line">          &#123;rows&#125;</span><br><span class="line">        &lt;<span class="regexp">/ScrollView&gt;</span></span><br><span class="line"><span class="regexp">        &#123;inspector&#125;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>View&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>通过YellowBox.js知道，RN只是用View来显示warning信息的，<em>但是它又是怎么做到显示在UI的最上层，并且不影响其他UI组件的操作呢？</em><br>通过读源码，看到在AppContainer.js中YellowBox作为组件被使用。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">render(): React.Element&lt;*&gt; &#123;</span><br><span class="line">   <span class="keyword">let</span> yellowBox = <span class="literal">null</span>;</span><br><span class="line">   <span class="keyword">if</span> (__DEV__) &#123;</span><br><span class="line">     <span class="keyword">const</span> YellowBox = <span class="built_in">require</span>(<span class="string">'YellowBox'</span>);</span><br><span class="line">     yellowBox = &lt;YellowBox /&gt;;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   return (</span><br><span class="line">     &lt;View style=&#123;styles.appContainer&#125; pointerEvents="box-none"&gt;</span><br><span class="line">       &lt;View</span><br><span class="line">         collapsable=&#123;!this.state.inspector&#125;</span><br><span class="line">         key=&#123;this.state.mainKey&#125;</span><br><span class="line">         pointerEvents="box-none"</span><br><span class="line">         style=&#123;styles.appContainer&#125; ref=&#123;(ref) =&gt; &#123;this._mainRef = ref;&#125;&#125;&gt;</span><br><span class="line">         &#123;this.props.children&#125;</span><br><span class="line">       &lt;/View&gt;</span><br><span class="line">       &#123;yellowBox&#125;</span><br><span class="line">       &#123;this.state.inspector&#125;</span><br><span class="line">     &lt;/View&gt;</span><br><span class="line">   );</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
-<p>通过上面代码，可以看到RootView是由开发者的View（this.props.children），YellowBox（warning）和inspector（猜测是摇一摇后出现的devtool列表）。<br>看到这里就明白RN是通过在把YellowBox作为RootView的一个第二级的子view，再加上一个elevation实现 <em>在UI的最上层，并且不影响其他UI组件的操作</em> 这个要求。</p>
-<h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><p>下载实现一个通知控件的步骤就比较清晰了：</p>
-<ul>
-<li>实现一个简单的view组件</li>
-<li>将notificationView添加到RootView，作为第二级View</li>
-<li>实现一个‘开关’变量控制notificationView的显示与消失<br>如果要实现console.warn随调随用，需要再实现一个proxy达到notificationView中各种回调方法的封装和对外调用接口的实现（隐藏notificationView中各种方法的具体实现）。</li>
-</ul>
+<p><em>虽然Modal很厉害，但最好不要用它来实现一个通知控件，可以想象当一个通知来了，Modal做的通知控件蹦了出来，然后用户就没法做别的事了，而必须先移除这个通知，这不符合一个通知控件该有的设计</em></p>
+<hr>
+<p>下面会实现一个简单的缩略图的全屏大图查看控件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;View style=&#123;styles.container&#125;&gt;</span><br><span class="line">            &lt;TouchableOpacity onPress = &#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">true</span>&#125;)&#125;&gt;</span><br><span class="line">                &lt;View&gt;</span><br><span class="line">                    &lt;Image</span><br><span class="line">                        onPress = &#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">true</span>&#125;)&#125;</span><br><span class="line">                        resizeMode=<span class="string">'cover'</span></span><br><span class="line">                        source=&#123;<span class="built_in">require</span>(<span class="string">'./AyaPolly.jpg'</span>)&#125; /&gt;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>TouchableOpacity&gt;</span><br><span class="line">            &lt;Modal</span><br><span class="line">                animationType=<span class="string">'fade'</span></span><br><span class="line">                transparent=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">                visible=&#123;<span class="keyword">this</span>.state.modalVisible&#125;</span><br><span class="line">                onRequestClose=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">false</span>&#125;)&#125;</span><br><span class="line">            &gt;</span><br><span class="line">                &lt;View</span><br><span class="line">                    style = &#123;styles.modalView&#125;</span><br><span class="line">                &gt;</span><br><span class="line">                    &lt;Image</span><br><span class="line">                        style = &#123;styles.bigImage&#125;</span><br><span class="line">                        resizeMode=<span class="string">'contain'</span></span><br><span class="line">                        source=&#123;<span class="built_in">require</span>(<span class="string">'./AyaPolly.jpg'</span>)&#125; /&gt;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>Modal&gt;</span><br><span class="line">        &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const styles = StyleSheet.create(&#123;</span></span><br><span class="line"><span class="regexp">    container: &#123;</span></span><br><span class="line"><span class="regexp">        flex: 1,</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    modalView: &#123;</span></span><br><span class="line"><span class="regexp">        flex: 1,</span></span><br><span class="line"><span class="regexp">        justifyContent: 'center',</span></span><br><span class="line"><span class="regexp">        alignItems: 'center',</span></span><br><span class="line"><span class="regexp">        backgroundColor: '#000000'</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    bigImage: &#123;</span></span><br><span class="line"><span class="regexp">        flex:1,</span></span><br><span class="line"><span class="regexp">        width: '100%'</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure>
 
           
         
@@ -1321,7 +1169,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/modal使用心得/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/RN基于React的通知组件/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Thomas.Lee">
@@ -1340,7 +1188,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/09/react_native/modal使用心得/" itemprop="url">modal的使用</a></h1>
+                <a class="post-title-link" href="/2019/02/09/react_native/RN基于React的通知组件/" itemprop="url">基于react的通知组件</a></h1>
         
 
         <div class="post-meta">
@@ -1414,28 +1262,180 @@
       
         
           
-            <h1 id="modal的使用"><a href="#modal的使用" class="headerlink" title="modal的使用"></a>modal的使用</h1><p>modal在react native 中可以看作是一个覆盖在最上层的窗口，当它出现时会占据所有的屏幕，且用户无法对下层的UI进行操作。这样看起来有些霸道，但也正因为无法操作下层的UI，我们可以随意定义modal上的UI和操作而不用担心影响到下层UI。所以，modal在我们的想象力下可以自定义成为许多自定义控件。</p>
-<h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><ol>
-<li>Modal组件可以用来覆盖包含React Native根视图的原生视图。</li>
-<li>通过 <strong>visible</strong> 属性控制Modal组件是否出现</li>
-<li>在很多情况下需要使用 <strong>transparent</strong> 设置Modal的透明度.</li>
-</ol>
-<p>透明度的设置： <em>先设置transparent={true},再在子根组件设置backgroundColor: ‘rbga(0,0,0,0.5)’才可以达到预期效果</em></p>
+            <h2 id="为什么要做一个不用原生控件的通知"><a href="#为什么要做一个不用原生控件的通知" class="headerlink" title="为什么要做一个不用原生控件的通知"></a>为什么要做一个不用原生控件的通知</h2><p>目前React Native的通知控件都会涉及使用到原生控件，但是需要知道IOS的通知行为非常麻烦，需要客户端发送通知给apple server，再由apple server发送通知给客户端显示在通知栏。这个行为会有一些不确定因素：网络不稳定，通知延时等。</p>
+<p>所以，如果降低通知组件的要求：</p>
 <ol>
-<li>如果你的代码要在Android上运行，必须实现onRequestClose回调方法来说明在点击back键后Modal的行为。</li>
-<li>记得在 <strong>state</strong> 中保存Modal当前的 <strong>visible</strong> 情况。</li>
+<li>不要求app在退出前台后仍然能够收到通知。</li>
+<li>不需要通知显示在通知栏</li>
 </ol>
-<h2 id="Modal可以自定义哪些东西"><a href="#Modal可以自定义哪些东西" class="headerlink" title="Modal可以自定义哪些东西"></a>Modal可以自定义哪些东西</h2><ul>
-<li>缩略图的全屏大图查看控件</li>
-<li>一个Alert</li>
-<li>一个自定义，复杂的dialog控件 <img src="http://images2015.cnblogs.com/blog/459873/201602/459873-20160229223956236-1761782240.png" alt="modal dialog"></li>
-<li>一个抽屉控件</li>
-<li>一个下拉列表控件</li>
+<p>但这个自定义通知组件仍然需要遵循其他通知应该有的特性：</p>
+<ol>
+<li>出现通知时，用户仍然可以对app进行操作</li>
+<li>用户可以手动去除通知</li>
+<li>用户可以通过点击通知，触发一些行为</li>
+<li>可以同时收到多条通知，并且用户可以分别触发对应的行为<br>看到第一点要求就果断抛弃Modal，但看了react native官方提供的组件，没有能满足这个要求组件。</li>
+</ol>
+<h2 id="react-native-的-console-warn"><a href="#react-native-的-console-warn" class="headerlink" title="react native 的 console.warn()"></a>react native 的 console.warn()</h2><p>根据上面的综合需求，发现平时最常用到的 console.warn() 就非常满足了这些的需求。<br>通过源码查看RN是如何实现console.warn.</p>
+<h3 id="RN源码"><a href="#RN源码" class="headerlink" title="RN源码"></a>RN源码</h3><ul>
+<li>YellowBox.js 对warn这个组件的具体实现</li>
+<li>AppContainer.js RN的人口，初始化RN界面（其中包含开发者code的界面）</li>
 </ul>
-<p><em>虽然Modal很厉害，但最好不要用它来实现一个通知控件，可以想象当一个通知来了，Modal做的通知控件蹦了出来，然后用户就没法做别的事了，而必须先移除这个通知，这不符合一个通知控件该有的设计</em></p>
-<hr>
-<p>下面会实现一个简单的缩略图的全屏大图查看控件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;View style=&#123;styles.container&#125;&gt;</span><br><span class="line">            &lt;TouchableOpacity onPress = &#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">true</span>&#125;)&#125;&gt;</span><br><span class="line">                &lt;View&gt;</span><br><span class="line">                    &lt;Image</span><br><span class="line">                        onPress = &#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">true</span>&#125;)&#125;</span><br><span class="line">                        resizeMode=<span class="string">'cover'</span></span><br><span class="line">                        source=&#123;<span class="built_in">require</span>(<span class="string">'./AyaPolly.jpg'</span>)&#125; /&gt;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>TouchableOpacity&gt;</span><br><span class="line">            &lt;Modal</span><br><span class="line">                animationType=<span class="string">'fade'</span></span><br><span class="line">                transparent=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">                visible=&#123;<span class="keyword">this</span>.state.modalVisible&#125;</span><br><span class="line">                onRequestClose=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">false</span>&#125;)&#125;</span><br><span class="line">            &gt;</span><br><span class="line">                &lt;View</span><br><span class="line">                    style = &#123;styles.modalView&#125;</span><br><span class="line">                &gt;</span><br><span class="line">                    &lt;Image</span><br><span class="line">                        style = &#123;styles.bigImage&#125;</span><br><span class="line">                        resizeMode=<span class="string">'contain'</span></span><br><span class="line">                        source=&#123;<span class="built_in">require</span>(<span class="string">'./AyaPolly.jpg'</span>)&#125; /&gt;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>Modal&gt;</span><br><span class="line">        &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const styles = StyleSheet.create(&#123;</span></span><br><span class="line"><span class="regexp">    container: &#123;</span></span><br><span class="line"><span class="regexp">        flex: 1,</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    modalView: &#123;</span></span><br><span class="line"><span class="regexp">        flex: 1,</span></span><br><span class="line"><span class="regexp">        justifyContent: 'center',</span></span><br><span class="line"><span class="regexp">        alignItems: 'center',</span></span><br><span class="line"><span class="regexp">        backgroundColor: '#000000'</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    bigImage: &#123;</span></span><br><span class="line"><span class="regexp">        flex:1,</span></span><br><span class="line"><span class="regexp">        width: '100%'</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure>
+<p>利用js的console的warn来获得报错信息。然后通过一个ScrollView来显示一个WarningRow(带TouchableHightlight的View)的数组。</p>
+<p>YellowBox.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">console</span>.disableYellowBox || <span class="keyword">this</span>.state.warningMap.size === <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> ScrollView = <span class="built_in">require</span>(<span class="string">'ScrollView'</span>);</span><br><span class="line">    <span class="keyword">const</span> View = <span class="built_in">require</span>(<span class="string">'View'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> &#123;inspecting, stacktraceVisible&#125; = <span class="keyword">this</span>.state;</span><br><span class="line">    <span class="keyword">const</span> inspector = inspecting !== <span class="literal">null</span> ?</span><br><span class="line">      &lt;WarningInspector</span><br><span class="line">        warningInfo=&#123;<span class="keyword">this</span>.state.warningMap.get(inspecting)&#125;</span><br><span class="line">        warning=&#123;inspecting&#125;</span><br><span class="line">        stacktraceVisible=&#123;stacktraceVisible&#125;</span><br><span class="line">        onDismiss=&#123;() =&gt; <span class="keyword">this</span>.dismissWarning(inspecting)&#125;</span><br><span class="line">        onDismissAll=&#123;() =&gt; <span class="keyword">this</span>.dismissWarning(<span class="literal">null</span>)&#125;</span><br><span class="line">        onMinimize=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">inspecting</span>: <span class="literal">null</span>&#125;)&#125;</span><br><span class="line">        toggleStacktrace=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">stacktraceVisible</span>: !stacktraceVisible&#125;)&#125;</span><br><span class="line">      /&gt; :</span><br><span class="line">      <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> rows = [];</span><br><span class="line">    <span class="keyword">this</span>.state.warningMap.forEach(<span class="function">(<span class="params">warningInfo, warning</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!isWarningIgnored(warning)) &#123;</span><br><span class="line">        rows.push(</span><br><span class="line">          &lt;WarningRow</span><br><span class="line">            key=&#123;warning&#125;</span><br><span class="line">            count=&#123;warningInfo.count&#125;</span><br><span class="line">            warning=&#123;warning&#125;</span><br><span class="line">            onPress=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">inspecting</span>: warning&#125;)&#125;</span><br><span class="line">            onDismiss=&#123;() =&gt; <span class="keyword">this</span>.dismissWarning(warning)&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        );</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> listStyle = [</span><br><span class="line">      styles.list,</span><br><span class="line">      <span class="comment">// Additional `0.4` so the 5th row can peek into view.</span></span><br><span class="line">      &#123;<span class="attr">height</span>: <span class="built_in">Math</span>.min(rows.length, <span class="number">4.4</span>) * (rowGutter + rowHeight)&#125;,</span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;View style=&#123;inspector ? styles.fullScreen : listStyle&#125;&gt;</span><br><span class="line">        &lt;ScrollView style=&#123;listStyle&#125; scrollsToTop=&#123;<span class="literal">false</span>&#125;&gt;</span><br><span class="line">          &#123;rows&#125;</span><br><span class="line">        &lt;<span class="regexp">/ScrollView&gt;</span></span><br><span class="line"><span class="regexp">        &#123;inspector&#125;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>View&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过YellowBox.js知道，RN只是用View来显示warning信息的，<em>但是它又是怎么做到显示在UI的最上层，并且不影响其他UI组件的操作呢？</em><br>通过读源码，看到在AppContainer.js中YellowBox作为组件被使用。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">render(): React.Element&lt;*&gt; &#123;</span><br><span class="line">   <span class="keyword">let</span> yellowBox = <span class="literal">null</span>;</span><br><span class="line">   <span class="keyword">if</span> (__DEV__) &#123;</span><br><span class="line">     <span class="keyword">const</span> YellowBox = <span class="built_in">require</span>(<span class="string">'YellowBox'</span>);</span><br><span class="line">     yellowBox = <span class="xml"><span class="tag">&lt;<span class="name">YellowBox</span> /&gt;</span>;</span></span><br><span class="line"><span class="xml">   &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">   return (</span></span><br><span class="line">     &lt;View style=&#123;styles.appContainer&#125; pointerEvents="box-none"&gt;</span><br><span class="line">       &lt;View</span><br><span class="line">         collapsable=&#123;!this.state.inspector&#125;</span><br><span class="line">         key=&#123;this.state.mainKey&#125;</span><br><span class="line">         pointerEvents="box-none"</span><br><span class="line">         style=&#123;styles.appContainer&#125; ref=&#123;(ref) =&gt; &#123;this._mainRef = ref;&#125;&#125;&gt;</span><br><span class="line">         &#123;this.props.children&#125;</span><br><span class="line">       &lt;/View&gt;</span><br><span class="line">       &#123;yellowBox&#125;</span><br><span class="line">       &#123;this.state.inspector&#125;</span><br><span class="line"><span class="xml">     <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span></span><br><span class="line"><span class="xml">   );</span></span><br><span class="line"><span class="xml"> &#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>通过上面代码，可以看到RootView是由开发者的View（this.props.children），YellowBox（warning）和inspector（猜测是摇一摇后出现的devtool列表）。<br>看到这里就明白RN是通过在把YellowBox作为RootView的一个第二级的子view，再加上一个elevation实现 <em>在UI的最上层，并且不影响其他UI组件的操作</em> 这个要求。</p>
+<h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><p>下载实现一个通知控件的步骤就比较清晰了：</p>
+<ul>
+<li>实现一个简单的view组件</li>
+<li>将notificationView添加到RootView，作为第二级View</li>
+<li>实现一个‘开关’变量控制notificationView的显示与消失<br>如果要实现console.warn随调随用，需要再实现一个proxy达到notificationView中各种回调方法的封装和对外调用接口的实现（隐藏notificationView中各种方法的具体实现）。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/05/android/Glide缓存/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笨笨和羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/05/android/Glide缓存/" itemprop="url">Glide缓存策略</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-05T00:00:00+08:00">
+                2019-02-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Glide缓存策略："><a href="#Glide缓存策略：" class="headerlink" title="Glide缓存策略："></a>Glide缓存策略：</h3><ul>
+<li>读缓存：先内存，再磁盘，最后是网络</li>
+<li>写缓存：先磁盘，再内存</li>
+</ul>
+<p><strong>Glide并不会直接把整个原图存到内存中，而是根据imageView的大小，存一个等大小的图片到内存，但是如果是不同size的imageview，但是同一张图片，Glide同样会在内存中存很多个不同size的图片（Picasso只保持有一个原图，而再在显示图片的时候会根据imageview size来显示个缩放后的图片）。</strong></p>
 
           
         
