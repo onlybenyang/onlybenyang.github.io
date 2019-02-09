@@ -240,171 +240,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/RN与原生Activty互相跳转/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="笨笨和羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/09/react_native/RN与原生Activty互相跳转/" itemprop="url">react所在Activity与其他Activity之间的跳转</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
-                2019-02-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/react-native/" itemprop="url" rel="index">
-                    <span itemprop="name">react native</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>RN可看作是一个特殊的Activity，它的View由React类型的标签来表达，但大部分React标签使用的还是原生的Native控件，这大概就是他为啥叫React Native的原因吧。</p>
-<p>既然RN可以看作是一个Activity，那么Android中Activity之间的跳转通常用intent来实现。</p>
-<h3 id="RN-—-gt-Android"><a href="#RN-—-gt-Android" class="headerlink" title="RN —&gt; Android"></a>RN —&gt; Android</h3><p>因为要调用到Intent去做Activity之间的跳转，所以需要在Native提供一个调用Intent的ReactMethod给JS使用，这样JS触发相应方法后RN所在的特殊Activity就会被新的Activity压到栈下面。</p>
-<p>要让RN和Android可以通信，Native需要从上到下去添加一个bridge来建立通信，bridge的层次依次是： MainApplication—&gt;ReactPackage—&gt;ReactContextBaseJavaModule—&gt;Native Code</p>
-<p>ok，接下来就code table：</p>
-<ol>
-<li>MainApplication因为implements ReactApplication，所以会有getReactNativeHost返回一个ReactNativeHost对象，我们只需要在ReactNativeHost对象中添加我们的ModulePackage就可以了。</li>
-</ol>
-<p>MainApplication.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ReactNativeHost mReactNativeHost = <span class="keyword">new</span> ReactNativeHost(<span class="keyword">this</span>) &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">getUseDeveloperSupport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> BuildConfig.DEBUG;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> List&lt;ReactPackage&gt; <span class="title">getPackages</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.asList(</span><br><span class="line">            <span class="keyword">new</span> ModulePackage()</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ReactNativeHost <span class="title">getReactNativeHost</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> mReactNativeHost;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>实现一个ModulePackage implements ReactPackage，去实现createNativeModules方法，将自己的ReactModule类放进去。</li>
-</ol>
-<p>ModulePackage.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;NativeModule&gt; <span class="title">createNativeModules</span><span class="params">(ReactApplicationContext reactContext)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.&lt;NativeModule&gt;asList(</span><br><span class="line">            <span class="keyword">new</span> ReactModule(reactContext)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>实现 ReactModule extends ReactContextBaseJavaModule，重写getName，getConstants方法，在实现一个@ReactMethod方法给JS调用就好。</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReactModule</span> <span class="keyword">extends</span> <span class="title">ReactContextBaseJavaModule</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AppUtilsModule</span><span class="params">(ReactApplicationContext reactContext)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(reactContext);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">getConstants</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.getConstants();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"IntentModule"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ReactMethod</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startTheActivity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Context context = getCurrentActivity();</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(context, SomeActivity.class);</span><br><span class="line">        context.startActivity(intent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样就完成了Native的bridge，后面只要在JS中使用NativeModules.IntentModule.startTheActivity()就可以跳转到Native的SomeActivity。</p>
-<p>至于Android —&gt;RN，如果是需要跳转到RN指定页面，具体没有代码实现，但有个思路是，通过调用一个有参数的ReactMethod，可以通过回调方法把Native的数据传回给JS，这样JS拿到data后根据data用navigator去跳转到指定页面。这样只要在原生代码处调用以下代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(SomeActivity.<span class="keyword">this</span>, ReactModule.class);</span><br><span class="line">intent.putExtra(<span class="string">"data"</span>, <span class="string">"homeview"</span>);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure>
-<p>就可以在ReactModule处通过getIntent().getStringExtra(“data”)获得数据，传给JS，实现跳转。</p>
-<p>这个没有实验过，似乎可以通过JS</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/Deeplink 被js和native分别监听并各自处理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -674,6 +509,171 @@
 <li>将notificationView添加到RootView，作为第二级View</li>
 <li>实现一个‘开关’变量控制notificationView的显示与消失<br>如果要实现console.warn随调随用，需要再实现一个proxy达到notificationView中各种回调方法的封装和对外调用接口的实现（隐藏notificationView中各种方法的具体实现）。</li>
 </ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/RN与原生Activty互相跳转/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笨笨和羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/09/react_native/RN与原生Activty互相跳转/" itemprop="url">react所在Activity与其他Activity之间的跳转</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
+                2019-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/react-native/" itemprop="url" rel="index">
+                    <span itemprop="name">react native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>RN可看作是一个特殊的Activity，它的View由React类型的标签来表达，但大部分React标签使用的还是原生的Native控件，这大概就是他为啥叫React Native的原因吧。</p>
+<p>既然RN可以看作是一个Activity，那么Android中Activity之间的跳转通常用intent来实现。</p>
+<h3 id="RN-—-gt-Android"><a href="#RN-—-gt-Android" class="headerlink" title="RN —&gt; Android"></a>RN —&gt; Android</h3><p>因为要调用到Intent去做Activity之间的跳转，所以需要在Native提供一个调用Intent的ReactMethod给JS使用，这样JS触发相应方法后RN所在的特殊Activity就会被新的Activity压到栈下面。</p>
+<p>要让RN和Android可以通信，Native需要从上到下去添加一个bridge来建立通信，bridge的层次依次是： MainApplication—&gt;ReactPackage—&gt;ReactContextBaseJavaModule—&gt;Native Code</p>
+<p>ok，接下来就code table：</p>
+<ol>
+<li>MainApplication因为implements ReactApplication，所以会有getReactNativeHost返回一个ReactNativeHost对象，我们只需要在ReactNativeHost对象中添加我们的ModulePackage就可以了。</li>
+</ol>
+<p>MainApplication.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ReactNativeHost mReactNativeHost = <span class="keyword">new</span> ReactNativeHost(<span class="keyword">this</span>) &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">getUseDeveloperSupport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> BuildConfig.DEBUG;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> List&lt;ReactPackage&gt; <span class="title">getPackages</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.asList(</span><br><span class="line">            <span class="keyword">new</span> ModulePackage()</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ReactNativeHost <span class="title">getReactNativeHost</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> mReactNativeHost;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>实现一个ModulePackage implements ReactPackage，去实现createNativeModules方法，将自己的ReactModule类放进去。</li>
+</ol>
+<p>ModulePackage.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;NativeModule&gt; <span class="title">createNativeModules</span><span class="params">(ReactApplicationContext reactContext)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.&lt;NativeModule&gt;asList(</span><br><span class="line">            <span class="keyword">new</span> ReactModule(reactContext)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>实现 ReactModule extends ReactContextBaseJavaModule，重写getName，getConstants方法，在实现一个@ReactMethod方法给JS调用就好。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReactModule</span> <span class="keyword">extends</span> <span class="title">ReactContextBaseJavaModule</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AppUtilsModule</span><span class="params">(ReactApplicationContext reactContext)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(reactContext);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">getConstants</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.getConstants();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"IntentModule"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ReactMethod</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startTheActivity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Context context = getCurrentActivity();</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(context, SomeActivity.class);</span><br><span class="line">        context.startActivity(intent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样就完成了Native的bridge，后面只要在JS中使用NativeModules.IntentModule.startTheActivity()就可以跳转到Native的SomeActivity。</p>
+<p>至于Android —&gt;RN，如果是需要跳转到RN指定页面，具体没有代码实现，但有个思路是，通过调用一个有参数的ReactMethod，可以通过回调方法把Native的数据传回给JS，这样JS拿到data后根据data用navigator去跳转到指定页面。这样只要在原生代码处调用以下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(SomeActivity.<span class="keyword">this</span>, ReactModule.class);</span><br><span class="line">intent.putExtra(<span class="string">"data"</span>, <span class="string">"homeview"</span>);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure>
+<p>就可以在ReactModule处通过getIntent().getStringExtra(“data”)获得数据，传给JS，实现跳转。</p>
+<p>这个没有实验过，似乎可以通过JS</p>
 
           
         
