@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-CN">
+<html class="theme-next gemini use-motion" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -94,7 +94,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Gemini',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -1020,6 +1020,161 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/react-native的flex布局/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笨笨和羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/09/react_native/react-native的flex布局/" itemprop="url">react native 的flex布局</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
+                2019-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/react-native/" itemprop="url" rel="index">
+                    <span itemprop="name">react native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="react-native-的flex布局"><a href="#react-native-的flex布局" class="headerlink" title="react native 的flex布局"></a>react native 的flex布局</h1><h2 id="flex-1和flex-0（默认-有什么区别？"><a href="#flex-1和flex-0（默认-有什么区别？" class="headerlink" title="flex=1和flex=0（默认)有什么区别？"></a>flex=1和flex=0（默认)有什么区别？</h2><p>react native是基于flex容器进行设计的，当对component没有显式地设置flex的时候，flex=0，此时的component类似与android中的’content-wrap’，它的长和宽由自身的style来设置，或者在style没有设置长宽的时候由子组件的长宽来设置(包裹子组件)。</p>
+<p>当flex=1且没有同级的组件，那它就会占满父组件或占满屏幕。flex&gt;0时，它就是对一个组件大小权重的设置。</p>
+<h2 id="如何利用flexDirection和flexWrap实现一个GridView"><a href="#如何利用flexDirection和flexWrap实现一个GridView" class="headerlink" title="如何利用flexDirection和flexWrap实现一个GridView"></a>如何利用flexDirection和flexWrap实现一个GridView</h2><p>首先，flexDirection代表子组件放置方向，可以设置’row’(按行放置)或者’column’(按列放置)；flexWrap代表子组件顺着轴线放置，当超过父组件的轴线时，是否进行换行(‘wrap’/‘nowrap’)。<br>为了实现一个GridView，可以使用React Native的ListView(FlatList)，因为只有当子组件超过父组件的轴线时才会换行，所以必须在renderRow中指定子组件的width。在最新的RN中，width和height都可以用百分比来表示，这对于屏幕适配更好，但实现GridView的时候，应该设置width再通过<strong>aspectRatio</strong>去设置height，这样才会达到预期的效果。如果width和height都去设置，会因为ListView的每个cell的height都被styles.grid限制了，使用百分比就达不到预期效果。（<em>styles.grid在styles.item的外层</em>）<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">_renderRow() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;View</span><br><span class="line">            style = &#123;styles.item&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;ListView</span><br><span class="line">    contentContainerStyle=&#123;styles.grid&#125;</span><br><span class="line">    dataSource=&#123;<span class="keyword">this</span>.state.dataSource&#125;</span><br><span class="line">    renderRow=&#123;<span class="keyword">this</span>._renderRow&#125;</span><br><span class="line">&gt;</span><br><span class="line">&lt;<span class="regexp">/ListView&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const styles = StyleSheet.create(&#123;</span></span><br><span class="line"><span class="regexp">    grid: &#123;</span></span><br><span class="line"><span class="regexp">        flexWrap: 'wrap',</span></span><br><span class="line"><span class="regexp">        flexDirection: 'row'</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    item:&#123;</span></span><br><span class="line"><span class="regexp">        width: 200</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure></p>
+<p>所以，在flex的使用不必在每个组件中去写flex:1，也可以通过用百分比设置长宽，或者height/width+aspectRatio来写弹性组件。</p>
+<h2 id="alighItem-justifyContent-和-alignSelf"><a href="#alighItem-justifyContent-和-alignSelf" class="headerlink" title="alighItem, justifyContent 和 alignSelf"></a>alighItem, justifyContent 和 alignSelf</h2><p>这三个属性是设置组件排列顺序的，react native在flex容器有一个主轴和一个副轴，通过用这三个属性来指定组件分别向两个轴的哪个方向放置。</p>
+<ol>
+<li><p>justifyContent 是管主轴方向子组件的排列顺序，在flex布局中，默认的flexDirection是’column’，所以主轴方向是’column’（y轴方向）。可以设置的参数：’flex-start’, ‘flex-end’, ‘center’, ‘stretch’(默认)</p>
+</li>
+<li><p>alighItem 是管副轴方向子组件的排列顺序(默认是x轴方向),可以设置的参数：’flex-start’(默认), ‘flex-end’, ‘center’, ‘space-between’, ‘space-around’</p>
+</li>
+<li><p>alignSelf 是管副轴方向子组件的排列顺序(默认是x轴方向)，但它会覆盖父组件的alignItems，很强大很好用。可以设置的参数：’auto’(默认)，’flex-start’, ‘flex-end’, ‘center’, ‘stretch’(默认)</p>
+</li>
+</ol>
+<h2 id="绝对布局-position-‘absolute’"><a href="#绝对布局-position-‘absolute’" class="headerlink" title="绝对布局 position: ‘absolute’"></a>绝对布局 position: ‘absolute’</h2><p>在某些情况下需要一个组件固定在父组件的某一个位置上，躲开flexDirection的控制，这个时候，可以设置该组件的position: ‘absolute’，此时，这个组件一样是占据了父组件的空间的。<br>那如果想要组件悬浮在父组件的某个指定位置，我们只需要设置<strong>elevation</strong>的值就可以让这个组件跑到父组件的上面，但要小心它会盖住父组件下面的内容。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/react navigation的deeplink/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1135,161 +1290,6 @@
 <p>用Linking方法如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// app没有启动，deeplink启动app时触发，在后台时不会触发</span><br><span class="line">Linking.getInitialURL()</span><br><span class="line">    .then(url =&gt; &#123;</span><br><span class="line">    if (url) &#123;</span><br><span class="line">        this.isDeepLinkingStart = true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// app在后台，deeplink启动app时触发，第一次启动app不会触发</span><br><span class="line">Linking.addEventListener(&apos;url&apos;, (&#123;url&#125;) =&gt; &#123;</span><br><span class="line">    if (url) &#123;</span><br><span class="line">        this.isDeepLinkingStart = true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>因为这是RN自己组件去监听底层的intent，没有经过react navigation，所以这个时候获得url时没有经过react navigation处理，是 <em>schema://host/path</em> 这样的完整url. 这样做的好处就是不会受限与react navigation，让整个deeplink的跳转更加受我们控制。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/react_native/react-native的flex布局/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="笨笨和羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/09/react_native/react-native的flex布局/" itemprop="url">react native 的flex布局</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
-                2019-02-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/react-native/" itemprop="url" rel="index">
-                    <span itemprop="name">react native</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="react-native-的flex布局"><a href="#react-native-的flex布局" class="headerlink" title="react native 的flex布局"></a>react native 的flex布局</h1><h2 id="flex-1和flex-0（默认-有什么区别？"><a href="#flex-1和flex-0（默认-有什么区别？" class="headerlink" title="flex=1和flex=0（默认)有什么区别？"></a>flex=1和flex=0（默认)有什么区别？</h2><p>react native是基于flex容器进行设计的，当对component没有显式地设置flex的时候，flex=0，此时的component类似与android中的’content-wrap’，它的长和宽由自身的style来设置，或者在style没有设置长宽的时候由子组件的长宽来设置(包裹子组件)。</p>
-<p>当flex=1且没有同级的组件，那它就会占满父组件或占满屏幕。flex&gt;0时，它就是对一个组件大小权重的设置。</p>
-<h2 id="如何利用flexDirection和flexWrap实现一个GridView"><a href="#如何利用flexDirection和flexWrap实现一个GridView" class="headerlink" title="如何利用flexDirection和flexWrap实现一个GridView"></a>如何利用flexDirection和flexWrap实现一个GridView</h2><p>首先，flexDirection代表子组件放置方向，可以设置’row’(按行放置)或者’column’(按列放置)；flexWrap代表子组件顺着轴线放置，当超过父组件的轴线时，是否进行换行(‘wrap’/‘nowrap’)。<br>为了实现一个GridView，可以使用React Native的ListView(FlatList)，因为只有当子组件超过父组件的轴线时才会换行，所以必须在renderRow中指定子组件的width。在最新的RN中，width和height都可以用百分比来表示，这对于屏幕适配更好，但实现GridView的时候，应该设置width再通过<strong>aspectRatio</strong>去设置height，这样才会达到预期的效果。如果width和height都去设置，会因为ListView的每个cell的height都被styles.grid限制了，使用百分比就达不到预期效果。（<em>styles.grid在styles.item的外层</em>）<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">_renderRow() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;View</span><br><span class="line">            style = &#123;styles.item&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;ListView</span><br><span class="line">    contentContainerStyle=&#123;styles.grid&#125;</span><br><span class="line">    dataSource=&#123;<span class="keyword">this</span>.state.dataSource&#125;</span><br><span class="line">    renderRow=&#123;<span class="keyword">this</span>._renderRow&#125;</span><br><span class="line">&gt;</span><br><span class="line">&lt;<span class="regexp">/ListView&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const styles = StyleSheet.create(&#123;</span></span><br><span class="line"><span class="regexp">    grid: &#123;</span></span><br><span class="line"><span class="regexp">        flexWrap: 'wrap',</span></span><br><span class="line"><span class="regexp">        flexDirection: 'row'</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    item:&#123;</span></span><br><span class="line"><span class="regexp">        width: 200</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure></p>
-<p>所以，在flex的使用不必在每个组件中去写flex:1，也可以通过用百分比设置长宽，或者height/width+aspectRatio来写弹性组件。</p>
-<h2 id="alighItem-justifyContent-和-alignSelf"><a href="#alighItem-justifyContent-和-alignSelf" class="headerlink" title="alighItem, justifyContent 和 alignSelf"></a>alighItem, justifyContent 和 alignSelf</h2><p>这三个属性是设置组件排列顺序的，react native在flex容器有一个主轴和一个副轴，通过用这三个属性来指定组件分别向两个轴的哪个方向放置。</p>
-<ol>
-<li><p>justifyContent 是管主轴方向子组件的排列顺序，在flex布局中，默认的flexDirection是’column’，所以主轴方向是’column’（y轴方向）。可以设置的参数：’flex-start’, ‘flex-end’, ‘center’, ‘stretch’(默认)</p>
-</li>
-<li><p>alighItem 是管副轴方向子组件的排列顺序(默认是x轴方向),可以设置的参数：’flex-start’(默认), ‘flex-end’, ‘center’, ‘space-between’, ‘space-around’</p>
-</li>
-<li><p>alignSelf 是管副轴方向子组件的排列顺序(默认是x轴方向)，但它会覆盖父组件的alignItems，很强大很好用。可以设置的参数：’auto’(默认)，’flex-start’, ‘flex-end’, ‘center’, ‘stretch’(默认)</p>
-</li>
-</ol>
-<h2 id="绝对布局-position-‘absolute’"><a href="#绝对布局-position-‘absolute’" class="headerlink" title="绝对布局 position: ‘absolute’"></a>绝对布局 position: ‘absolute’</h2><p>在某些情况下需要一个组件固定在父组件的某一个位置上，躲开flexDirection的控制，这个时候，可以设置该组件的position: ‘absolute’，此时，这个组件一样是占据了父组件的空间的。<br>那如果想要组件悬浮在父组件的某个指定位置，我们只需要设置<strong>elevation</strong>的值就可以让这个组件跑到父组件的上面，但要小心它会盖住父组件下面的内容。</p>
 
           
         
