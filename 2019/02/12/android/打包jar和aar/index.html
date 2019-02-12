@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="想学画画的羊">
 <meta property="og:description" content="Library不包含远程库的情况如果不包含远程库，那么项目在build一次后会在 Library_Directory/build/intermediates/bundles/release/ 下生成class文件和资源文件。所以可以通过对这些文件的压缩打包来获得jar包或者aar文件">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://onlybenyang.github.io/2019/02/12/images/jar_pic.png">
-<meta property="og:updated_time" content="2019-02-12T13:36:05.000Z">
+<meta property="og:image" content="https://onlybenyang.github.io/2019/02/images/jar_pic.png">
+<meta property="og:updated_time" content="2019-02-12T13:41:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="打包aar和jar文件">
 <meta name="twitter:description" content="Library不包含远程库的情况如果不包含远程库，那么项目在build一次后会在 Library_Directory/build/intermediates/bundles/release/ 下生成class文件和资源文件。所以可以通过对这些文件的压缩打包来获得jar包或者aar文件">
-<meta name="twitter:image" content="https://onlybenyang.github.io/2019/02/12/images/jar_pic.png">
+<meta name="twitter:image" content="https://onlybenyang.github.io/2019/02/images/jar_pic.png">
 
 
 
@@ -342,7 +342,7 @@
 <ol start="2">
 <li>然后在Terminal中键入 gradlew makeJar 回车看到如下所示就OK了：</li>
 </ol>
-<p><img src="../../images/jar_pic.png" alt=""></p>
+<p><img src="../../../images/jar_pic.png" alt=""></p>
 <ol start="3">
 <li>在主工程App的build中要加入librarys 这个依赖model<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    ...</span><br><span class="line">    compile fileTree(dir: 'libs', include: ['*.jar'])</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -378,8 +378,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/12/android/Android_N的行为变更/" rel="next" title="常用功能在Android N上的变化">
-                <i class="fa fa-chevron-left"></i> 常用功能在Android N上的变化
+              <a href="/2019/02/12/android/Okhttp3的Interceptor/" rel="next" title="Okttp3的Interceptor">
+                <i class="fa fa-chevron-left"></i> Okttp3的Interceptor
               </a>
             
           </div>
@@ -387,6 +387,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/12/android/什么是Context/" rel="prev" title="Android的Context详解">
+                Android的Context详解 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
