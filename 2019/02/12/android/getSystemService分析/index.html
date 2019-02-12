@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="当我们需要获得系统服务的时候，就会使用Context.getSystemService来获得一个对应Service 的Manager。而因为Android内部的实现，所以获得的这个Manager是一个单例。 首先，理清下getSystemService的原理，然后列出一些常用的SystemService。 getSystemService原理1234graph LRContextWrapperIm">
+<meta name="description" content="当我们需要获得系统服务的时候，就会使用Context.getSystemService来获得一个对应Service 的Manager。而因为Android内部的实现，所以获得的这个Manager是一个单例。 首先，理清下getSystemService的原理，然后列出一些常用的SystemService。">
 <meta name="keywords" content="SystemService, 源码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="获得系统服务的源码分析">
 <meta property="og:url" content="https://onlybenyang.github.io/2019/02/12/android/getSystemService分析/index.html">
 <meta property="og:site_name" content="想学画画的羊">
-<meta property="og:description" content="当我们需要获得系统服务的时候，就会使用Context.getSystemService来获得一个对应Service 的Manager。而因为Android内部的实现，所以获得的这个Manager是一个单例。 首先，理清下getSystemService的原理，然后列出一些常用的SystemService。 getSystemService原理1234graph LRContextWrapperIm">
+<meta property="og:description" content="当我们需要获得系统服务的时候，就会使用Context.getSystemService来获得一个对应Service 的Manager。而因为Android内部的实现，所以获得的这个Manager是一个单例。 首先，理清下getSystemService的原理，然后列出一些常用的SystemService。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-12T13:12:08.000Z">
+<meta property="og:updated_time" content="2019-02-12T13:25:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="获得系统服务的源码分析">
-<meta name="twitter:description" content="当我们需要获得系统服务的时候，就会使用Context.getSystemService来获得一个对应Service 的Manager。而因为Android内部的实现，所以获得的这个Manager是一个单例。 首先，理清下getSystemService的原理，然后列出一些常用的SystemService。 getSystemService原理1234graph LRContextWrapperIm">
+<meta name="twitter:description" content="当我们需要获得系统服务的时候，就会使用Context.getSystemService来获得一个对应Service 的Manager。而因为Android内部的实现，所以获得的这个Manager是一个单例。 首先，理清下getSystemService的原理，然后列出一些常用的SystemService。">
 
 
 
@@ -333,7 +333,7 @@
 
       
         <p>当我们需要获得系统服务的时候，就会使用<em>Context.getSystemService</em>来获得一个对应Service 的Manager。而因为Android内部的实现，所以获得的这个Manager是一个单例。</p>
-<p>首先，理清下getSystemService的原理，然后列出一些常用的SystemService。</p>
+<p>首先，理清下getSystemService的原理，然后列出一些常用的SystemService。<br><a id="more"></a></p>
 <h4 id="getSystemService原理"><a href="#getSystemService原理" class="headerlink" title="getSystemService原理"></a>getSystemService原理</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line"></span><br><span class="line">ContextWrapperImpl(ContextWrapperImpl)--&gt;ContextWrapper(ContextWrapper)</span><br><span class="line">ContextWrapper(ContextWrapper)--&gt;Context(Context)</span><br></pre></td></tr></table></figure>
 <p>我们最后可以在ContextWrapperImpl找到getSystemService的实现代码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">getSystemService</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> SystemServiceRegistry.getSystemService(<span class="keyword">this</span>, name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -407,8 +407,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/12/android/Notification note/" rel="next" title="实现兼容的Notification">
-                <i class="fa fa-chevron-left"></i> 实现兼容的Notification
+              <a href="/2019/02/12/android/什么是Context/" rel="next" title="Android的Context详解">
+                <i class="fa fa-chevron-left"></i> Android的Context详解
               </a>
             
           </div>

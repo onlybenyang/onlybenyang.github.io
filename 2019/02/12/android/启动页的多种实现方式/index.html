@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="想学画画的羊">
 <meta property="og:description" content="1. 静态启动页1. 用Theme设置启动页先说最简单的一种启动页的实现方式，在AndroidManifest.xml 的第一个Activity添加一个theme，在theme中设置windowBackground*就行，可以用一张图片（不支持gif）或者一种颜色。 values/styles.xml12345&amp;lt;resources&amp;gt;    &amp;lt;style name=&quot;Theme.S">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-12T13:18:09.000Z">
+<meta property="og:updated_time" content="2019-02-12T13:24:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="启动页的实现">
 <meta name="twitter:description" content="1. 静态启动页1. 用Theme设置启动页先说最简单的一种启动页的实现方式，在AndroidManifest.xml 的第一个Activity添加一个theme，在theme中设置windowBackground*就行，可以用一张图片（不支持gif）或者一种颜色。 values/styles.xml12345&amp;lt;resources&amp;gt;    &amp;lt;style name=&quot;Theme.S">
@@ -335,7 +335,7 @@
         <h2 id="1-静态启动页"><a href="#1-静态启动页" class="headerlink" title="1. 静态启动页"></a>1. 静态启动页</h2><h3 id="1-用Theme设置启动页"><a href="#1-用Theme设置启动页" class="headerlink" title="1. 用Theme设置启动页"></a>1. 用Theme设置启动页</h3><p>先说最简单的一种启动页的实现方式，在AndroidManifest.xml 的第一个Activity添加一个theme，在theme中设置<strong>windowBackground*</strong>就行，可以用一张图片（不支持gif）或者一种颜色。</p>
 <p>values/styles.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"Theme.StartPage"</span> <span class="attr">parent</span>=<span class="string">"Theme.ReactNative.AppCompat.Light.NoActionBar.FullScreen"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowBackground"</span>&gt;</span>@drawable/splash_image<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>AndroidManifest.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">".SplashActivity"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:launchMode</span>=<span class="string">"singleTop"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:theme</span>=<span class="string">"@style/Theme.StartPage"</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>这样设置启动页是无法避免刚打开app时出现的黑屏或者白屏，启动页的意义不大。</p>
+<p>这样设置启动页是无法避免刚打开app时出现的黑屏或者白屏，启动页的意义不大。<br><a id="more"></a></p>
 <h3 id="2-利用Activity的layout的background-和-android-color-transparent-属性"><a href="#2-利用Activity的layout的background-和-android-color-transparent-属性" class="headerlink" title="2. 利用Activity的layout的background 和 @android:color/transparent 属性"></a>2. 利用Activity的layout的background 和 @android:color/transparent 属性</h3><h2 id="2-动态启动页"><a href="#2-动态启动页" class="headerlink" title="2. 动态启动页"></a>2. 动态启动页</h2>
       
     </div>
@@ -366,8 +366,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/12/android/Android_N的行为变更/" rel="next" title="常用功能在Android N上的变化">
-                <i class="fa fa-chevron-left"></i> 常用功能在Android N上的变化
+              <a href="/2019/02/12/android/集成Google FireBase/" rel="next" title="FireBase整合总结">
+                <i class="fa fa-chevron-left"></i> FireBase整合总结
               </a>
             
           </div>

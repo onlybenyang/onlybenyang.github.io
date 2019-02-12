@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Android N,">
+  <meta name="keywords" content="Android,">
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="主要记录对code影响比较大的行为变化工程瘦身：后台优化为了优化内存使用和电量的消耗，Android N去掉了三个隐式的广播。这个改变对用户来说绝对一大利好，因为后台注册这些广播的app在后台会经常被拉起，自然而然会影响到设备性能进而影响用户体验（很不幸，对开发者来讲，又有一些trick被限制了）。比如CONNECTIVITY_ACTION，在N之前的系统中，注册该广播的app在网络连接有变动时都">
-<meta name="keywords" content="Android N">
+<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常用功能在Android N上的变化">
 <meta property="og:url" content="https://onlybenyang.github.io/2019/02/12/android/Android_N的行为变更/index.html">
 <meta property="og:site_name" content="想学画画的羊">
 <meta property="og:description" content="主要记录对code影响比较大的行为变化工程瘦身：后台优化为了优化内存使用和电量的消耗，Android N去掉了三个隐式的广播。这个改变对用户来说绝对一大利好，因为后台注册这些广播的app在后台会经常被拉起，自然而然会影响到设备性能进而影响用户体验（很不幸，对开发者来讲，又有一些trick被限制了）。比如CONNECTIVITY_ACTION，在N之前的系统中，注册该广播的app在网络连接有变动时都">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-12T13:13:54.000Z">
+<meta property="og:updated_time" content="2019-02-12T13:25:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用功能在Android N上的变化">
 <meta name="twitter:description" content="主要记录对code影响比较大的行为变化工程瘦身：后台优化为了优化内存使用和电量的消耗，Android N去掉了三个隐式的广播。这个改变对用户来说绝对一大利好，因为后台注册这些广播的app在后台会经常被拉起，自然而然会影响到设备性能进而影响用户体验（很不幸，对开发者来讲，又有一些trick被限制了）。比如CONNECTIVITY_ACTION，在N之前的系统中，注册该广播的app在网络连接有变动时都">
@@ -332,7 +332,7 @@
       
 
       
-        <h2 id="主要记录对code影响比较大的行为变化"><a href="#主要记录对code影响比较大的行为变化" class="headerlink" title="主要记录对code影响比较大的行为变化"></a>主要记录对code影响比较大的行为变化</h2><h3 id="工程瘦身：后台优化"><a href="#工程瘦身：后台优化" class="headerlink" title="工程瘦身：后台优化"></a>工程瘦身：后台优化</h3><p>为了优化内存使用和电量的消耗，Android N去掉了三个隐式的广播。这个改变对用户来说绝对一大利好，因为后台注册这些广播的app在后台会经常被拉起，自然而然会影响到设备性能进而影响用户体验（很不幸，对开发者来讲，又有一些trick被限制了）。比如<a href="https://link.jianshu.com?t=http://developer.android.com/reference/android/net/ConnectivityManager.html#CONNECTIVITY_ACTION" target="_blank" rel="noopener"><code>CONNECTIVITY_ACTION</code></a>，在N之前的系统中，注册该广播的app在网络连接有变动时都会收到系统发出的广播，这样主进程被kill的app就可以复活了。此外还有<a href="https://link.jianshu.com?t=http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_PICTURE" target="_blank" rel="noopener"><code>ACTION_NEW_PICTURE</code></a><br>和 <a href="https://link.jianshu.com?t=http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_VIDEO" target="_blank" rel="noopener"><code>ACTION_NEW_VIDEO</code></a>。<br>对于这三个广播，Android N具体做了如下的优化：</p>
+        <h2 id="主要记录对code影响比较大的行为变化"><a href="#主要记录对code影响比较大的行为变化" class="headerlink" title="主要记录对code影响比较大的行为变化"></a>主要记录对code影响比较大的行为变化</h2><h3 id="工程瘦身：后台优化"><a href="#工程瘦身：后台优化" class="headerlink" title="工程瘦身：后台优化"></a>工程瘦身：后台优化</h3><p>为了优化内存使用和电量的消耗，Android N去掉了三个隐式的广播。这个改变对用户来说绝对一大利好，因为后台注册这些广播的app在后台会经常被拉起，自然而然会影响到设备性能进而影响用户体验（很不幸，对开发者来讲，又有一些trick被限制了）。比如<a href="https://link.jianshu.com?t=http://developer.android.com/reference/android/net/ConnectivityManager.html#CONNECTIVITY_ACTION" target="_blank" rel="noopener"><code>CONNECTIVITY_ACTION</code></a>，在N之前的系统中，注册该广播的app在网络连接有变动时都会收到系统发出的广播，这样主进程被kill的app就可以复活了。此外还有<a href="https://link.jianshu.com?t=http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_PICTURE" target="_blank" rel="noopener"><code>ACTION_NEW_PICTURE</code></a><br>和 <a href="https://link.jianshu.com?t=http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_VIDEO" target="_blank" rel="noopener"><code>ACTION_NEW_VIDEO</code></a>。<br>对于这三个广播，Android N具体做了如下的优化：<br><a id="more"></a></p>
 <ul>
 <li><code>CONNECTIVITY_ACTION</code>：targetSdk为Android N的app如果在后台就无法收到该广播，即使你在manifest中做了相应配置，但如果app在前台，依然还是可以收到。</li>
 <li><code>ACTION_NEW_PICTURE</code>和<code>CONNECTIVITY_ACTION</code>：这两个广播的优化会影响所有app，只要你的app运行在Android N系统的手机上，不管targetSdk是不是Android N，都会受到限制。</li>
@@ -367,7 +367,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android-N/" rel="tag"># Android N</a>
+            <a href="/tags/Android/" rel="tag"># Android</a>
           
         </div>
       
@@ -380,8 +380,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/12/android/打开第三方App/" rel="next" title="打开第三方App的方法">
-                <i class="fa fa-chevron-left"></i> 打开第三方App的方法
+              <a href="/2019/02/12/android/Notification note/" rel="next" title="实现兼容的Notification">
+                <i class="fa fa-chevron-left"></i> 实现兼容的Notification
               </a>
             
           </div>
@@ -390,8 +390,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/12/android/启动页的多种实现方式/" rel="prev" title="启动页的实现">
-                启动页的实现 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/12/android/打包jar和aar/" rel="prev" title="打包aar和jar文件">
+                打包aar和jar文件 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

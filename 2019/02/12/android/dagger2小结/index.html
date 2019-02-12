@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="想学画画的羊">
 <meta property="og:description" content="配置 dagger2 到工程 根目录下的build.gradle 12345buildscript &amp;#123;    dependencies &amp;#123;        classpath &apos;com.neenbedankt.gradle.plugins:android-apt:1.8&apos;    &amp;#125;&amp;#125;  app下的build.gradle 123456apply plugin:">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-12T13:13:11.000Z">
+<meta property="og:updated_time" content="2019-02-12T13:25:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dagger2使用小结">
 <meta name="twitter:description" content="配置 dagger2 到工程 根目录下的build.gradle 12345buildscript &amp;#123;    dependencies &amp;#123;        classpath &apos;com.neenbedankt.gradle.plugins:android-apt:1.8&apos;    &amp;#125;&amp;#125;  app下的build.gradle 123456apply plugin:">
@@ -340,6 +340,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: 'com.neenbedankt.android-apt'</span><br><span class="line">dependencies &#123;</span><br><span class="line">    apt 'com.google.dagger:dagger-compiler:2.4'</span><br><span class="line">    compile 'com.google.dagger:dagger:2.4'</span><br><span class="line">    provided 'org.glassfish:javax.annotation:10.0-b28' // @Inject的包</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<a id="more"></a>
 <h3 id="dagger2工程的结构与使用"><a href="#dagger2工程的结构与使用" class="headerlink" title="dagger2工程的结构与使用"></a>dagger2工程的结构与使用</h3><p>通常一个 dagger2 工程会用到 <strong>@Inject, @Module, @Component, @Scope</strong>这四个注解来对一些类来进行注入管理，来避免在使用它们的时候进行new的初始化操作。</p>
 <p>最简单的使用： @Inject + @Component</p>
 <ul>
@@ -414,8 +415,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/12/android/Okhttp3的Interceptor/" rel="next" title="Okttp3的Interceptor">
-                <i class="fa fa-chevron-left"></i> Okttp3的Interceptor
+              <a href="/2019/02/12/android/dialog实现的toast/" rel="next" title="dialog实现一个全局可自定义toast">
+                <i class="fa fa-chevron-left"></i> dialog实现一个全局可自定义toast
               </a>
             
           </div>
@@ -424,8 +425,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/12/android/打包jar和aar/" rel="prev" title="打包aar和jar文件">
-                打包aar和jar文件 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/12/android/Okhttp3的Interceptor/" rel="prev" title="Okttp3的Interceptor">
+                Okttp3的Interceptor <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

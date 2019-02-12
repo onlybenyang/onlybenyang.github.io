@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="想学画画的羊">
 <meta property="og:description" content="拦截器是一个非常强大的机制，可以监视，重写和重试call（request和response）。 这样可以用来很多网络请求问题：  监视网络：获得网络请求过程中的connection，url，headers等数据   重写请求：处理签名认证需要动态给予accessToken和accessSecret等问题 重试：。。。。  调用chain.proceed(request)是每个拦截器实现的一个主要部">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-12T13:11:09.000Z">
+<meta property="og:updated_time" content="2019-02-12T13:26:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Okttp3的Interceptor">
 <meta name="twitter:description" content="拦截器是一个非常强大的机制，可以监视，重写和重试call（request和response）。 这样可以用来很多网络请求问题：  监视网络：获得网络请求过程中的connection，url，headers等数据   重写请求：处理签名认证需要动态给予accessToken和accessSecret等问题 重试：。。。。  调用chain.proceed(request)是每个拦截器实现的一个主要部">
@@ -343,6 +343,7 @@
 </ul>
 <p>调用chain.proceed(request)是每个拦截器实现的一个主要部分。这个简单的方法是HTTP工作发生，产出满足请求的响应之处，</p>
 <p>拦截器可以链接，OkHttp使用列表来跟踪拦截器，并且拦截器按顺序被调用。</p>
+<a id="more"></a>
 <h3 id="监视网络的简单实现："><a href="#监视网络的简单实现：" class="headerlink" title="监视网络的简单实现："></a>监视网络的简单实现：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoggingInterceptor</span> <span class="keyword">implements</span> <span class="title">Interceptor</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Interceptor.Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    Request request = chain.request();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span> t1 = System.nanoTime();</span><br><span class="line">    logger.info(String.format(<span class="string">"Sending request %s on %s%n%s"</span>,</span><br><span class="line">        request.url(), chain.connection(), request.headers()));</span><br><span class="line"></span><br><span class="line">    Response response = chain.proceed(request);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span> t2 = System.nanoTime();</span><br><span class="line">    logger.info(String.format(<span class="string">"Received response for %s in %.1fms%n%s"</span>,</span><br><span class="line">        response.request().url(), (t2 - t1) / <span class="number">1e6</span>d, response.headers()));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> response;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">OkHttpClient client = <span class="keyword">new</span> OkHttpClient.Builder()</span><br><span class="line">    .addInterceptor(<span class="keyword">new</span> LoggingInterceptor())</span><br><span class="line">    .build();</span><br><span class="line"></span><br><span class="line">Request request = <span class="keyword">new</span> Request.Builder()</span><br><span class="line">    .url(<span class="string">"http://www.publicobject.com/helloworld.txt"</span>)</span><br><span class="line">    .header(<span class="string">"User-Agent"</span>, <span class="string">"OkHttp Example"</span>)</span><br><span class="line">    .build();</span><br><span class="line"></span><br><span class="line">Response response = client.newCall(request).execute();</span><br><span class="line">response.body().close();</span><br></pre></td></tr></table></figure>
 <p>输出：</p>
@@ -404,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/12/android/dialog实现的toast/" rel="next" title="dialog实现一个全局可自定义toast">
-                <i class="fa fa-chevron-left"></i> dialog实现一个全局可自定义toast
+              <a href="/2019/02/12/android/dagger2小结/" rel="next" title="Dagger2使用小结">
+                <i class="fa fa-chevron-left"></i> Dagger2使用小结
               </a>
             
           </div>
@@ -414,8 +415,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/12/android/dagger2小结/" rel="prev" title="Dagger2使用小结">
-                Dagger2使用小结 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/12/android/Notification note/" rel="prev" title="实现兼容的Notification">
+                实现兼容的Notification <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

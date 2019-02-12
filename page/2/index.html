@@ -243,6 +243,156 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/集成Google FireBase/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="想学画画的羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/12/android/集成Google FireBase/" itemprop="url">FireBase整合总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T00:00:00+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="FireBase整合总结"><a href="#FireBase整合总结" class="headerlink" title="FireBase整合总结"></a>FireBase整合总结</h2><p>###android配置：</p>
+<ol>
+<li>将google service加入到maven</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    // ...</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        // ...</span><br><span class="line">        classpath &apos;com.google.gms:google-services:4.0.1&apos; // google-services plugin</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">allprojects &#123;</span><br><span class="line">    // ...</span><br><span class="line">    repositories &#123;</span><br><span class="line">        // ...</span><br><span class="line">        google() // Google&apos;s Maven repository</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/12/android/集成Google FireBase/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/打开第三方App/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -506,361 +656,18 @@
 
       
         
-          
-            <p>###单例模式<br>饥汉模式——饱汉模式——双重锁模式（多线程）</p>
+          <p>###单例模式<br>饥汉模式——饱汉模式——双重锁模式（多线程）</p>
 <p>####饥汉模式：加载的就创建parm<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> Object parm = <span class="keyword">new</span> Object();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">instance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> parm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>####饱汉模式：用的时候再创建parm<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> Object parm;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">instance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(parm == <span class="keyword">null</span>) &#123;</span><br><span class="line">            parm = <span class="keyword">new</span> Object();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> parm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">···</span><br><span class="line"></span><br><span class="line">####双重锁模式：在饱汉模式的基础上加同步锁，防止多个线程同时访问parm</span><br><span class="line">```java</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> Object parm;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">instance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(parm == <span class="keyword">null</span>) &#123;</span><br><span class="line">            synchronize(parm) &#123;</span><br><span class="line">                parm = <span class="keyword">new</span> Object();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> parm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>###简单工厂模式：一个工厂，很多生产线，可以产出某一类的产品，不需知道生产过程<br>简单理解工厂模式：给Factory一张图纸，Factory用自己的部件，经过生产线产出Product<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ToyFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Toy <span class="title">produceToy</span><span class="params">(String toyType)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (toyType.equals(<span class="string">"car"</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Car();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (toyType.equals(<span class="string">"plane"</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Plane();</span><br><span class="line">        &#125;  <span class="comment">//根据图纸进行分类，让不同生产线生产不同的product</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>###代理模式：租户和房主之间的黑中介，中介有很多小动作<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Homeowner</span> </span>&#123;</span><br><span class="line">    getRent() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Proxy</span> </span>&#123;</span><br><span class="line">    calculateCleanFee() &#123;&#125;</span><br><span class="line">    getRent() &#123;</span><br><span class="line">        <span class="keyword">double</span> cleanFee = calculateCleanFee();</span><br><span class="line">        <span class="keyword">return</span> rent + cleanFee;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Proxy p = <span class="keyword">new</span> Proxy();</span><br><span class="line">people.getRent();</span><br></pre></td></tr></table></figure></p>
-<p>###装饰模式:和继承差不多，只不过继承是针对类，而装饰模式是针对对象<br>根据需要往一个对象中添加装饰组件（功能函数）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Class Coffe extends Water &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getPrice</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">Class Milk extends water &#123;</span><br><span class="line">    Water water;</span><br><span class="line">    Milk(Water w) &#123;</span><br><span class="line">        water = w;</span><br><span class="line">    &#125;</span><br><span class="line">    getPrice() &#123;</span><br><span class="line">        <span class="keyword">return</span> water.getPrice() + <span class="number">30</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Coffe coffe = <span class="keyword">new</span> Coffe();</span><br><span class="line">coffe = <span class="keyword">new</span> Milk(coffe);</span><br></pre></td></tr></table></figure></p>
-<p>###策略模式: 策略模式是对算法的封装，把一系列的算法分别封装到对应的类中，并且这些类实现相同的接口，相互之间可以替换。<br>这样在使用的时候，只需要 InterFace A = new ClassFromInterface(),在不同的context中new不同的算法类，这样代码就会很灵活。</p>
-<p>###模板模式：和策略模式差不多，只是模板模式会有个主要的骨干（主要业务流程），但骨干的具体实现需要调用的地方去实现。<br>比如我有一个算法，f(x, y) = (x+y)*y, 用模板模式先执行加法，然后乘法，具体如何加，如何乘不关心。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(x, y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = Add(x. y);</span><br><span class="line">    <span class="keyword">int</span> result = Muit(res, y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Add</span><span class="params">(x, y)</span> </span>&#123; <span class="keyword">return</span> x+x+y+y &#125;</span><br></pre></td></tr></table></figure></p>
-<p>####每个设计模式都有类图，可以去网上搜来帮助理解。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/集成Google FireBase/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="想学画画的羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/12/android/集成Google FireBase/" itemprop="url">FireBase整合总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T00:00:00+08:00">
-                2019-02-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="FireBase整合总结"><a href="#FireBase整合总结" class="headerlink" title="FireBase整合总结"></a>FireBase整合总结</h2><p>###android配置：</p>
-<ol>
-<li>将google service加入到maven</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    // ...</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        // ...</span><br><span class="line">        classpath &apos;com.google.gms:google-services:4.0.1&apos; // google-services plugin</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">allprojects &#123;</span><br><span class="line">    // ...</span><br><span class="line">    repositories &#123;</span><br><span class="line">        // ...</span><br><span class="line">        google() // Google&apos;s Maven repository</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>app/build.gradle 中添加依赖：</li>
-</ol>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.android.application'</span></span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  implementation <span class="string">'com.google.firebase:firebase-core:16.0.1'</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">// Getting a "Could not find" error? Make sure you have</span></span><br><span class="line">  <span class="comment">// added the Google maven respository to your root build.gradle</span></span><br><span class="line">&#125;</span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.google.gms.google-services'</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li><p>要正式使用Firebase还要将我们这个app注册到Firebase，然后将它生成的设置文件google-services.json下载，放到android/app下。</p>
-<p>步骤：</p>
-<ol>
-<li>登入Firebase，然后开启专案。</li>
-<li>点击设定，然后选取[专案设定]。</li>
-<li>在「您的应用程式」卡片中，从清单中选取您要下载设定档的应用程式的套件名称。</li>
-<li>点击下载图标下载google-services.json</li>
-</ol>
-</li>
-</ol>
-<ol start="3">
-<li>在Activity中对FirebaseAnalytics 进行初始化</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> FirebaseAnalytics mFirebaseAnalytics;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle bundle)</span> </span>&#123;</span><br><span class="line">    mFirebaseAnalytics = FirebaseAnalytics.getInstance(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="5">
-<li>对事件的记录</li>
-</ol>
-<ul>
-<li>bundle中的key和value可以自己指定</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Bundle bundle = <span class="keyword">new</span> Bundle();</span><br><span class="line">bundle.putString(FirebaseAnalytics.Param.ITEM_ID, id);</span><br><span class="line">bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name);</span><br><span class="line">bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, <span class="string">"image"</span>);</span><br><span class="line">mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);</span><br></pre></td></tr></table></figure>
-<p><strong>note</strong>:  但是由于Firebase的是通过google的gcm来进行推送，所以不是即时性的推送，而且也不是由app来决定什么时候把事件发送到firebase server。一般而言，android发送到firebase server需要1小时左右，而Firebase server显示到Firebase Console让我们看到，一般大于3小时左右。</p>
-<p>所以，如果我们要尽快看到推送结果来进行验证，需要开启app的firebase debug开关，然后在Firebase Console中的Debug View中进行查看。</p>
-<ol>
-<li>要在 Android 设备上启用 Analytics“调试”模式，请执行以下命令：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell setprop debug.firebase.analytics.app &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
-<p>“调试”模式将保持启用状态，直至您通过执行以下命令明确停用“调试”模式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell setprop debug.firebase.analytics.app .none.</span><br></pre></td></tr></table></figure>
-<p>firebase debug view:</p>
-<p><img src="E:\works\Note\res\firebase_debugview.png" alt="firebase_debugview"></p>
-<ol start="2">
-<li>在Log中看事件发送情况的设置：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb shell setprop log.tag.FA VERBOSE</span><br><span class="line">adb shell setprop log.tag.FA-SVC VERBOSE</span><br><span class="line">adb logcat -v time -s FA FA-SVC</span><br></pre></td></tr></table></figure>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
-<li>在代码中的简单使用：<a href="https://firebase.google.com/docs/analytics/android/start/?authuser=0" target="_blank" rel="noopener">https://firebase.google.com/docs/analytics/android/start/?authuser=0</a></li>
-<li>项目配置：<a href="https://firebase.google.com/docs/android/setup?authuser=0" target="_blank" rel="noopener">https://firebase.google.com/docs/android/setup?authuser=0</a></li>
-<li>如何下载设置文件<em>google-services.json</em>：<a href="https://support.google.com/firebase/answer/7015592?hl=zh-Hans" target="_blank" rel="noopener">https://support.google.com/firebase/answer/7015592?hl=zh-Hans</a></li>
-<li>Firebase DebugView：<a href="https://firebase.google.com/docs/analytics/debugview?hl=zh-cn" target="_blank" rel="noopener">https://firebase.google.com/docs/analytics/debugview?hl=zh-cn</a></li>
-<li>自己的firebase demo 控制台：<a href="https://console.firebase.google.com/project/fir-demo-d3056/analytics/app/android:com.example.lithomas.firebase_demo/debugview%3Ft=1&amp;cs=app.m.debugview.overview&amp;g=1" target="_blank" rel="noopener">https://console.firebase.google.com/project/fir-demo-d3056/analytics/app/android:com.example.lithomas.firebase_demo/debugview%3Ft=1&amp;cs=app.m.debugview.overview&amp;g=1</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/09/react_native/react-native的flex布局/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="想学画画的羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/09/react_native/react-native的flex布局/" itemprop="url">react native 的flex布局</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
-                2019-02-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/react-native/" itemprop="url" rel="index">
-                    <span itemprop="name">react native</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="react-native-的flex布局"><a href="#react-native-的flex布局" class="headerlink" title="react native 的flex布局"></a>react native 的flex布局</h1><h2 id="flex-1和flex-0（默认-有什么区别？"><a href="#flex-1和flex-0（默认-有什么区别？" class="headerlink" title="flex=1和flex=0（默认)有什么区别？"></a>flex=1和flex=0（默认)有什么区别？</h2><p>react native是基于flex容器进行设计的，当对component没有显式地设置flex的时候，flex=0，此时的component类似与android中的’content-wrap’，它的长和宽由自身的style来设置，或者在style没有设置长宽的时候由子组件的长宽来设置(包裹子组件)。</p>
-<p>当flex=1且没有同级的组件，那它就会占满父组件或占满屏幕。flex&gt;0时，它就是对一个组件大小权重的设置。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/09/react_native/react-native的flex布局/#more" rel="contents">
+            <a class="btn" href="/2019/02/12/android/设计模式/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
-    </p></div>
+    </div>
     
     
     
@@ -1745,6 +1552,153 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/02/09/react_native/react navigation的deeplink/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/09/react_native/react-native的flex布局/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="想学画画的羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/09/react_native/react-native的flex布局/" itemprop="url">react native 的flex布局</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
+                2019-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/react-native/" itemprop="url" rel="index">
+                    <span itemprop="name">react native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="react-native-的flex布局"><a href="#react-native-的flex布局" class="headerlink" title="react native 的flex布局"></a>react native 的flex布局</h1><h2 id="flex-1和flex-0（默认-有什么区别？"><a href="#flex-1和flex-0（默认-有什么区别？" class="headerlink" title="flex=1和flex=0（默认)有什么区别？"></a>flex=1和flex=0（默认)有什么区别？</h2><p>react native是基于flex容器进行设计的，当对component没有显式地设置flex的时候，flex=0，此时的component类似与android中的’content-wrap’，它的长和宽由自身的style来设置，或者在style没有设置长宽的时候由子组件的长宽来设置(包裹子组件)。</p>
+<p>当flex=1且没有同级的组件，那它就会占满父组件或占满屏幕。flex&gt;0时，它就是对一个组件大小权重的设置。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/09/react_native/react-native的flex布局/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
