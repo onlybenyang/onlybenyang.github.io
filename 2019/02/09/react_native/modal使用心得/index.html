@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="js与naive通信,">
+  <meta name="keywords" content="modal,">
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="native与js通信中传输的数据类型React Native官网在原生模块通信只提供了 String 类型的示例。网上也没有其他数据类型通信的demo。 @ReactMethod 注明的方法支持的从 Java传到JS 的参数类型如下，它们会被转为对于的js类型：">
-<meta name="keywords" content="js与naive通信">
+<meta name="description" content="modal的使用modal在react native 中可以看作是一个覆盖在最上层的窗口，当它出现时会占据所有的屏幕，且用户无法对下层的UI进行操作。这样看起来有些霸道，但也正因为无法操作下层的UI，我们可以随意定义modal上的UI和操作而不用担心影响到下层UI。所以，modal在我们的想象力下可以自定义成为许多自定义控件。">
+<meta name="keywords" content="modal">
 <meta property="og:type" content="article">
-<meta property="og:title" content="native与js通信中传输的数据类型">
-<meta property="og:url" content="https://onlybenyang.github.io/react_native/native和js的数据通信/index.html">
+<meta property="og:title" content="modal的使用">
+<meta property="og:url" content="https://onlybenyang.github.io/2019/02/09/react_native/modal使用心得/index.html">
 <meta property="og:site_name" content="想学画画的羊">
-<meta property="og:description" content="native与js通信中传输的数据类型React Native官网在原生模块通信只提供了 String 类型的示例。网上也没有其他数据类型通信的demo。 @ReactMethod 注明的方法支持的从 Java传到JS 的参数类型如下，它们会被转为对于的js类型：">
+<meta property="og:description" content="modal的使用modal在react native 中可以看作是一个覆盖在最上层的窗口，当它出现时会占据所有的屏幕，且用户无法对下层的UI进行操作。这样看起来有些霸道，但也正因为无法操作下层的UI，我们可以随意定义modal上的UI和操作而不用担心影响到下层UI。所以，modal在我们的想象力下可以自定义成为许多自定义控件。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-10T15:15:22.000Z">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/459873/201602/459873-20160229223956236-1761782240.png">
+<meta property="og:updated_time" content="2019-02-10T15:14:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="native与js通信中传输的数据类型">
-<meta name="twitter:description" content="native与js通信中传输的数据类型React Native官网在原生模块通信只提供了 String 类型的示例。网上也没有其他数据类型通信的demo。 @ReactMethod 注明的方法支持的从 Java传到JS 的参数类型如下，它们会被转为对于的js类型：">
+<meta name="twitter:title" content="modal的使用">
+<meta name="twitter:description" content="modal的使用modal在react native 中可以看作是一个覆盖在最上层的窗口，当它出现时会占据所有的屏幕，且用户无法对下层的UI进行操作。这样看起来有些霸道，但也正因为无法操作下层的UI，我们可以随意定义modal上的UI和操作而不用担心影响到下层UI。所以，modal在我们的想象力下可以自定义成为许多自定义控件。">
+<meta name="twitter:image" content="http://images2015.cnblogs.com/blog/459873/201602/459873-20160229223956236-1761782240.png">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://onlybenyang.github.io/react_native/native和js的数据通信/">
+  <link rel="canonical" href="https://onlybenyang.github.io/2019/02/09/react_native/modal使用心得/">
 
 
 
 
 
-  <title>native与js通信中传输的数据类型 | 想学画画的羊</title>
+  <title>modal的使用 | 想学画画的羊</title>
   
 
 
@@ -243,7 +245,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/react_native/native和js的数据通信/">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/09/react_native/modal使用心得/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Thomas.Lee">
@@ -260,7 +262,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">native与js通信中传输的数据类型</h1>
+          <h1 class="post-title" itemprop="name headline">modal的使用</h1>
         
 
         <div class="post-meta">
@@ -332,10 +334,28 @@
       
 
       
-        <h2 id="native与js通信中传输的数据类型"><a href="#native与js通信中传输的数据类型" class="headerlink" title="native与js通信中传输的数据类型"></a>native与js通信中传输的数据类型</h2><p>React Native官网在原生模块通信只提供了 String 类型的示例。网上也没有其他数据类型通信的demo。</p>
-<p><strong>@ReactMethod</strong> 注明的方法支持的从 Java传到JS 的参数类型如下，它们会被转为对于的js类型：<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">java -&gt; js:</span><br><span class="line">Boolean -&gt; Bool</span><br><span class="line">Integer -&gt; Number</span><br><span class="line">Double -&gt; Number</span><br><span class="line">Float -&gt; Number</span><br><span class="line">String -&gt; String</span><br><span class="line">Callback -&gt; function</span><br><span class="line">ReadableMap -&gt; Object</span><br><span class="line">ReadableArray -&gt; Array</span><br></pre></td></tr></table></figure></p>
-<p><em>ReadableMap</em> 和 <em>ReadableArray</em> 可以把java的字典和数组数据传到js，js拿到的分别是Obeject和array，js的Object都是{}形式的。<br>只是ReadableMap和ReadableArray都只能使用getXX()方法获得信息，不能在java层写入数据。<br>查看源码后发现还有 <em>WritableMap</em> 和 <em>WritableArray</em> 分别继承了ReadableMap和ReadableArray，且都提供了putXX()和pushxx()来让我们写入数据。</p>
-<p>在java使用这两个<strong>WritableMap</strong>和<strong>WritableArray</strong>来传递比较复杂的数据。</p>
+        <h1 id="modal的使用"><a href="#modal的使用" class="headerlink" title="modal的使用"></a>modal的使用</h1><p>modal在react native 中可以看作是一个覆盖在最上层的窗口，当它出现时会占据所有的屏幕，且用户无法对下层的UI进行操作。这样看起来有些霸道，但也正因为无法操作下层的UI，我们可以随意定义modal上的UI和操作而不用担心影响到下层UI。所以，modal在我们的想象力下可以自定义成为许多自定义控件。<br><a id="more"></a></p>
+<h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><ol>
+<li>Modal组件可以用来覆盖包含React Native根视图的原生视图。</li>
+<li>通过 <strong>visible</strong> 属性控制Modal组件是否出现</li>
+<li>在很多情况下需要使用 <strong>transparent</strong> 设置Modal的透明度.</li>
+</ol>
+<p>透明度的设置： <em>先设置transparent={true},再在子根组件设置backgroundColor: ‘rbga(0,0,0,0.5)’才可以达到预期效果</em></p>
+<ol>
+<li>如果你的代码要在Android上运行，必须实现onRequestClose回调方法来说明在点击back键后Modal的行为。</li>
+<li>记得在 <strong>state</strong> 中保存Modal当前的 <strong>visible</strong> 情况。</li>
+</ol>
+<h2 id="Modal可以自定义哪些东西"><a href="#Modal可以自定义哪些东西" class="headerlink" title="Modal可以自定义哪些东西"></a>Modal可以自定义哪些东西</h2><ul>
+<li>缩略图的全屏大图查看控件</li>
+<li>一个Alert</li>
+<li>一个自定义，复杂的dialog控件 <img src="http://images2015.cnblogs.com/blog/459873/201602/459873-20160229223956236-1761782240.png" alt="modal dialog"></li>
+<li>一个抽屉控件</li>
+<li>一个下拉列表控件</li>
+</ul>
+<p><em>虽然Modal很厉害，但最好不要用它来实现一个通知控件，可以想象当一个通知来了，Modal做的通知控件蹦了出来，然后用户就没法做别的事了，而必须先移除这个通知，这不符合一个通知控件该有的设计</em></p>
+<hr>
+<p>下面会实现一个简单的缩略图的全屏大图查看控件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;View style=&#123;styles.container&#125;&gt;</span><br><span class="line">            &lt;TouchableOpacity onPress = &#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">true</span>&#125;)&#125;&gt;</span><br><span class="line">                &lt;View&gt;</span><br><span class="line">                    &lt;Image</span><br><span class="line">                        onPress = &#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">true</span>&#125;)&#125;</span><br><span class="line">                        resizeMode=<span class="string">'cover'</span></span><br><span class="line">                        source=&#123;<span class="built_in">require</span>(<span class="string">'./AyaPolly.jpg'</span>)&#125; /&gt;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>TouchableOpacity&gt;</span><br><span class="line">            &lt;Modal</span><br><span class="line">                animationType=<span class="string">'fade'</span></span><br><span class="line">                transparent=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">                visible=&#123;<span class="keyword">this</span>.state.modalVisible&#125;</span><br><span class="line">                onRequestClose=&#123;() =&gt; <span class="keyword">this</span>.setState(&#123;<span class="attr">modalVisible</span>: <span class="literal">false</span>&#125;)&#125;</span><br><span class="line">            &gt;</span><br><span class="line">                &lt;View</span><br><span class="line">                    style = &#123;styles.modalView&#125;</span><br><span class="line">                &gt;</span><br><span class="line">                    &lt;Image</span><br><span class="line">                        style = &#123;styles.bigImage&#125;</span><br><span class="line">                        resizeMode=<span class="string">'contain'</span></span><br><span class="line">                        source=&#123;<span class="built_in">require</span>(<span class="string">'./AyaPolly.jpg'</span>)&#125; /&gt;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>Modal&gt;</span><br><span class="line">        &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const styles = StyleSheet.create(&#123;</span></span><br><span class="line"><span class="regexp">    container: &#123;</span></span><br><span class="line"><span class="regexp">        flex: 1,</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    modalView: &#123;</span></span><br><span class="line"><span class="regexp">        flex: 1,</span></span><br><span class="line"><span class="regexp">        justifyContent: 'center',</span></span><br><span class="line"><span class="regexp">        alignItems: 'center',</span></span><br><span class="line"><span class="regexp">        backgroundColor: '#000000'</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    bigImage: &#123;</span></span><br><span class="line"><span class="regexp">        flex:1,</span></span><br><span class="line"><span class="regexp">        width: '100%'</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -353,7 +373,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/js与naive通信/" rel="tag"># js与naive通信</a>
+            <a href="/tags/modal/" rel="tag"># modal</a>
           
         </div>
       
@@ -366,8 +386,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/react_native/react-native的flex布局/" rel="next" title="react native 的flex布局">
-                <i class="fa fa-chevron-left"></i> react native 的flex布局
+              <a href="/2019/02/09/react_native/native和js的数据通信/" rel="next" title="native与js通信中传输的数据类型">
+                <i class="fa fa-chevron-left"></i> native与js通信中传输的数据类型
               </a>
             
           </div>
@@ -376,8 +396,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/react_native/modal使用心得/" rel="prev" title="modal的使用">
-                modal的使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/09/react_native/RN基于React的通知组件/" rel="prev" title="基于react的通知组件">
+                基于react的通知组件 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -520,7 +540,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#native与js通信中传输的数据类型"><span class="nav-number">1.</span> <span class="nav-text">native与js通信中传输的数据类型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#modal的使用"><span class="nav-number">1.</span> <span class="nav-text">modal的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本知识"><span class="nav-number">1.1.</span> <span class="nav-text">基本知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modal可以自定义哪些东西"><span class="nav-number">1.2.</span> <span class="nav-text">Modal可以自定义哪些东西</span></a></li></ol></li></ol></div>
             
 
           </div>
