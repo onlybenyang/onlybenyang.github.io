@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="想学画画的羊">
 <meta property="og:description" content="Android 是基于Java的，很多时候可以用Java的思想来等同思考，但是却不能和Java程序直接一个Main函数就可以在里面随便new对象来用，像Activity，Service这些必须依靠一个context才可以创建。这是因为Android整体架构是基于组建的应用设计模式，像Activity，Service这些组件的运行需要一个完整的Android工程环境，每个组件就是这个环境中的一个场景">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="e:/works/github/Note/res/context_struct.jpg">
-<meta property="og:image" content="e:/works/github/Note/res/context_area.jpg">
-<meta property="og:updated_time" content="2019-02-12T13:24:48.000Z">
+<meta property="og:image" content="https://onlybenyang.github.io/2019/02/12/images/context_struct.jpg">
+<meta property="og:image" content="https://onlybenyang.github.io/2019/02/12/images/context_area.jpg">
+<meta property="og:updated_time" content="2019-02-12T13:32:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android的Context详解">
 <meta name="twitter:description" content="Android 是基于Java的，很多时候可以用Java的思想来等同思考，但是却不能和Java程序直接一个Main函数就可以在里面随便new对象来用，像Activity，Service这些必须依靠一个context才可以创建。这是因为Android整体架构是基于组建的应用设计模式，像Activity，Service这些组件的运行需要一个完整的Android工程环境，每个组件就是这个环境中的一个场景">
-<meta name="twitter:image" content="e:/works/github/Note/res/context_struct.jpg">
+<meta name="twitter:image" content="https://onlybenyang.github.io/2019/02/12/images/context_struct.jpg">
 
 
 
@@ -338,7 +338,7 @@
         <p>Android 是基于Java的，很多时候可以用Java的思想来等同思考，但是却不能和Java程序直接一个Main函数就可以在里面随便new对象来用，像Activity，Service这些必须依靠一个context才可以创建。这是因为Android整体架构是基于组建的应用设计模式，像Activity，Service这些组件的运行需要一个完整的Android工程环境，每个组件就是这个环境中的一个场景，而Context就是这些场景的一些相关信息（也就是上下文环境）。</p>
 <p>总结下，Context是维持Android程序中各组件能够正常工作的一个核心功能类。<br><a id="more"></a><br><em>源码中的注释是这么来解释Context的：Context提供了关于应用环境全局信息的接口。</em></p>
 <p>####Context继承关系图：</p>
-<p><img src="E:\works\github\Note\res\context_struct.jpg" alt="context_struct"></p>
+<p><img src="../../images/context_struct.jpg" alt="context_struct"></p>
 <ul>
 <li>Context类本身是一个纯abstract类，它有两个具体的实现子类：ContextImpl和</li>
 <li>ContextWrapper。一个包装类而已，ContextWrapper构造函数中必须包含一个真正的Context引用，同时ContextWrapper中提供了attachBaseContext（）用于给ContextWrapper对象中指定真正的Context对象，调用ContextWrapper的方法都会被转向其所包含的真正的Context对象。</li>
@@ -347,7 +347,7 @@
 <p><strong>总结：Context的两个子类分工明确，其中ContextImpl是Context的具体实现类，ContextWrapper是Context的包装类。Activity，Application，Service虽都继承自ContextWrapper（Activity继承自ContextWrapper的子类ContextThemeWrapper），但它们初始化的过程中都会创建ContextImpl对象，由ContextImpl实现Context中的方法。</strong></p>
 </li>
 </ul>
-<h4 id="Context作用域"><a href="#Context作用域" class="headerlink" title="Context作用域"></a>Context作用域</h4><p><img src="E:\works\github\Note\res\context_area.jpg" alt="context_area"></p>
+<h4 id="Context作用域"><a href="#Context作用域" class="headerlink" title="Context作用域"></a>Context作用域</h4><p><img src="../../images/context_area.jpg" alt="context_area"></p>
 <ol>
 <li>如果我们用ApplicationContext去启动一个LaunchMode为standard的Activity的时候会报错<code>android.util.AndroidRuntimeException: Calling startActivity from outside of an Activity context requires the FLAG_ACTIVITY_NEW_TASK flag. Is this really what you want?</code>这是因为非Activity类型的Context并没有所谓的任务栈，所以待启动的Activity就找不到栈了。解决这个问题的方法就是为待启动的Activity指定FLAG_ACTIVITY_NEW_TASK标记位，这样启动的时候就为它创建一个新的任务栈，而此时Activity是以singleTask模式启动的。所有这种用Application启动Activity的方式不推荐使用，Service同Application。</li>
 <li><p>在Application和Service中去layout inflate也是合法的，但是会使用系统默认的主题样式，如果你自定义了某些样式可能不会被使用。所以这种方式也不推荐使用。</p>
