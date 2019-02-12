@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="maven仓库,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在我们用普通方法对Libray Module进行打包为 test.jar，然后放到libs中使用的过程中，如果Library Module有远程依赖时，我们在使用test.jar的时候就会出现 ClassNotFoundException。因为远程依赖并没有被打包到test.jar中。 为什么一定要通过发布Maven库才能访问Library Module的远程依赖 首先，我们需要了解打包过程。当我">
+<meta name="keywords" content="maven仓库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="创建和生成本地或远程Maven仓库">
+<meta property="og:url" content="https://onlybenyang.github.io/2019/02/12/android/创建和生成本地或远程Maven仓库/index.html">
+<meta property="og:site_name" content="想学画画的羊">
+<meta property="og:description" content="在我们用普通方法对Libray Module进行打包为 test.jar，然后放到libs中使用的过程中，如果Library Module有远程依赖时，我们在使用test.jar的时候就会出现 ClassNotFoundException。因为远程依赖并没有被打包到test.jar中。 为什么一定要通过发布Maven库才能访问Library Module的远程依赖 首先，我们需要了解打包过程。当我">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://onlybenyang.github.io/2019/02/12/android/res/aar.png">
+<meta property="og:updated_time" content="2019-02-12T13:19:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="创建和生成本地或远程Maven仓库">
+<meta name="twitter:description" content="在我们用普通方法对Libray Module进行打包为 test.jar，然后放到libs中使用的过程中，如果Library Module有远程依赖时，我们在使用test.jar的时候就会出现 ClassNotFoundException。因为远程依赖并没有被打包到test.jar中。 为什么一定要通过发布Maven库才能访问Library Module的远程依赖 首先，我们需要了解打包过程。当我">
+<meta name="twitter:image" content="https://onlybenyang.github.io/2019/02/12/android/res/aar.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://onlybenyang.github.io/2019/02/12/android/创建和生成本地或远程Maven仓库/">
+
+
+
+
+
+  <title>创建和生成本地或远程Maven仓库 | 想学画画的羊</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">想学画画的羊</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/创建和生成本地或远程Maven仓库/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="想学画画的羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">创建和生成本地或远程Maven仓库</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T00:00:00+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在我们用普通方法对Libray Module进行打包为 test.jar，然后放到libs中使用的过程中，如果Library Module有远程依赖时，我们在使用test.jar的时候就会出现 ClassNotFoundException。因为远程依赖并没有被打包到test.jar中。</p>
+<h2 id="为什么一定要通过发布Maven库才能访问Library-Module的远程依赖"><a href="#为什么一定要通过发布Maven库才能访问Library-Module的远程依赖" class="headerlink" title="为什么一定要通过发布Maven库才能访问Library Module的远程依赖"></a>为什么一定要通过发布Maven库才能访问Library Module的远程依赖</h2><ul>
+<li>首先，我们需要了解打包过程。当我们需要对一个Library Module进行打包的时候，Library项目的远程依赖不会被一起打包到aar或jar文件中。因为打包的过程其实就是对编译出来的class二进制文件进行压缩打包而已，而编译过程下载到本地的远程依赖包一般是在 <em>Users/username/.gradle/cache/modules-2/files-2.1</em> 目录下，并不是直接下载到当前工程的目录下的，所以并不会被打包的。</li>
+<li>然后，我们要知道maven仓库有什么特别的，可以让我们通过compile的设置就能知道已经打包的aar或者jar需要哪些远程依赖。一个maven目录如下<br><img src="../res/aar.png" alt=""><br>其中，所有Library Module的远程依赖都在.pom文件中，而在主项目就是通过.pom文件来下载这些远程依赖的。</li>
+<li><strong>结论 :</strong> 所以，要想打包的 Library Module 可以包含依赖，就要把这个 Library Module 发布成一个Maven仓库。通过像其他远程第三库一样，在 app/build.gradle 中配置 compile ‘groupId:articleId:version’ 来使用。</li>
+</ul>
+<p><strong>注 :</strong> 关于如何查看下的jar和aar文件位置可以在 app/build.gradle 配置脚本代码如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">task showMeCache &lt;&lt; &#123;</span><br><span class="line">     configurations.compile.each &#123; println it &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="发布Maven仓库"><a href="#发布Maven仓库" class="headerlink" title="发布Maven仓库"></a>发布Maven仓库</h2><h3 id="发布-使用本地Maven仓库"><a href="#发布-使用本地Maven仓库" class="headerlink" title="发布/使用本地Maven仓库"></a>发布/使用本地Maven仓库</h3><ol>
+<li>在 Library_Directory/build.gralde 中加入如下代码,确保 ANDROID_HOME已经配置：</li>
+</ol>
+<p><strong>Note :</strong></p>
+<ul>
+<li>version   是 Library 版本</li>
+<li>groupId  是 Library 包名</li>
+<li>artifactId 是 Library 名称</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: 'maven'</span><br><span class="line"></span><br><span class="line">uploadArchives &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenDeployer &#123;</span><br><span class="line">            repository(url: "file://localhost/" + System.getenv("ANDROID_HOME")</span><br><span class="line">                    + "/extras/android/m2repository/")</span><br><span class="line">            pom.version = '1.0-SNAPSHOT'</span><br><span class="line">            pom.groupId = 'your.package'</span><br><span class="line">            pom.artifactId = 'sdk-name'</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>完成后，会在如上指定目录URL(/extras/Android/m2repository/…) 中生成相应目录作为本地Maven仓库。</li>
+</ol>
+<p>3.因为是在自定义目录下生成的本地Maven仓库，项目默认的 mavenLocal 一般是在 <em>/Users/username/.m2/repository</em> 下面，所以需要对项目需要Maven仓库进行配置。</p>
+<p>代码配置：</p>
+<p><em>android/build.gradle</em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenLocal()</span><br><span class="line">        jcenter()</span><br><span class="line">        maven &#123;</span><br><span class="line">            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm</span><br><span class="line">            url "$rootDir/../node_modules/react-native/android"</span><br><span class="line">        &#125;</span><br><span class="line">        maven &#123;</span><br><span class="line">            url "file:///C:/Users/username/AndroidHomePath/extras/android/m2repository"</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="4">
+<li>配置好了项目Maven仓库的来源，配置上对这个Maven仓库中那个生成的库的依赖就ok了</li>
+</ol>
+<p><em>android/app/build.gradle</em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    ...</span><br><span class="line">    compile 'groupId:articleId:version'</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后，尝试build后，看看Library Module的远程依赖有没有下载到本地就ok</p>
+<h3 id="发布-使用远程Maven仓库"><a href="#发布-使用远程Maven仓库" class="headerlink" title="发布/使用远程Maven仓库"></a>发布/使用远程Maven仓库</h3><p>对于发布远程maven仓库，就有很多选择，可以发布到自己的局域网服务器，中央仓库和Jboss仓库。而发布到私服可以直接选择发布到git上去管理。<br>对于远程仓库的发布代码如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: 'maven'</span><br><span class="line"></span><br><span class="line">uploadArchives &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenDeployer &#123;</span><br><span class="line">            repository(url: "http://xxx/xxx")</span><br><span class="line">            pom.version = '1.0-SNAPSHOT'</span><br><span class="line">            pom.groupId = 'your.package'</span><br><span class="line">            pom.artifactId = 'sdk-name'</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用的时候只需要将 <em>android/build.gradle</em> 中 maven 的 url 改成服务器地址就ok。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/maven仓库/" rel="tag"># maven仓库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/12/android/启动页的多种实现方式/" rel="next" title="启动页的实现">
+                <i class="fa fa-chevron-left"></i> 启动页的实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/12/android/Notification note/" rel="prev" title="实现兼容的Notification">
+                实现兼容的Notification <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Thomas.Lee</p>
+              <p class="site-description motion-element" itemprop="description">主要涉及android，react native和部分java知识的博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/onlybenyang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么一定要通过发布Maven库才能访问Library-Module的远程依赖"><span class="nav-number">1.</span> <span class="nav-text">为什么一定要通过发布Maven库才能访问Library Module的远程依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布Maven仓库"><span class="nav-number">2.</span> <span class="nav-text">发布Maven仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#发布-使用本地Maven仓库"><span class="nav-number">2.1.</span> <span class="nav-text">发布/使用本地Maven仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发布-使用远程Maven仓库"><span class="nav-number">2.2.</span> <span class="nav-text">发布/使用远程Maven仓库</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Thomas.Lee</span>
+
+  
+</div>
+
+
+
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style="display:none">
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style="display:none">
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

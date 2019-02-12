@@ -243,7 +243,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2018/10/28/android/打包jar和aar/">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/05/android/Glide缓存/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Thomas.Lee">
@@ -262,7 +262,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/28/android/打包jar和aar/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2019/02/05/android/Glide缓存/" itemprop="url">Glide缓存策略</a></h1>
         
 
         <div class="post-meta">
@@ -274,8 +274,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-28T17:28:43+08:00">
-                2018-10-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-05T00:00:00+08:00">
+                2019-02-05
               </time>
             
 
@@ -284,6 +284,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -314,20 +336,11 @@
       
         
           
-            <h2 id="Library不包含远程库的情况"><a href="#Library不包含远程库的情况" class="headerlink" title="Library不包含远程库的情况"></a>Library不包含远程库的情况</h2><p>如果不包含远程库，那么项目在build一次后会在 <em>Library_Directory/build/intermediates/bundles/release/</em> 下生成class文件和资源文件。所以可以通过对这些文件的压缩打包来获得jar包或者aar文件</p>
-<h4 id="具体做法"><a href="#具体做法" class="headerlink" title="具体做法"></a>具体做法</h4><ol>
-<li>在 Library_Directory/build.gralde 中加入如下代码：</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">task makeJar(type: Copy) &#123;</span><br><span class="line">    delete 'build/libs/mysdk.jar'</span><br><span class="line">    from('build/intermediates/bundles/release/') //这个路径可以替换成bundles/debug/</span><br><span class="line">    into('build/libs/')</span><br><span class="line">    include('classes.jar')</span><br><span class="line">    rename ('classes.jar', 'mysdk.jar')</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">makeJar.dependsOn(build)</span><br><span class="line">//在终端执行生成JAR包</span><br><span class="line">// gradlew makeJar</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>然后在Terminal中键入 gradlew makeJar 回车看到如下所示就OK了：</li>
-</ol>
-<p><img src="../res/jar_pic.png" alt=""></p>
-<ol start="3">
-<li>在主工程App的build中要加入librarys 这个依赖model<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    ...</span><br><span class="line">    compile fileTree(dir: 'libs', include: ['*.jar'])</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>aar文件做法一样，只是在执行makeJar后会把资源文件一起打包<br>看makeJar的代码，就是很简单的将 build/intermediates/bundles/release/ 路径下的class文件压缩成一个jar包来使用。而一般build/intermediates/bundles/release/ 下的class文件智慧包含本地代码编译出的class文件，也就是说不包含远程依赖的jar和aar文件。<br>我们要将一个Library工程完整打包（包含远程依赖），只能通过创建maven仓库，然后在主项目工程中的build.gradle配置进去使用。详情转 “创建和生成本地或远程Maven仓库.md”.</p>
+            <h3 id="Glide缓存策略："><a href="#Glide缓存策略：" class="headerlink" title="Glide缓存策略："></a>Glide缓存策略：</h3><ul>
+<li>读缓存：先内存，再磁盘，最后是网络</li>
+<li>写缓存：先磁盘，再内存</li>
+</ul>
+<p><strong>Glide并不会直接把整个原图存到内存中，而是根据imageView的大小，存一个等大小的图片到内存，但是如果是不同size的imageview，但是同一张图片，Glide同样会在内存中存很多个不同size的图片（Picasso只保持有一个原图，而再在显示图片的时候会根据imageview size来显示个缩放后的图片）。</strong></p>
 
           
         
@@ -435,7 +448,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

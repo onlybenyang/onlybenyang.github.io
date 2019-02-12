@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://onlybenyang.github.io/2019/02/12/android/%E4%BB%80%E4%B9%88%E6%98%AFContext/</loc>
+    <lastmod>2019-02-12</lastmod>
+  </url>  <url>
+    <loc>https://onlybenyang.github.io/2019/02/12/android/%E5%88%9B%E5%BB%BA%E5%92%8C%E7%94%9F%E6%88%90%E6%9C%AC%E5%9C%B0%E6%88%96%E8%BF%9C%E7%A8%8BMaven%E4%BB%93%E5%BA%93/</loc>
+    <lastmod>2019-02-12</lastmod>
+  </url>  <url>
+    <loc>https://onlybenyang.github.io/2019/02/12/android/%E5%90%AF%E5%8A%A8%E9%A1%B5%E7%9A%84%E5%A4%9A%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</loc>
+    <lastmod>2019-02-12</lastmod>
+  </url>  <url>
+    <loc>https://onlybenyang.github.io/2019/02/12/android/%E6%89%93%E5%8C%85jar%E5%92%8Caar/</loc>
+    <lastmod>2019-02-12</lastmod>
+  </url>  <url>
+    <loc>https://onlybenyang.github.io/2019/02/12/android/%E6%89%93%E5%BC%80%E7%AC%AC%E4%B8%89%E6%96%B9App/</loc>
+    <lastmod>2019-02-12</lastmod>
+  </url>  <url>
+    <loc>https://onlybenyang.github.io/2019/02/12/android/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2019-02-12</lastmod>
+  </url>  <url>
+    <loc>https://onlybenyang.github.io/2019/02/12/android/%E9%9B%86%E6%88%90Google%20FireBase/</loc>
+    <lastmod>2019-02-12</lastmod>
+  </url>  <url>
+    <loc>https://onlybenyang.github.io/2019/02/12/android/Android_N%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%8F%98%E6%9B%B4/</loc>
+    <lastmod>2019-02-12</lastmod>
+  </url>  <url>
+    <loc>https://onlybenyang.github.io/2019/02/12/android/dagger2%E5%B0%8F%E7%BB%93/</loc>
+    <lastmod>2019-02-12</lastmod>
+  </url>  <url>
+    <loc>https://onlybenyang.github.io/2019/02/12/android/dialog%E5%AE%9E%E7%8E%B0%E7%9A%84toast/</loc>
+    <lastmod>2019-02-12</lastmod>
+  </url>  <url>
+    <loc>https://onlybenyang.github.io/2019/02/12/android/getSystemService%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2019-02-12</lastmod>
+  </url>  <url>
+    <loc>https://onlybenyang.github.io/2019/02/12/android/Okhttp3%E7%9A%84Interceptor/</loc>
+    <lastmod>2019-02-12</lastmod>
+  </url>  <url>
+    <loc>https://onlybenyang.github.io/2019/02/12/android/Notification%20note/</loc>
+    <lastmod>2019-02-12</lastmod>
+  </url>  <url>
     <loc>https://onlybenyang.github.io/2019/02/09/react_native/native%E5%92%8Cjs%E7%9A%84%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1/</loc>
     <lastmod>2019-02-10</lastmod>
   </url>  <url>
@@ -24,44 +63,5 @@
   </url>  <url>
     <loc>https://onlybenyang.github.io/2019/02/05/android/Glide%E7%BC%93%E5%AD%98/</loc>
     <lastmod>2019-02-05</lastmod>
-  </url>  <url>
-    <loc>https://onlybenyang.github.io/2018/11/14/android/%E4%BB%80%E4%B9%88%E6%98%AFContext/</loc>
-    <lastmod>2018-11-14</lastmod>
-  </url>  <url>
-    <loc>https://onlybenyang.github.io/2018/10/28/android/Notification%20note/</loc>
-    <lastmod>2018-10-28</lastmod>
-  </url>  <url>
-    <loc>https://onlybenyang.github.io/2018/10/28/android/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2018-10-28</lastmod>
-  </url>  <url>
-    <loc>https://onlybenyang.github.io/2018/10/28/android/Okhttp3%E7%9A%84Interceptor/</loc>
-    <lastmod>2018-10-28</lastmod>
-  </url>  <url>
-    <loc>https://onlybenyang.github.io/2018/10/28/android/%E9%9B%86%E6%88%90Google%20FireBase/</loc>
-    <lastmod>2018-10-28</lastmod>
-  </url>  <url>
-    <loc>https://onlybenyang.github.io/2018/10/28/android/dagger2%E5%B0%8F%E7%BB%93/</loc>
-    <lastmod>2018-10-28</lastmod>
-  </url>  <url>
-    <loc>https://onlybenyang.github.io/2018/10/28/android/dialog%E5%AE%9E%E7%8E%B0%E7%9A%84toast/</loc>
-    <lastmod>2018-10-28</lastmod>
-  </url>  <url>
-    <loc>https://onlybenyang.github.io/2018/10/28/android/getSystemService%E5%88%86%E6%9E%90/</loc>
-    <lastmod>2018-10-28</lastmod>
-  </url>  <url>
-    <loc>https://onlybenyang.github.io/2018/10/28/android/Android_N%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%8F%98%E6%9B%B4/</loc>
-    <lastmod>2018-10-28</lastmod>
-  </url>  <url>
-    <loc>https://onlybenyang.github.io/2018/10/28/android/%E5%88%9B%E5%BB%BA%E5%92%8C%E7%94%9F%E6%88%90%E6%9C%AC%E5%9C%B0%E6%88%96%E8%BF%9C%E7%A8%8BMaven%E4%BB%93%E5%BA%93/</loc>
-    <lastmod>2018-10-28</lastmod>
-  </url>  <url>
-    <loc>https://onlybenyang.github.io/2018/10/28/android/%E5%90%AF%E5%8A%A8%E9%A1%B5%E7%9A%84%E5%A4%9A%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</loc>
-    <lastmod>2018-10-28</lastmod>
-  </url>  <url>
-    <loc>https://onlybenyang.github.io/2018/10/28/android/%E6%89%93%E5%8C%85jar%E5%92%8Caar/</loc>
-    <lastmod>2018-10-28</lastmod>
-  </url>  <url>
-    <loc>https://onlybenyang.github.io/2018/10/28/android/%E6%89%93%E5%BC%80%E7%AC%AC%E4%B8%89%E6%96%B9App/</loc>
-    <lastmod>2018-10-28</lastmod>
   </url>
 </urlset>
