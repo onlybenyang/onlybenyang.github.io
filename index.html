@@ -243,7 +243,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/打包jar和aar/">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/创建和生成本地或远程Maven仓库/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Thomas.Lee">
@@ -262,7 +262,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/12/android/打包jar和aar/" itemprop="url">打包aar和jar文件</a></h1>
+                <a class="post-title-link" href="/2019/02/12/android/创建和生成本地或远程Maven仓库/" itemprop="url">创建和生成本地或远程Maven仓库</a></h1>
         
 
         <div class="post-meta">
@@ -315,14 +315,25 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/02/12/android/打包jar和aar/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/打包jar和aar/" itemprop="commentCount"></span>
+                <a href="/2019/02/12/android/创建和生成本地或远程Maven仓库/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/创建和生成本地或远程Maven仓库/" itemprop="commentCount"></span>
                 </a>
               </span>
             
           
 
           
+          
+             <span id="/2019/02/12/android/创建和生成本地或远程Maven仓库/" class="leancloud_visitors" data-flag-title="创建和生成本地或远程Maven仓库">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
           
 
           
@@ -345,10 +356,10 @@
 
       
         
-          <h2 id="Library不包含远程库的情况"><a href="#Library不包含远程库的情况" class="headerlink" title="Library不包含远程库的情况"></a>Library不包含远程库的情况</h2><p>如果不包含远程库，那么项目在build一次后会在 <em>Library_Directory/build/intermediates/bundles/release/</em> 下生成class文件和资源文件。所以可以通过对这些文件的压缩打包来获得jar包或者aar文件<br>
+          <p>在我们用普通方法对Libray Module进行打包为 test.jar，然后放到libs中使用的过程中，如果Library Module有远程依赖时，我们在使用test.jar的时候就会出现 ClassNotFoundException。因为远程依赖并没有被打包到test.jar中。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/12/android/打包jar和aar/#more" rel="contents">
+            <a class="btn" href="/2019/02/12/android/创建和生成本地或远程Maven仓库/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -479,6 +490,17 @@
           
 
           
+          
+             <span id="/2019/02/12/android/Android_N的行为变更/" class="leancloud_visitors" data-flag-title="常用功能在Android N上的变化">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
           
 
           
@@ -635,6 +657,17 @@
           
 
           
+          
+             <span id="/2019/02/12/android/Notification note/" class="leancloud_visitors" data-flag-title="实现兼容的Notification">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
           
 
           
@@ -793,6 +826,17 @@
 
           
           
+             <span id="/2019/02/12/android/Okhttp3的Interceptor/" class="leancloud_visitors" data-flag-title="Okttp3的Interceptor">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
           
 
@@ -828,171 +872,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/02/12/android/Okhttp3的Interceptor/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/dialog实现的toast/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="想学画画的羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/12/android/dialog实现的toast/" itemprop="url">dialog实现一个全局可自定义toast</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T00:00:00+08:00">
-                2019-02-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/02/12/android/dialog实现的toast/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/dialog实现的toast/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>##用dialog实现一个全局可自定义toast</p>
-<p>最近有一个变态需求，做一个toast，可以点击后消失，可以在使用的时候分情况设置位置，颜色，大小。额，你确定这是我熟悉的Android的toast？光是可以点击消失就让我明白什么toast.setView()来自定义一个Toast啥的就是痴心妄想。好吧，想了想还是只有把dialog伪装一下，任重道远啊！</p>
-<p>dialog进化为toast有几个有下面几个步骤：</p>
-<ul>
-<li>去掉dialog的标题栏</li>
-<li>背景色可以自定义</li>
-<li>显示时间可以进行设定</li>
-<li>出现位置可以自定义</li>
-<li>可以设置大小</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/12/android/dialog实现的toast/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1123,6 +1002,17 @@
           
 
           
+          
+             <span id="/2019/02/12/android/dagger2小结/" class="leancloud_visitors" data-flag-title="Dagger2使用小结">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
           
 
           
@@ -1287,6 +1177,17 @@
 
           
           
+             <span id="/2019/02/12/android/getSystemService分析/" class="leancloud_visitors" data-flag-title="获得系统服务的源码分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
           
 
@@ -1320,6 +1221,182 @@
         
       
     </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/dialog实现的toast/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="想学画画的羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/12/android/dialog实现的toast/" itemprop="url">dialog实现一个全局可自定义toast</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T00:00:00+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/12/android/dialog实现的toast/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/dialog实现的toast/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/02/12/android/dialog实现的toast/" class="leancloud_visitors" data-flag-title="dialog实现一个全局可自定义toast">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>##用dialog实现一个全局可自定义toast</p>
+<p>最近有一个变态需求，做一个toast，可以点击后消失，可以在使用的时候分情况设置位置，颜色，大小。额，你确定这是我熟悉的Android的toast？光是可以点击消失就让我明白什么toast.setView()来自定义一个Toast啥的就是痴心妄想。好吧，想了想还是只有把dialog伪装一下，任重道远啊！</p>
+<p>dialog进化为toast有几个有下面几个步骤：</p>
+<ul>
+<li>去掉dialog的标题栏</li>
+<li>背景色可以自定义</li>
+<li>显示时间可以进行设定</li>
+<li>出现位置可以自定义</li>
+<li>可以设置大小</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/12/android/dialog实现的toast/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
     
     
     
@@ -1444,6 +1521,17 @@
 
           
           
+             <span id="/2019/02/12/android/什么是Context/" class="leancloud_visitors" data-flag-title="Android的Context详解">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
           
 
@@ -1520,7 +1608,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/创建和生成本地或远程Maven仓库/">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/打包jar和aar/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Thomas.Lee">
@@ -1539,7 +1627,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/12/android/创建和生成本地或远程Maven仓库/" itemprop="url">创建和生成本地或远程Maven仓库</a></h1>
+                <a class="post-title-link" href="/2019/02/12/android/打包jar和aar/" itemprop="url">打包aar和jar文件</a></h1>
         
 
         <div class="post-meta">
@@ -1592,14 +1680,25 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/02/12/android/创建和生成本地或远程Maven仓库/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/创建和生成本地或远程Maven仓库/" itemprop="commentCount"></span>
+                <a href="/2019/02/12/android/打包jar和aar/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/打包jar和aar/" itemprop="commentCount"></span>
                 </a>
               </span>
             
           
 
           
+          
+             <span id="/2019/02/12/android/打包jar和aar/" class="leancloud_visitors" data-flag-title="打包aar和jar文件">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
           
 
           
@@ -1622,10 +1721,10 @@
 
       
         
-          <p>在我们用普通方法对Libray Module进行打包为 test.jar，然后放到libs中使用的过程中，如果Library Module有远程依赖时，我们在使用test.jar的时候就会出现 ClassNotFoundException。因为远程依赖并没有被打包到test.jar中。<br>
+          <h2 id="Library不包含远程库的情况"><a href="#Library不包含远程库的情况" class="headerlink" title="Library不包含远程库的情况"></a>Library不包含远程库的情况</h2><p>如果不包含远程库，那么项目在build一次后会在 <em>Library_Directory/build/intermediates/bundles/release/</em> 下生成class文件和资源文件。所以可以通过对这些文件的压缩打包来获得jar包或者aar文件<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/12/android/创建和生成本地或远程Maven仓库/#more" rel="contents">
+            <a class="btn" href="/2019/02/12/android/打包jar和aar/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1756,6 +1855,17 @@
           
 
           
+          
+             <span id="/2019/02/12/android/启动页的多种实现方式/" class="leancloud_visitors" data-flag-title="启动页的实现">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
           
 
           
@@ -2143,6 +2253,113 @@
 
 
   
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Tcbckt5ObOHmj0kzANxLvsr6-gzGzoHsz", "2YhErhBJklyAtDe6R3v3pAU8");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
 
   
 
