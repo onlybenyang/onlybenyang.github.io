@@ -741,163 +741,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/09/react_native/Deeplink 被js和native分别监听并各自处理/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="想学画画的羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/09/react_native/Deeplink 被js和native分别监听并各自处理/" itemprop="url">Deeplink 被js和native同时监听并正确处理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
-                2019-02-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/react-native/" itemprop="url" rel="index">
-                    <span itemprop="name">react native</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/02/09/react_native/Deeplink 被js和native分别监听并各自处理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/09/react_native/Deeplink 被js和native分别监听并各自处理/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Deeplink-被js和native同时监听并正确处理"><a href="#Deeplink-被js和native同时监听并正确处理" class="headerlink" title="Deeplink 被js和native同时监听并正确处理"></a>Deeplink 被js和native同时监听并正确处理</h2><p>看标题觉得不明觉厉，因为RN的js部分都在一个MainActivity，其他native页面时另外的activity；而一个Deeplink在一个app中被两个Activity监听到，并且可以各自处理，这基本是不可能的事情。因为在浏览器打开一个 deeplink 的app时如果有2个Activity注册了去监听，那么会让你去选择一个来打开这个deeplink，被选的那个会被唤醒去处理link。</p>
-<p>所以要做到这一点，需要一个中间层的actvity去监听deeplink，然后根据在后台时时那个Activity进行跳转。当然，没有在后台的话，就更加情况看最后需要显示的页面是js的还是native的来进行跳转。大概思路很简单，但实际实现会遇到很多问题。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/09/react_native/Deeplink 被js和native分别监听并各自处理/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/09/react_native/RN与原生Activty互相跳转/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1005,6 +848,163 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/02/09/react_native/RN与原生Activty互相跳转/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/09/react_native/Deeplink 被js和native分别监听并各自处理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="想学画画的羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/09/react_native/Deeplink 被js和native分别监听并各自处理/" itemprop="url">Deeplink 被js和native同时监听并正确处理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
+                2019-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/react-native/" itemprop="url" rel="index">
+                    <span itemprop="name">react native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/09/react_native/Deeplink 被js和native分别监听并各自处理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/09/react_native/Deeplink 被js和native分别监听并各自处理/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Deeplink-被js和native同时监听并正确处理"><a href="#Deeplink-被js和native同时监听并正确处理" class="headerlink" title="Deeplink 被js和native同时监听并正确处理"></a>Deeplink 被js和native同时监听并正确处理</h2><p>看标题觉得不明觉厉，因为RN的js部分都在一个MainActivity，其他native页面时另外的activity；而一个Deeplink在一个app中被两个Activity监听到，并且可以各自处理，这基本是不可能的事情。因为在浏览器打开一个 deeplink 的app时如果有2个Activity注册了去监听，那么会让你去选择一个来打开这个deeplink，被选的那个会被唤醒去处理link。</p>
+<p>所以要做到这一点，需要一个中间层的actvity去监听deeplink，然后根据在后台时时那个Activity进行跳转。当然，没有在后台的话，就更加情况看最后需要显示的页面是js的还是native的来进行跳转。大概思路很简单，但实际实现会遇到很多问题。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/09/react_native/Deeplink 被js和native分别监听并各自处理/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -2130,7 +2130,7 @@
   
   <script type="text/javascript">
     var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
+    var guest = 'nick,mail';
     guest = guest.split(',').filter(item=>{
       return GUEST.indexOf(item)>-1;
     });
@@ -2140,8 +2140,8 @@
         notify: false,
         appId: 'Tcbckt5ObOHmj0kzANxLvsr6-gzGzoHsz',
         appKey: '2YhErhBJklyAtDe6R3v3pAU8',
-        placeholder: '',
-        avatar:'mm',
+        placeholder: '欢迎留言，看到后会马上回复~',
+        avatar:'mp',
         guest_info:guest,
         pageSize:'10' || 10,
     });
