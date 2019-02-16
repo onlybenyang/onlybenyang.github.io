@@ -314,7 +314,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2019/02/12/android/Notification note/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/02/12/android/Notification note/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/Notification note/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -477,41 +477,8 @@
           
 
   
-    <div onclick="showGitment()" id="gitment_title" class="gitment_title">显示 Gitment 评论</div>
-        <div id="container" style="display:none"></div>
-        <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-        <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-        <script>
-        const myTheme = {
-          render(state, instance) {
-            const container = document.createElement('div');
-            container.lang = "en-US";
-            container.className = 'gitment-container gitment-root-container';
-            container.appendChild(instance.renderHeader(state, instance));
-            container.appendChild(instance.renderEditor(state, instance));
-            container.appendChild(instance.renderComments(state, instance));
-            container.appendChild(instance.renderFooter(state, instance));
-            return container;
-          }
-        }
-        function showGitment() {
-          $("#gitment_title").attr("style", "display:none");
-          $("#container").attr("style", "").addClass("gitment_container");
-          var gitment = new Gitment({
-            id: window.location.pathname,
-            theme: myTheme,
-            owner: 'onlybenyang',
-            repo: 'onlybenyang.github.io',
-            oauth: {
-              client_id: '3a02665cba201915d545',
-              client_secret: '75d730ecc2e42c349e0edc56d45340fba59e90bc'
-            }
-          });
-          gitment.render('container');
-        }
-        </script>
+    <div class="comments" id="comments">
     </div>
-
   
 
 
@@ -640,8 +607,8 @@
 
 
         
-      </main></div>
-    
+      </div>
+    </main>
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
@@ -694,7 +661,7 @@
 
     
 
-  
+  </div>
 
   
 
@@ -816,50 +783,30 @@
 
 
 
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
-    
-<!-- END LOCAL -->
-
-    
-      <style>
-        a.gitment-editor-footer-tip { display: none; }
-        .gitment-container.gitment-footer-container { display: none; }
-      </style>
-    
-
-    
-      <script type="text/javascript">
-      function renderGitment(){
-        var gitment = new Gitmint({
-            id: window.location.pathname, 
-            owner: 'onlybenyang',
-            repo: 'onlybenyang.github.io',
-            
-            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
-            
-            oauth: {
-            
-            
-                client_secret: '75d730ecc2e42c349e0edc56d45340fba59e90bc',
-            
-                client_id: '3a02665cba201915d545'
-            }});
-        gitment.render('gitment-container');
-      }
-
-      
-      renderGitment();
-      
-      </script>
-    
 
 
 
-
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'github: https://github.com/onlybenyang';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Tcbckt5ObOHmj0kzANxLvsr6-gzGzoHsz',
+        appKey: '2YhErhBJklyAtDe6R3v3pAU8',
+        placeholder: 'ヾﾉ≧∀≦)o Welcome to yang's blog',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
