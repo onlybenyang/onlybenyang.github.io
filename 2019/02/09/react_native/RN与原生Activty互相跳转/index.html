@@ -438,10 +438,39 @@
           
 
   
-    <div class="comments" id="comments">
-      
-        <div id="gitment-container"></div>
-      
+    <div onclick="showGitment()" id="gitment_title" class="gitment_title">显示 Gitment 评论</div>
+        <div id="container" style="display:none"></div>
+        <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+        <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+        <script>
+        const myTheme = {
+          render(state, instance) {
+            const container = document.createElement('div');
+            container.lang = "en-US";
+            container.className = 'gitment-container gitment-root-container';
+            container.appendChild(instance.renderHeader(state, instance));
+            container.appendChild(instance.renderEditor(state, instance));
+            container.appendChild(instance.renderComments(state, instance));
+            container.appendChild(instance.renderFooter(state, instance));
+            return container;
+          }
+        }
+        function showGitment() {
+          $("#gitment_title").attr("style", "display:none");
+          $("#container").attr("style", "").addClass("gitment_container");
+          var gitment = new Gitment({
+            id: window.location.pathname,
+            theme: myTheme,
+            owner: '',
+            repo: '',
+            oauth: {
+              client_id: '3a02665cba201915d545',
+              client_secret: '75d730ecc2e42c349e0edc56d45340fba59e90bc'
+            }
+          });
+          gitment.render('container');
+        }
+        </script>
     </div>
 
   
@@ -572,8 +601,8 @@
 
 
         
-      </div>
-    </main>
+      </main></div>
+    
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
@@ -626,7 +655,7 @@
 
     
 
-  </div>
+  
 
   
 
