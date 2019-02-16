@@ -308,6 +308,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/09/react_native/Deeplink 被js和native分别监听并各自处理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/02/09/react_native/Deeplink 被js和native分别监听并各自处理/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -369,8 +379,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/09/react_native/RN与原生Activty互相跳转/" rel="next" title="react所在Activity与其他Activity之间的跳转">
-                <i class="fa fa-chevron-left"></i> react所在Activity与其他Activity之间的跳转
+              <a href="/2019/02/09/react_native/RN基于React的通知组件/" rel="next" title="基于react的通知组件">
+                <i class="fa fa-chevron-left"></i> 基于react的通知组件
               </a>
             
           </div>
@@ -409,6 +419,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
 
   
 
@@ -712,6 +729,48 @@
 
 
 
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'onlybenyang',
+            repo: 'onlybenyang.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '75d730ecc2e42c349e0edc56d45340fba59e90bc',
+            
+                client_id: '3a02665cba201915d545'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
 
 
 

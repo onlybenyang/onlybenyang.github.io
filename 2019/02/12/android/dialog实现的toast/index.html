@@ -308,6 +308,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/12/android/dialog实现的toast/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/02/12/android/dialog实现的toast/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -385,8 +395,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/12/android/getSystemService分析/" rel="next" title="获得系统服务的源码分析">
-                <i class="fa fa-chevron-left"></i> 获得系统服务的源码分析
+              <a href="/2019/02/12/android/什么是Context/" rel="next" title="Android的Context详解">
+                <i class="fa fa-chevron-left"></i> Android的Context详解
               </a>
             
           </div>
@@ -395,8 +405,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/12/android/Okhttp3的Interceptor/" rel="prev" title="Okttp3的Interceptor">
-                Okttp3的Interceptor <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/12/android/dagger2小结/" rel="prev" title="Dagger2使用小结">
+                Dagger2使用小结 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -425,6 +435,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
 
   
 
@@ -703,6 +720,48 @@
 
 
 
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'onlybenyang',
+            repo: 'onlybenyang.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '75d730ecc2e42c349e0edc56d45340fba59e90bc',
+            
+                client_id: '3a02665cba201915d545'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
 
 
 
