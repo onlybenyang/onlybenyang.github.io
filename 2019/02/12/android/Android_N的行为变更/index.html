@@ -314,7 +314,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2019/02/12/android/Android_N的行为变更/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/02/12/android/Android_N的行为变更/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/Android_N的行为变更/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -390,8 +390,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/12/android/什么是Context/" rel="next" title="Android的Context详解">
-                <i class="fa fa-chevron-left"></i> Android的Context详解
+              <a href="/2019/02/12/android/打开第三方App/" rel="next" title="打开第三方App的方法">
+                <i class="fa fa-chevron-left"></i> 打开第三方App的方法
               </a>
             
           </div>
@@ -400,8 +400,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/12/android/创建和生成本地或远程Maven仓库/" rel="prev" title="创建和生成本地或远程Maven仓库">
-                创建和生成本地或远程Maven仓库 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/12/android/启动页的多种实现方式/" rel="prev" title="启动页的实现">
+                启动页的实现 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -433,11 +433,7 @@
 
   
     <div class="comments" id="comments">
-      
-        <div id="gitment-container"></div>
-      
     </div>
-
   
 
 
@@ -744,6 +740,28 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Tcbckt5ObOHmj0kzANxLvsr6-gzGzoHsz',
+        appKey: '2YhErhBJklyAtDe6R3v3pAU8',
+        placeholder: 'ヾﾉ≧∀≦)o Welcome to yang's blog',
+        avatar:'mp',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 

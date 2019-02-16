@@ -316,7 +316,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2019/02/12/android/集成Google FireBase/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/02/12/android/集成Google FireBase/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/集成Google FireBase/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -427,8 +427,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/12/android/设计模式/" rel="next" title="几种常见的设计模式">
-                <i class="fa fa-chevron-left"></i> 几种常见的设计模式
+              <a href="/2019/02/09/react_native/react-native的flex布局/" rel="next" title="react native 的flex布局">
+                <i class="fa fa-chevron-left"></i> react native 的flex布局
               </a>
             
           </div>
@@ -437,8 +437,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/12/android/Okhttp3的Interceptor/" rel="prev" title="Okttp3的Interceptor">
-                Okttp3的Interceptor <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/12/android/设计模式/" rel="prev" title="几种常见的设计模式">
+                几种常见的设计模式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -470,11 +470,7 @@
 
   
     <div class="comments" id="comments">
-      
-        <div id="gitment-container"></div>
-      
     </div>
-
   
 
 
@@ -781,6 +777,28 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Tcbckt5ObOHmj0kzANxLvsr6-gzGzoHsz',
+        appKey: '2YhErhBJklyAtDe6R3v3pAU8',
+        placeholder: 'ヾﾉ≧∀≦)o Welcome to yang's blog',
+        avatar:'mp',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
