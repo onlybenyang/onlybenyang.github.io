@@ -399,162 +399,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/Android_N的行为变更/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="想学画画的羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/12/android/Android_N的行为变更/" itemprop="url">常用功能在Android N上的变化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T00:00:00+08:00">
-                2019-02-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/02/12/android/Android_N的行为变更/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/Android_N的行为变更/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="主要记录对code影响比较大的行为变化"><a href="#主要记录对code影响比较大的行为变化" class="headerlink" title="主要记录对code影响比较大的行为变化"></a>主要记录对code影响比较大的行为变化</h2><h3 id="工程瘦身：后台优化"><a href="#工程瘦身：后台优化" class="headerlink" title="工程瘦身：后台优化"></a>工程瘦身：后台优化</h3><p>为了优化内存使用和电量的消耗，Android N去掉了三个隐式的广播。这个改变对用户来说绝对一大利好，因为后台注册这些广播的app在后台会经常被拉起，自然而然会影响到设备性能进而影响用户体验（很不幸，对开发者来讲，又有一些trick被限制了）。比如<a href="https://link.jianshu.com?t=http://developer.android.com/reference/android/net/ConnectivityManager.html#CONNECTIVITY_ACTION" target="_blank" rel="noopener"><code>CONNECTIVITY_ACTION</code></a>，在N之前的系统中，注册该广播的app在网络连接有变动时都会收到系统发出的广播，这样主进程被kill的app就可以复活了。此外还有<a href="https://link.jianshu.com?t=http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_PICTURE" target="_blank" rel="noopener"><code>ACTION_NEW_PICTURE</code></a><br>和 <a href="https://link.jianshu.com?t=http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_VIDEO" target="_blank" rel="noopener"><code>ACTION_NEW_VIDEO</code></a>。<br>对于这三个广播，Android N具体做了如下的优化：<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/12/android/Android_N的行为变更/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/Notification note/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -712,7 +556,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/Okhttp3的Interceptor/">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/Android_N的行为变更/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Thomas.Lee">
@@ -731,7 +575,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/12/android/Okhttp3的Interceptor/" itemprop="url">Okttp3的Interceptor</a></h1>
+                <a class="post-title-link" href="/2019/02/12/android/Android_N的行为变更/" itemprop="url">常用功能在Android N上的变化</a></h1>
         
 
         <div class="post-meta">
@@ -784,8 +628,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/02/12/android/Okhttp3的Interceptor/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/Okhttp3的Interceptor/" itemprop="commentCount"></span>
+                <a href="/2019/02/12/android/Android_N的行为变更/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/Android_N的行为变更/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -814,20 +658,170 @@
 
       
         
-          <p>拦截器是一个非常强大的机制，可以<strong>监视，重写和重试call</strong>（request和response）。</p>
-<p>这样可以用来很多网络请求问题：</p>
-<ul>
-<li>监视网络：获得网络请求过程中的connection，url，headers等数据</li>
-</ul>
-<ul>
-<li>重写请求：处理签名认证需要动态给予accessToken和accessSecret等问题</li>
-<li>重试：。。。。</li>
-</ul>
-<p>调用chain.proceed(request)是每个拦截器实现的一个主要部分。这个简单的方法是HTTP工作发生，产出满足请求的响应之处，</p>
-<p>拦截器可以链接，OkHttp使用列表来跟踪拦截器，并且拦截器按顺序被调用。</p>
+          <h2 id="主要记录对code影响比较大的行为变化"><a href="#主要记录对code影响比较大的行为变化" class="headerlink" title="主要记录对code影响比较大的行为变化"></a>主要记录对code影响比较大的行为变化</h2><h3 id="工程瘦身：后台优化"><a href="#工程瘦身：后台优化" class="headerlink" title="工程瘦身：后台优化"></a>工程瘦身：后台优化</h3><p>为了优化内存使用和电量的消耗，Android N去掉了三个隐式的广播。这个改变对用户来说绝对一大利好，因为后台注册这些广播的app在后台会经常被拉起，自然而然会影响到设备性能进而影响用户体验（很不幸，对开发者来讲，又有一些trick被限制了）。比如<a href="https://link.jianshu.com?t=http://developer.android.com/reference/android/net/ConnectivityManager.html#CONNECTIVITY_ACTION" target="_blank" rel="noopener"><code>CONNECTIVITY_ACTION</code></a>，在N之前的系统中，注册该广播的app在网络连接有变动时都会收到系统发出的广播，这样主进程被kill的app就可以复活了。此外还有<a href="https://link.jianshu.com?t=http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_PICTURE" target="_blank" rel="noopener"><code>ACTION_NEW_PICTURE</code></a><br>和 <a href="https://link.jianshu.com?t=http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_VIDEO" target="_blank" rel="noopener"><code>ACTION_NEW_VIDEO</code></a>。<br>对于这三个广播，Android N具体做了如下的优化：<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/12/android/Okhttp3的Interceptor/#more" rel="contents">
+            <a class="btn" href="/2019/02/12/android/Android_N的行为变更/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/集成Google FireBase/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="想学画画的羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/12/android/集成Google FireBase/" itemprop="url">FireBase整合总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T00:00:00+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/12/android/集成Google FireBase/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/集成Google FireBase/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="FireBase整合总结"><a href="#FireBase整合总结" class="headerlink" title="FireBase整合总结"></a>FireBase整合总结</h2><p>###android配置：</p>
+<ol>
+<li>将google service加入到maven</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    // ...</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        // ...</span><br><span class="line">        classpath &apos;com.google.gms:google-services:4.0.1&apos; // google-services plugin</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">allprojects &#123;</span><br><span class="line">    // ...</span><br><span class="line">    repositories &#123;</span><br><span class="line">        // ...</span><br><span class="line">        google() // Google&apos;s Maven repository</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/12/android/集成Google FireBase/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1206,163 +1200,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/getSystemService分析/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="想学画画的羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/12/android/getSystemService分析/" itemprop="url">获得系统服务的源码分析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T00:00:00+08:00">
-                2019-02-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/02/12/android/getSystemService分析/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/getSystemService分析/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>当我们需要获得系统服务的时候，就会使用<em>Context.getSystemService</em>来获得一个对应Service 的Manager。而因为Android内部的实现，所以获得的这个Manager是一个单例。</p>
-<p>首先，理清下getSystemService的原理，然后列出一些常用的SystemService。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/12/android/getSystemService分析/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/什么是Context/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1520,7 +1357,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/创建和生成本地或远程Maven仓库/">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/getSystemService分析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Thomas.Lee">
@@ -1539,7 +1376,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/12/android/创建和生成本地或远程Maven仓库/" itemprop="url">创建和生成本地或远程Maven仓库</a></h1>
+                <a class="post-title-link" href="/2019/02/12/android/getSystemService分析/" itemprop="url">获得系统服务的源码分析</a></h1>
         
 
         <div class="post-meta">
@@ -1592,8 +1429,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/02/12/android/创建和生成本地或远程Maven仓库/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/创建和生成本地或远程Maven仓库/" itemprop="commentCount"></span>
+                <a href="/2019/02/12/android/getSystemService分析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/getSystemService分析/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1622,10 +1459,11 @@
 
       
         
-          <p>在我们用普通方法对Libray Module进行打包为 test.jar，然后放到libs中使用的过程中，如果Library Module有远程依赖时，我们在使用test.jar的时候就会出现 ClassNotFoundException。因为远程依赖并没有被打包到test.jar中。<br>
+          <p>当我们需要获得系统服务的时候，就会使用<em>Context.getSystemService</em>来获得一个对应Service 的Manager。而因为Android内部的实现，所以获得的这个Manager是一个单例。</p>
+<p>首先，理清下getSystemService的原理，然后列出一些常用的SystemService。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/12/android/创建和生成本地或远程Maven仓库/#more" rel="contents">
+            <a class="btn" href="/2019/02/12/android/getSystemService分析/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1785,6 +1623,162 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/02/12/android/启动页的多种实现方式/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/创建和生成本地或远程Maven仓库/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="想学画画的羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/12/android/创建和生成本地或远程Maven仓库/" itemprop="url">创建和生成本地或远程Maven仓库</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T00:00:00+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/12/android/创建和生成本地或远程Maven仓库/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/创建和生成本地或远程Maven仓库/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在我们用普通方法对Libray Module进行打包为 test.jar，然后放到libs中使用的过程中，如果Library Module有远程依赖时，我们在使用test.jar的时候就会出现 ClassNotFoundException。因为远程依赖并没有被打包到test.jar中。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/12/android/创建和生成本地或远程Maven仓库/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
