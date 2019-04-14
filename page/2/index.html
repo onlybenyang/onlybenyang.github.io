@@ -243,7 +243,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/打开第三方App/">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/Okhttp3的Interceptor/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Thomas.Lee">
@@ -262,7 +262,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/12/android/打开第三方App/" itemprop="url">打开第三方App的方法</a></h1>
+                <a class="post-title-link" href="/2019/02/12/android/Okhttp3的Interceptor/" itemprop="url">Okttp3的Interceptor</a></h1>
         
 
         <div class="post-meta">
@@ -315,8 +315,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/02/12/android/打开第三方App/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/打开第三方App/" itemprop="commentCount"></span>
+                <a href="/2019/02/12/android/Okhttp3的Interceptor/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/Okhttp3的Interceptor/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -324,7 +324,7 @@
 
           
           
-             <span id="/2019/02/12/android/打开第三方App/" class="leancloud_visitors" data-flag-title="打开第三方App的方法">
+             <span id="/2019/02/12/android/Okhttp3的Interceptor/" class="leancloud_visitors" data-flag-title="Okttp3的Interceptor">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -356,39 +356,24 @@
 
       
         
-          
-            <p>打开其他apk大体分为两种方式，一个是通过 包名去打开，一种是通过URI。但是由于URI需要第三方App设置了 URI协议，要通过URI打开必须知道第三方设置的URI是什么，局限还是比较大的。所以一般都是用URI去打开系统App，比如app商店(market://)， 电话(tel://)等。</p>
-<p>####包名打开第三方App：</p>
-<ol>
-<li><p>最简单的方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(<span class="string">"包名"</span>);</span><br><span class="line"><span class="keyword">this</span>.startActivity(intent);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>指定打开在AndroidManifest.xml中声明为MAIN的Activity，并根据Task affinity判断是不是在一个新activity task栈中push准备打开的app</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">ComponentName comp = <span class="keyword">new</span> ComponentName(<span class="string">"com.linxcool"</span>,<span class="string">"com.linxcool.PlaneActivity"</span>);</span><br><span class="line">intent.setComponent(comp);</span><br><span class="line">intent.setAction(<span class="string">"android.intent.action.MAIN"</span>); <span class="comment">//参考 http://craftsman001.blog.51cto.com/9187002/1685847</span></span><br><span class="line">intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  <span class="comment">//参考 http://blog.csdn.net/berber78/article/details/7278408</span></span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>打开App前先检查是否安装</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAppInstalled</span><span class="params">(Context context, String packageName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        context.getPackageManager().getPackageInfo(packageName, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NameNotFoundException e) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打开app store 对应app详情页去进行下载</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">goToMarket</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Uri uri = Uri.parse(<span class="string">"market://details?id="</span> + packageName);</span><br><span class="line">    Intent goToMarket = <span class="keyword">new</span> Intent(Intent.ACTION_VIEW, uri);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">       context.startActivity(goToMarket);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ActivityNotFoundException e) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">openApp</span><span class="params">(String packageName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (isAppInstalled(<span class="keyword">this</span>, packageName)) &#123;</span><br><span class="line">        <span class="keyword">this</span>.startActivity(packageName);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        goToMarket(packageName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="URI打开App"><a href="#URI打开App" class="headerlink" title="URI打开App"></a>URI打开App</h4><p>用来打开第三方App不常用，除非都是一个开发者，可以知道被打开的App配置的URI才能正确打开，所以URI的方式还是多用来打开系统App，打开代码都一样，只是URI不同</p>
+          <p>拦截器是一个非常强大的机制，可以<strong>监视，重写和重试call</strong>（request和response）。</p>
+<p>这样可以用来很多网络请求问题：</p>
 <ul>
-<li><p>代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">openAppByURI</span><span class="params">(String uri)</span> </span>&#123;</span><br><span class="line">    Uri uri = Uri.parse(uri);</span><br><span class="line">    Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_VIEW, uri);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">       context.startActivity(intent);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ActivityNotFoundException e) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>常用系统URI<br>1.显示地图： URI：”geo:38.899533,-77.036476”</p>
-</li>
+<li>监视网络：获得网络请求过程中的connection，url，headers等数据</li>
 </ul>
-<ol start="2">
-<li>路径规划： URI：””<a href="http://maps.google.com/maps?f=dsaddr=startLat%20startLng&amp;daddr=endLat%20endLng&amp;hl=en&quot;&quot;" target="_blank" rel="noopener">http://maps.google.com/maps?f=dsaddr=startLat%20startLng&amp;daddr=endLat%20endLng&amp;hl=en&quot;&quot;</a></li>
-<li><p>播放多媒体</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Intent it = <span class="keyword">new</span> Intent(Intent.ACTION_VIEW);</span><br><span class="line">Uri uri =Uri.parse(<span class="string">"file:///sdcard/song.mp3"</span>);</span><br><span class="line">it.setDataAndType(uri,<span class="string">"audio/mp3"</span>);  <span class="comment">// 指定多媒体类型才知道用什么打开</span></span><br><span class="line">startActivity(it);</span><br><span class="line">Uri uri =Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI,<span class="string">"1"</span>); <span class="comment">//一般是存在内部存储空间的音频文件，通常不用这个。</span></span><br><span class="line">Intent it = <span class="keyword">new</span> Intent(Intent.ACTION_VIEW,uri);</span><br><span class="line">startActivity(it);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>打开照相机</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1</span></span><br><span class="line">Intent intent = <span class="keyword">new</span> Intent(<span class="string">"android.media.action.STILL_IMAGE_CAMERA"</span>); <span class="comment">//调用照相机</span></span><br><span class="line">startActivity(intent);</span><br><span class="line"><span class="comment">//2</span></span><br><span class="line">Intent i = <span class="keyword">new</span> Intent(Intent.ACTION_CAMERA_BUTTON, <span class="keyword">null</span>);</span><br><span class="line"><span class="keyword">this</span>.sendBroadcast(i);</span><br><span class="line"><span class="comment">//3</span></span><br><span class="line"><span class="keyword">long</span> dateTaken = System.currentTimeMillis();</span><br><span class="line">String name = createName(dateTaken) + <span class="string">".jpg"</span>;</span><br><span class="line">fileName = folder + name;</span><br><span class="line">ContentValues values = <span class="keyword">new</span> ContentValues();</span><br><span class="line">values.put(Images.Media.TITLE, fileName);</span><br><span class="line">values.put(<span class="string">"_data"</span>, fileName);</span><br><span class="line">values.put(Images.Media.PICASA_ID, fileName);</span><br><span class="line">values.put(Images.Media.DISPLAY_NAME, fileName);</span><br><span class="line">values.put(Images.Media.DESCRIPTION, fileName);</span><br><span class="line">values.put(Images.ImageColumns.BUCKET_DISPLAY_NAME, fileName);</span><br><span class="line">Uri photoUri = getContentResolver().insert(</span><br><span class="line">MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);</span><br><span class="line"></span><br><span class="line">Intent inttPhoto = <span class="keyword">new</span> Intent(MediaStore.ACTION_IMAGE_CAPTURE);</span><br><span class="line">inttPhoto.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);</span><br><span class="line">startActivityForResult(inttPhoto, <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-
-          
+<ul>
+<li>重写请求：处理签名认证需要动态给予accessToken和accessSecret等问题</li>
+<li>重试：。。。。</li>
+</ul>
+<p>调用chain.proceed(request)是每个拦截器实现的一个主要部分。这个简单的方法是HTTP工作发生，产出满足请求的响应之处，</p>
+<p>拦截器可以链接，OkHttp使用列表来跟踪拦截器，并且拦截器按顺序被调用。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/12/android/Okhttp3的Interceptor/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -435,7 +420,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/设计模式/">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/创建和生成本地或远程Maven仓库/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Thomas.Lee">
@@ -454,7 +439,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/12/android/设计模式/" itemprop="url">几种常见的设计模式</a></h1>
+                <a class="post-title-link" href="/2019/02/12/android/创建和生成本地或远程Maven仓库/" itemprop="url">创建和生成本地或远程Maven仓库</a></h1>
         
 
         <div class="post-meta">
@@ -507,8 +492,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/02/12/android/设计模式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/设计模式/" itemprop="commentCount"></span>
+                <a href="/2019/02/12/android/创建和生成本地或远程Maven仓库/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/创建和生成本地或远程Maven仓库/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -516,7 +501,7 @@
 
           
           
-             <span id="/2019/02/12/android/设计模式/" class="leancloud_visitors" data-flag-title="几种常见的设计模式">
+             <span id="/2019/02/12/android/创建和生成本地或远程Maven仓库/" class="leancloud_visitors" data-flag-title="创建和生成本地或远程Maven仓库">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -548,18 +533,17 @@
 
       
         
-          <p>###单例模式<br>饥汉模式——饱汉模式——双重锁模式（多线程）</p>
-<p>####饥汉模式：加载的就创建parm<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> Object parm = <span class="keyword">new</span> Object();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">instance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> parm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+          <p>在我们用普通方法对Libray Module进行打包为 test.jar，然后放到libs中使用的过程中，如果Library Module有远程依赖时，我们在使用test.jar的时候就会出现 ClassNotFoundException。因为远程依赖并没有被打包到test.jar中。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/12/android/设计模式/#more" rel="contents">
+            <a class="btn" href="/2019/02/12/android/创建和生成本地或远程Maven仓库/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     
@@ -774,7 +758,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/09/react_native/react-native的flex布局/">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/打包jar和aar/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Thomas.Lee">
@@ -793,7 +777,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/09/react_native/react-native的flex布局/" itemprop="url">react native 的flex布局</a></h1>
+                <a class="post-title-link" href="/2019/02/12/android/打包jar和aar/" itemprop="url">打包aar和jar文件</a></h1>
         
 
         <div class="post-meta">
@@ -805,8 +789,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
-                2019-02-09
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T00:00:00+08:00">
+                2019-02-12
               </time>
             
 
@@ -828,8 +812,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/react-native/" itemprop="url" rel="index">
-                    <span itemprop="name">react native</span>
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
                   </a>
                 </span>
 
@@ -846,8 +830,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/02/09/react_native/react-native的flex布局/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/09/react_native/react-native的flex布局/" itemprop="commentCount"></span>
+                <a href="/2019/02/12/android/打包jar和aar/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/打包jar和aar/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -855,7 +839,7 @@
 
           
           
-             <span id="/2019/02/09/react_native/react-native的flex布局/" class="leancloud_visitors" data-flag-title="react native 的flex布局">
+             <span id="/2019/02/12/android/打包jar和aar/" class="leancloud_visitors" data-flag-title="打包aar和jar文件">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -887,11 +871,10 @@
 
       
         
-          <h1 id="react-native-的flex布局"><a href="#react-native-的flex布局" class="headerlink" title="react native 的flex布局"></a>react native 的flex布局</h1><h2 id="flex-1和flex-0（默认-有什么区别？"><a href="#flex-1和flex-0（默认-有什么区别？" class="headerlink" title="flex=1和flex=0（默认)有什么区别？"></a>flex=1和flex=0（默认)有什么区别？</h2><p>react native是基于flex容器进行设计的，当对component没有显式地设置flex的时候，flex=0，此时的component类似与android中的’content-wrap’，它的长和宽由自身的style来设置，或者在style没有设置长宽的时候由子组件的长宽来设置(包裹子组件)。</p>
-<p>当flex=1且没有同级的组件，那它就会占满父组件或占满屏幕。flex&gt;0时，它就是对一个组件大小权重的设置。<br>
+          <h2 id="Library不包含远程库的情况"><a href="#Library不包含远程库的情况" class="headerlink" title="Library不包含远程库的情况"></a>Library不包含远程库的情况</h2><p>如果不包含远程库，那么项目在build一次后会在 <em>Library_Directory/build/intermediates/bundles/release/</em> 下生成class文件和资源文件。所以可以通过对这些文件的压缩打包来获得jar包或者aar文件<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/09/react_native/react-native的flex布局/#more" rel="contents">
+            <a class="btn" href="/2019/02/12/android/打包jar和aar/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -899,6 +882,366 @@
         
       
     </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/设计模式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="想学画画的羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/12/android/设计模式/" itemprop="url">几种常见的设计模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T00:00:00+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/12/android/设计模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/设计模式/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/02/12/android/设计模式/" class="leancloud_visitors" data-flag-title="几种常见的设计模式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>###单例模式<br>饥汉模式——饱汉模式——双重锁模式（多线程）</p>
+<p>####饥汉模式：加载的就创建parm<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> Object parm = <span class="keyword">new</span> Object();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">instance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> parm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/12/android/设计模式/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/打开第三方App/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="想学画画的羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/12/android/打开第三方App/" itemprop="url">打开第三方App的方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T00:00:00+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/12/android/打开第三方App/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/打开第三方App/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/02/12/android/打开第三方App/" class="leancloud_visitors" data-flag-title="打开第三方App的方法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>打开其他apk大体分为两种方式，一个是通过 包名去打开，一种是通过URI。但是由于URI需要第三方App设置了 URI协议，要通过URI打开必须知道第三方设置的URI是什么，局限还是比较大的。所以一般都是用URI去打开系统App，比如app商店(market://)， 电话(tel://)等。</p>
+<p>####包名打开第三方App：</p>
+<ol>
+<li><p>最简单的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(<span class="string">"包名"</span>);</span><br><span class="line"><span class="keyword">this</span>.startActivity(intent);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指定打开在AndroidManifest.xml中声明为MAIN的Activity，并根据Task affinity判断是不是在一个新activity task栈中push准备打开的app</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">ComponentName comp = <span class="keyword">new</span> ComponentName(<span class="string">"com.linxcool"</span>,<span class="string">"com.linxcool.PlaneActivity"</span>);</span><br><span class="line">intent.setComponent(comp);</span><br><span class="line">intent.setAction(<span class="string">"android.intent.action.MAIN"</span>); <span class="comment">//参考 http://craftsman001.blog.51cto.com/9187002/1685847</span></span><br><span class="line">intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  <span class="comment">//参考 http://blog.csdn.net/berber78/article/details/7278408</span></span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开App前先检查是否安装</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAppInstalled</span><span class="params">(Context context, String packageName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        context.getPackageManager().getPackageInfo(packageName, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NameNotFoundException e) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打开app store 对应app详情页去进行下载</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">goToMarket</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Uri uri = Uri.parse(<span class="string">"market://details?id="</span> + packageName);</span><br><span class="line">    Intent goToMarket = <span class="keyword">new</span> Intent(Intent.ACTION_VIEW, uri);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">       context.startActivity(goToMarket);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ActivityNotFoundException e) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">openApp</span><span class="params">(String packageName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (isAppInstalled(<span class="keyword">this</span>, packageName)) &#123;</span><br><span class="line">        <span class="keyword">this</span>.startActivity(packageName);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        goToMarket(packageName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="URI打开App"><a href="#URI打开App" class="headerlink" title="URI打开App"></a>URI打开App</h4><p>用来打开第三方App不常用，除非都是一个开发者，可以知道被打开的App配置的URI才能正确打开，所以URI的方式还是多用来打开系统App，打开代码都一样，只是URI不同</p>
+<ul>
+<li><p>代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">openAppByURI</span><span class="params">(String uri)</span> </span>&#123;</span><br><span class="line">    Uri uri = Uri.parse(uri);</span><br><span class="line">    Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_VIEW, uri);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">       context.startActivity(intent);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ActivityNotFoundException e) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>常用系统URI<br>1.显示地图： URI：”geo:38.899533,-77.036476”</p>
+</li>
+</ul>
+<ol start="2">
+<li>路径规划： URI：””<a href="http://maps.google.com/maps?f=dsaddr=startLat%20startLng&amp;daddr=endLat%20endLng&amp;hl=en&quot;&quot;" target="_blank" rel="noopener">http://maps.google.com/maps?f=dsaddr=startLat%20startLng&amp;daddr=endLat%20endLng&amp;hl=en&quot;&quot;</a></li>
+<li><p>播放多媒体</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Intent it = <span class="keyword">new</span> Intent(Intent.ACTION_VIEW);</span><br><span class="line">Uri uri =Uri.parse(<span class="string">"file:///sdcard/song.mp3"</span>);</span><br><span class="line">it.setDataAndType(uri,<span class="string">"audio/mp3"</span>);  <span class="comment">// 指定多媒体类型才知道用什么打开</span></span><br><span class="line">startActivity(it);</span><br><span class="line">Uri uri =Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI,<span class="string">"1"</span>); <span class="comment">//一般是存在内部存储空间的音频文件，通常不用这个。</span></span><br><span class="line">Intent it = <span class="keyword">new</span> Intent(Intent.ACTION_VIEW,uri);</span><br><span class="line">startActivity(it);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>打开照相机</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1</span></span><br><span class="line">Intent intent = <span class="keyword">new</span> Intent(<span class="string">"android.media.action.STILL_IMAGE_CAMERA"</span>); <span class="comment">//调用照相机</span></span><br><span class="line">startActivity(intent);</span><br><span class="line"><span class="comment">//2</span></span><br><span class="line">Intent i = <span class="keyword">new</span> Intent(Intent.ACTION_CAMERA_BUTTON, <span class="keyword">null</span>);</span><br><span class="line"><span class="keyword">this</span>.sendBroadcast(i);</span><br><span class="line"><span class="comment">//3</span></span><br><span class="line"><span class="keyword">long</span> dateTaken = System.currentTimeMillis();</span><br><span class="line">String name = createName(dateTaken) + <span class="string">".jpg"</span>;</span><br><span class="line">fileName = folder + name;</span><br><span class="line">ContentValues values = <span class="keyword">new</span> ContentValues();</span><br><span class="line">values.put(Images.Media.TITLE, fileName);</span><br><span class="line">values.put(<span class="string">"_data"</span>, fileName);</span><br><span class="line">values.put(Images.Media.PICASA_ID, fileName);</span><br><span class="line">values.put(Images.Media.DISPLAY_NAME, fileName);</span><br><span class="line">values.put(Images.Media.DESCRIPTION, fileName);</span><br><span class="line">values.put(Images.ImageColumns.BUCKET_DISPLAY_NAME, fileName);</span><br><span class="line">Uri photoUri = getContentResolver().insert(</span><br><span class="line">MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);</span><br><span class="line"></span><br><span class="line">Intent inttPhoto = <span class="keyword">new</span> Intent(MediaStore.ACTION_IMAGE_CAPTURE);</span><br><span class="line">inttPhoto.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);</span><br><span class="line">startActivityForResult(inttPhoto, <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
     
     
     
@@ -1278,351 +1621,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/09/react_native/RN基于React的通知组件/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="想学画画的羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/09/react_native/RN基于React的通知组件/" itemprop="url">基于react的通知组件</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
-                2019-02-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/react-native/" itemprop="url" rel="index">
-                    <span itemprop="name">react native</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/02/09/react_native/RN基于React的通知组件/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/09/react_native/RN基于React的通知组件/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/02/09/react_native/RN基于React的通知组件/" class="leancloud_visitors" data-flag-title="基于react的通知组件">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="为什么要做一个不用原生控件的通知"><a href="#为什么要做一个不用原生控件的通知" class="headerlink" title="为什么要做一个不用原生控件的通知"></a>为什么要做一个不用原生控件的通知</h2><p>目前React Native的通知控件都会涉及使用到原生控件，但是需要知道IOS的通知行为非常麻烦，需要客户端发送通知给apple server，再由apple server发送通知给客户端显示在通知栏。这个行为会有一些不确定因素：网络不稳定，通知延时等。</p>
-<p>所以，如果降低通知组件的要求：</p>
-<ol>
-<li>不要求app在退出前台后仍然能够收到通知。</li>
-<li>不需要通知显示在通知栏</li>
-</ol>
-<p>但这个自定义通知组件仍然需要遵循其他通知应该有的特性：</p>
-<ol>
-<li>出现通知时，用户仍然可以对app进行操作</li>
-<li>用户可以手动去除通知</li>
-<li>用户可以通过点击通知，触发一些行为</li>
-<li>可以同时收到多条通知，并且用户可以分别触发对应的行为<br>看到第一点要求就果断抛弃Modal，但看了react native官方提供的组件，没有能满足这个要求组件。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/09/react_native/RN基于React的通知组件/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </li></ol></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/09/react_native/modal使用心得/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="想学画画的羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/09/react_native/modal使用心得/" itemprop="url">modal的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T00:00:00+08:00">
-                2019-02-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/react-native/" itemprop="url" rel="index">
-                    <span itemprop="name">react native</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/02/09/react_native/modal使用心得/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/09/react_native/modal使用心得/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/02/09/react_native/modal使用心得/" class="leancloud_visitors" data-flag-title="modal的使用">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="modal的使用"><a href="#modal的使用" class="headerlink" title="modal的使用"></a>modal的使用</h1><p>modal在react native 中可以看作是一个覆盖在最上层的窗口，当它出现时会占据所有的屏幕，且用户无法对下层的UI进行操作。这样看起来有些霸道，但也正因为无法操作下层的UI，我们可以随意定义modal上的UI和操作而不用担心影响到下层UI。所以，modal在我们的想象力下可以自定义成为许多自定义控件。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/09/react_native/modal使用心得/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/09/react_native/native和js的数据通信/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1791,7 +1789,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/09/react_native/react navigation的deeplink/">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/09/react_native/RN基于React的通知组件/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Thomas.Lee">
@@ -1810,7 +1808,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/09/react_native/react navigation的deeplink/" itemprop="url">react navigation中使用deeplink</a></h1>
+                <a class="post-title-link" href="/2019/02/09/react_native/RN基于React的通知组件/" itemprop="url">基于react的通知组件</a></h1>
         
 
         <div class="post-meta">
@@ -1863,8 +1861,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/02/09/react_native/react navigation的deeplink/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/09/react_native/react navigation的deeplink/" itemprop="commentCount"></span>
+                <a href="/2019/02/09/react_native/RN基于React的通知组件/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/09/react_native/RN基于React的通知组件/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1872,7 +1870,7 @@
 
           
           
-             <span id="/2019/02/09/react_native/react navigation的deeplink/" class="leancloud_visitors" data-flag-title="react navigation中使用deeplink">
+             <span id="/2019/02/09/react_native/RN基于React的通知组件/" class="leancloud_visitors" data-flag-title="基于react的通知组件">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1904,18 +1902,28 @@
 
       
         
-          <p>DeepLink主要是为了增加用户量的一个技术，主要是可以通过浏览器，短信，Email等信息中的url可以打开我们的app，如果没有安装的话会提示去安装一个的。</p>
-<p>这本来是Android和iOS都有的一个技术，所以这其实是一个Native端的技术，而react navigation只是对它的发送过来的uri进行了处理。<br>
+          <h2 id="为什么要做一个不用原生控件的通知"><a href="#为什么要做一个不用原生控件的通知" class="headerlink" title="为什么要做一个不用原生控件的通知"></a>为什么要做一个不用原生控件的通知</h2><p>目前React Native的通知控件都会涉及使用到原生控件，但是需要知道IOS的通知行为非常麻烦，需要客户端发送通知给apple server，再由apple server发送通知给客户端显示在通知栏。这个行为会有一些不确定因素：网络不稳定，通知延时等。</p>
+<p>所以，如果降低通知组件的要求：</p>
+<ol>
+<li>不要求app在退出前台后仍然能够收到通知。</li>
+<li>不需要通知显示在通知栏</li>
+</ol>
+<p>但这个自定义通知组件仍然需要遵循其他通知应该有的特性：</p>
+<ol>
+<li>出现通知时，用户仍然可以对app进行操作</li>
+<li>用户可以手动去除通知</li>
+<li>用户可以通过点击通知，触发一些行为</li>
+<li>可以同时收到多条通知，并且用户可以分别触发对应的行为<br>看到第一点要求就果断抛弃Modal，但看了react native官方提供的组件，没有能满足这个要求组件。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/09/react_native/react navigation的deeplink/#more" rel="contents">
+            <a class="btn" href="/2019/02/09/react_native/RN基于React的通知组件/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
-    </p></div>
+    </li></ol></div>
     
     
     
@@ -1996,7 +2004,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
