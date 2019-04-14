@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://onlybenyang.github.io/images/标记-清除算法.png">
 <meta property="og:image" content="https://onlybenyang.github.io/images/标记-整理算法.png">
 <meta property="og:image" content="https://onlybenyang.github.io/images/复制算法.png">
-<meta property="og:updated_time" content="2019-04-14T05:21:23.000Z">
+<meta property="og:updated_time" content="2019-04-14T05:26:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="垃圾回收算法">
 <meta name="twitter:description" content="垃圾回收算法Java虚拟机(JVM)垃圾回收器提供的一种用于在空闲时间不定时回收无任何对象引用的对象占据的内存空间的一种机制。 整个回收过程分为几个阶段：找出需要回收的对象 —&amp;gt; 对需要回收的对象进行标记 —&amp;gt; 回收对象内存 前面两个阶段采用的是 根搜索算法，回收对象的的算法包含1.基础的标记-清除算法。2进阶的标记-整理算法。3.高效的复制算法，在回收过程中会根据堆的使用情况来选择合">
@@ -361,6 +361,7 @@
         <h2 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h2><p>Java虚拟机(JVM)垃圾回收器提供的一种用于在空闲时间不定时回收无任何对象引用的对象占据的内存空间的一种机制。</p>
 <p>整个回收过程分为几个阶段：找出需要回收的对象 —&gt; 对需要回收的对象进行标记 —&gt; 回收对象内存</p>
 <p>前面两个阶段采用的是 <strong>根搜索算法</strong>，回收对象的的算法包含<strong>1.基础的标记-清除算法。2进阶的标记-整理算法。3.高效的复制算法</strong>，在回收过程中会根据堆的使用情况来选择合适的算法。</p>
+<a id="more"></a>
 <h3 id="根搜索算法"><a href="#根搜索算法" class="headerlink" title="根搜索算法"></a>根搜索算法</h3><p>基本概念：通过遍历图中节点的方式（离散数学），从GC Roots出发，找出并标记可达节点（不需要的变量）；其中GC Roots属于Root Set。</p>
 <p><em>Root Set: 正在执行的Java程序可以访问的引用变量（注意：不是对象）的集合(包括局部变量、参数、类变量)，程序可以使用引用变量访问对象的属性和调用对象的方法</em></p>
 <p>算法思路:</p>
