@@ -243,6 +243,208 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/04/14/android/垃圾回收算法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="想学画画的羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/14/android/垃圾回收算法/" itemprop="url">垃圾回收算法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-14T00:00:00+08:00">
+                2019-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/14/android/垃圾回收算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/04/14/android/垃圾回收算法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/04/14/android/垃圾回收算法/" class="leancloud_visitors" data-flag-title="垃圾回收算法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h2><p>Java虚拟机(JVM)垃圾回收器提供的一种用于在空闲时间不定时回收无任何对象引用的对象占据的内存空间的一种机制。</p>
+<p>整个回收过程分为几个阶段：找出需要回收的对象 —&gt; 对需要回收的对象进行标记 —&gt; 回收对象内存</p>
+<p>前面两个阶段采用的是 <strong>根搜索算法</strong>，回收对象的的算法包含<strong>1.基础的标记-清除算法。2进阶的标记-整理算法。3.高效的复制算法</strong>，在回收过程中会根据堆的使用情况来选择合适的算法。</p>
+<h3 id="根搜索算法"><a href="#根搜索算法" class="headerlink" title="根搜索算法"></a>根搜索算法</h3><p>基本概念：通过遍历图中节点的方式（离散数学），从GC Roots出发，找出并标记可达节点（不需要的变量）；其中GC Roots属于Root Set。</p>
+<p><em>Root Set: 正在执行的Java程序可以访问的引用变量（注意：不是对象）的集合(包括局部变量、参数、类变量)，程序可以使用引用变量访问对象的属性和调用对象的方法</em></p>
+<p>算法思路:</p>
+<ol>
+<li><p>通过一系列名为“GC Roots”的对象作为起始点，寻找对应的引用节点。</p>
+</li>
+<li><p>找到这些引用节点后，从这些节点开始向下继续寻找它们的引用节点。</p>
+</li>
+<li><p>重复（2）。</p>
+</li>
+<li><p>搜索所走过的路径称为引用链，当一个对象到GC Roots没有任何引用链相连时，就证明此对象是不可用的。</p>
+</li>
+</ol>
+<p>在这个过程其中需要在意是什么对象是GC Roots，垃圾回收器对以下特殊的对象定义为GC Roots对象：</p>
+<p>（1）虚拟机栈中引用的对象（<a href="https://wangwengcn.iteye.com/blog/1622195" target="_blank" rel="noopener">栈帧</a>中的本地变量表）；</p>
+<p>（2）方法区中的常量引用的对象；</p>
+<p>（3）方法区中的类静态属性引用的对象；</p>
+<p>（4）本地方法栈中JNI（Native方法）的引用对象。</p>
+<p>（5）活跃线程。</p>
+<p><img src="/images/gc_root_search.png" alt="gc_root_search"></p>
+<p>在标记阶段应用进程会先暂停以便于JVM进行垃圾回收，这种暂停情况叫做<strong>安全点</strong>，这会出发一次Stop The World（SWT）。但SWT时长并不取决于堆中对象的多少和堆的大小，而是存活对象的多少。</p>
+<p><strong>在根搜索算法中，要经过2次标记，才能决定哪些对象的内存空间真正被回收：</strong></p>
+<ul>
+<li>对象A没有和任何GC Roots相连，它会被标记并进行筛选。筛选的标准是它的finalize()需要被执行不。</li>
+<li>如果被认为需要执行finalize()，对象A就会进入F-Queue中，然后由JVM自动创建的低优先级的Finalizer线程去执行finalize()释放空间；而第二次标记的机会就是在对象A的finalize()中把对象A重新连接到一个GC Roots的链上，如果成功了，对象A就会被标记为<em>可达节点</em>，不会被回收掉。</li>
+</ul>
+<h3 id="回收对象内存的算法"><a href="#回收对象内存的算法" class="headerlink" title="回收对象内存的算法"></a>回收对象内存的算法</h3><h4 id="1-标记-清除算法"><a href="#1-标记-清除算法" class="headerlink" title="1 标记-清除算法"></a>1 标记-清除算法</h4><p>最基础的回收算法，基本就是根搜索算法进行标记出哪些对象不需要回收，哪些需要回收；在标记后<strong>统一</strong>回收所有被标记为回收的对象。</p>
+<p>优点：不需要进行对象的移动，并且仅对不存活的对象进行处理，在存活对象比较多的情况下极为高效。</p>
+<p>缺点：（1）<strong>标记和清除过程的效率都不高。</strong>这种方法需要使用一个空闲列表来记录所有的空闲区域以及大小。对空闲列表的管理会增加分配对象时的工作量。（2）<strong>标记清除后会产生大量不连续的内存碎片。</strong></p>
+<p><img src="/images/标记-清除算法.png" alt="标记-清除算法"></p>
+<h4 id="2-标记-整理算法"><a href="#2-标记-整理算法" class="headerlink" title="2 标记-整理算法"></a>2 标记-整理算法</h4><p>标记的过程都是一样的，整理是让所有的对象都向一端移动，然后直接清理掉端边界以外的内存。在基于Compacting算法的收集器的实现中，一般增加句柄和句柄表。</p>
+<p>优点：1 经过整理之后，<strong>新对象的分配只需要通过指针碰撞便能完成</strong>（Pointer Bumping），相当简单。2 使用这种方法空闲区域的位置是始终可知的，也<strong>不会再有碎片</strong>的问题了。</p>
+<p>缺点：<strong>GC暂停的时间会增长</strong>，因为你需要将所有的对象都拷贝到一个新的地方，还得更新它们的引用地址。</p>
+<p><img src="/images/标记-整理算法.png" alt="标记-整理算法"></p>
+<h4 id="3-复制算法"><a href="#3-复制算法" class="headerlink" title="3 复制算法"></a>3 复制算法</h4><p>该算法的提出是为了克服句柄的开销和解决堆碎片的垃圾回收，将内存按容量分为大小相等的两块，每次只使用其中的一块（对象面），当这一块的内存用完了，就将还存活着的对象复制到另外一块内存上面（空闲面），然后再把已使用过的内存空间一次清理掉。在对象区与空闲区的切换过程中，程序暂停执行。<br>复制算法比较适合于新生代（短生存期的对象），在老年代（长生存期的对象）中，对象存活率比较高，如果执行较多的复制操作，效率将会变低，所以老年代一般会选用其他算法，如标记—整理算法。<br>优点：1 <strong>标记阶段和复制阶段可以同时进行</strong>。2 每次只对一块内存进行回收，<strong>运行高效</strong>。3 只需移动栈顶指针，按顺序分配内存即可，实现简单。4 内存回收时<strong>不会有内存碎片的出现</strong>（活动对象所占的内存空间之间没有空闲间隔）。<br>缺点：需要一块能容纳下所有存活对象的额外的内存空间。因此，<strong>可一次性分配的最大内存缩小了一半</strong>。</p>
+<p><img src="/images/复制算法.png" alt="复制算法"></p>
+<h4 id="4-分代收集算法"><a href="#4-分代收集算法" class="headerlink" title="4 分代收集算法"></a>4 分代收集算法</h4><p>对新生代使用复制算法，对老年代使用标记-清理或者标记-整理算法。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/04/14/android/垃圾回收器/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -262,7 +464,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/14/android/垃圾回收器/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2019/04/14/android/垃圾回收器/" itemprop="url">Java的垃圾回收器</a></h1>
         
 
         <div class="post-meta">
@@ -274,7 +476,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-14T13:00:50+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-14T00:00:00+08:00">
                 2019-04-14
               </time>
             
@@ -284,6 +486,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -302,7 +526,7 @@
 
           
           
-             <span id="/2019/04/14/android/垃圾回收器/" class="leancloud_visitors" data-flag-title="">
+             <span id="/2019/04/14/android/垃圾回收器/" class="leancloud_visitors" data-flag-title="Java的垃圾回收器">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -356,8 +580,8 @@
 </ol>
 <p>相比并行垃圾回收器，并发标记扫描垃圾回收器使用更多的CPU来确保程序的吞吐量。如果我们可以为了更好的程序性能分配更多的CPU，那么并发标记上扫描垃圾回收器是更好的选择相比并发垃圾回收器。</p>
 <p>通过JVM参数 <strong>XX:+USeParNewGC 打开并发标记扫描垃圾回收器</strong>。</p>
-<h3 id="怎么配置JVM垃圾回收来优化GC"><a href="#怎么配置JVM垃圾回收来优化GC" class="headerlink" title="怎么配置JVM垃圾回收来优化GC"></a>怎么配置JVM垃圾回收来优化GC</h3><h4 id="垃圾回收器类型"><a href="#垃圾回收器类型" class="headerlink" title="垃圾回收器类型"></a>垃圾回收器类型</h4><p><img src="E:\works\github\Note\res\垃圾回收器配置.png" alt="垃圾回收器配置"></p>
-<h4 id="GC的优化配置"><a href="#GC的优化配置" class="headerlink" title="GC的优化配置"></a>GC的优化配置</h4><p><img src="E:\works\github\Note\res\垃圾回收的优化配置.png" alt="垃圾回收的优化配置"></p>
+<h3 id="怎么配置JVM垃圾回收来优化GC"><a href="#怎么配置JVM垃圾回收来优化GC" class="headerlink" title="怎么配置JVM垃圾回收来优化GC"></a>怎么配置JVM垃圾回收来优化GC</h3><h4 id="垃圾回收器类型"><a href="#垃圾回收器类型" class="headerlink" title="垃圾回收器类型"></a>垃圾回收器类型</h4><p><img src="/images/垃圾回收器配置.png" alt="垃圾回收器配置"></p>
+<h4 id="GC的优化配置"><a href="#GC的优化配置" class="headerlink" title="GC的优化配置"></a>GC的优化配置</h4><p><img src="/images/垃圾回收的优化配置.png" alt="垃圾回收的优化配置"></p>
 
           
         
@@ -425,7 +649,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/14/android/垃圾回收的细节知识/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2019/04/14/android/垃圾回收的细节知识/" itemprop="url">垃圾回收的小知识</a></h1>
         
 
         <div class="post-meta">
@@ -437,7 +661,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-14T13:00:50+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-14T00:00:00+08:00">
                 2019-04-14
               </time>
             
@@ -447,6 +671,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -465,7 +711,7 @@
 
           
           
-             <span id="/2019/04/14/android/垃圾回收的细节知识/" class="leancloud_visitors" data-flag-title="">
+             <span id="/2019/04/14/android/垃圾回收的细节知识/" class="leancloud_visitors" data-flag-title="垃圾回收的小知识">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -598,7 +844,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/04/14/android/垃圾回收算法/">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/Okhttp3的Interceptor/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Thomas.Lee">
@@ -617,187 +863,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/14/android/垃圾回收算法/" itemprop="url">Untitled</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-14T13:00:50+08:00">
-                2019-04-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/04/14/android/垃圾回收算法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/04/14/android/垃圾回收算法/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/04/14/android/垃圾回收算法/" class="leancloud_visitors" data-flag-title="">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h2><p>Java虚拟机(JVM)垃圾回收器提供的一种用于在空闲时间不定时回收无任何对象引用的对象占据的内存空间的一种机制。</p>
-<p>整个回收过程分为几个阶段：找出需要回收的对象 —&gt; 对需要回收的对象进行标记 —&gt; 回收对象内存</p>
-<p>前面两个阶段采用的是 <strong>根搜索算法</strong>，回收对象的的算法包含<strong>1.基础的标记-清除算法。2进阶的标记-整理算法。3.高效的复制算法</strong>，在回收过程中会根据堆的使用情况来选择合适的算法。</p>
-<h3 id="根搜索算法"><a href="#根搜索算法" class="headerlink" title="根搜索算法"></a>根搜索算法</h3><p>基本概念：通过遍历图中节点的方式（离散数学），从GC Roots出发，找出并标记可达节点（不需要的变量）；其中GC Roots属于Root Set。</p>
-<p><em>Root Set: 正在执行的Java程序可以访问的引用变量（注意：不是对象）的集合(包括局部变量、参数、类变量)，程序可以使用引用变量访问对象的属性和调用对象的方法</em></p>
-<p>算法思路:</p>
-<ol>
-<li><p>通过一系列名为“GC Roots”的对象作为起始点，寻找对应的引用节点。</p>
-</li>
-<li><p>找到这些引用节点后，从这些节点开始向下继续寻找它们的引用节点。</p>
-</li>
-<li><p>重复（2）。</p>
-</li>
-<li><p>搜索所走过的路径称为引用链，当一个对象到GC Roots没有任何引用链相连时，就证明此对象是不可用的。</p>
-</li>
-</ol>
-<p>在这个过程其中需要在意是什么对象是GC Roots，垃圾回收器对以下特殊的对象定义为GC Roots对象：</p>
-<p>（1）虚拟机栈中引用的对象（<a href="https://wangwengcn.iteye.com/blog/1622195" target="_blank" rel="noopener">栈帧</a>中的本地变量表）；</p>
-<p>（2）方法区中的常量引用的对象；</p>
-<p>（3）方法区中的类静态属性引用的对象；</p>
-<p>（4）本地方法栈中JNI（Native方法）的引用对象。</p>
-<p>（5）活跃线程。</p>
-<p><img src="E:\works\github\Note\res\gc_root_search.png" alt="gc_root_search"></p>
-<p>在标记阶段应用进程会先暂停以便于JVM进行垃圾回收，这种暂停情况叫做<strong>安全点</strong>，这会出发一次Stop The World（SWT）。但SWT时长并不取决于堆中对象的多少和堆的大小，而是存活对象的多少。</p>
-<p><strong>在根搜索算法中，要经过2次标记，才能决定哪些对象的内存空间真正被回收：</strong></p>
-<ul>
-<li>对象A没有和任何GC Roots相连，它会被标记并进行筛选。筛选的标准是它的finalize()需要被执行不。</li>
-<li>如果被认为需要执行finalize()，对象A就会进入F-Queue中，然后由JVM自动创建的低优先级的Finalizer线程去执行finalize()释放空间；而第二次标记的机会就是在对象A的finalize()中把对象A重新连接到一个GC Roots的链上，如果成功了，对象A就会被标记为<em>可达节点</em>，不会被回收掉。</li>
-</ul>
-<h3 id="回收对象内存的算法"><a href="#回收对象内存的算法" class="headerlink" title="回收对象内存的算法"></a>回收对象内存的算法</h3><h4 id="1-标记-清除算法"><a href="#1-标记-清除算法" class="headerlink" title="1 标记-清除算法"></a>1 标记-清除算法</h4><p>最基础的回收算法，基本就是根搜索算法进行标记出哪些对象不需要回收，哪些需要回收；在标记后<strong>统一</strong>回收所有被标记为回收的对象。</p>
-<p>优点：不需要进行对象的移动，并且仅对不存活的对象进行处理，在存活对象比较多的情况下极为高效。</p>
-<p>缺点：（1）<strong>标记和清除过程的效率都不高。</strong>这种方法需要使用一个空闲列表来记录所有的空闲区域以及大小。对空闲列表的管理会增加分配对象时的工作量。（2）<strong>标记清除后会产生大量不连续的内存碎片。</strong></p>
-<p><img src="E:\works\github\Note\res\标记-清除算法.png" alt="标记-清除算法"></p>
-<h4 id="2-标记-整理算法"><a href="#2-标记-整理算法" class="headerlink" title="2 标记-整理算法"></a>2 标记-整理算法</h4><p>标记的过程都是一样的，整理是让所有的对象都向一端移动，然后直接清理掉端边界以外的内存。在基于Compacting算法的收集器的实现中，一般增加句柄和句柄表。</p>
-<p>优点：1 经过整理之后，<strong>新对象的分配只需要通过指针碰撞便能完成</strong>（Pointer Bumping），相当简单。2 使用这种方法空闲区域的位置是始终可知的，也<strong>不会再有碎片</strong>的问题了。</p>
-<p>缺点：<strong>GC暂停的时间会增长</strong>，因为你需要将所有的对象都拷贝到一个新的地方，还得更新它们的引用地址。</p>
-<p><img src="E:\works\github\Note\res\标记-整理算法.png" alt="标记-整理算法"></p>
-<h4 id="3-复制算法"><a href="#3-复制算法" class="headerlink" title="3 复制算法"></a>3 复制算法</h4><p>该算法的提出是为了克服句柄的开销和解决堆碎片的垃圾回收，将内存按容量分为大小相等的两块，每次只使用其中的一块（对象面），当这一块的内存用完了，就将还存活着的对象复制到另外一块内存上面（空闲面），然后再把已使用过的内存空间一次清理掉。在对象区与空闲区的切换过程中，程序暂停执行。<br>复制算法比较适合于新生代（短生存期的对象），在老年代（长生存期的对象）中，对象存活率比较高，如果执行较多的复制操作，效率将会变低，所以老年代一般会选用其他算法，如标记—整理算法。<br>优点：1 <strong>标记阶段和复制阶段可以同时进行</strong>。2 每次只对一块内存进行回收，<strong>运行高效</strong>。3 只需移动栈顶指针，按顺序分配内存即可，实现简单。4 内存回收时<strong>不会有内存碎片的出现</strong>（活动对象所占的内存空间之间没有空闲间隔）。<br>缺点：需要一块能容纳下所有存活对象的额外的内存空间。因此，<strong>可一次性分配的最大内存缩小了一半</strong>。</p>
-<p><img src="E:\works\github\Note\res\复制算法.png" alt="复制算法"></p>
-<h4 id="4-分代收集算法"><a href="#4-分代收集算法" class="headerlink" title="4 分代收集算法"></a>4 分代收集算法</h4><p>对新生代使用复制算法，对老年代使用标记-清理或者标记-整理算法。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/启动页的多种实现方式/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="想学画画的羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/12/android/启动页的多种实现方式/" itemprop="url">启动页的实现</a></h1>
+                <a class="post-title-link" href="/2019/02/12/android/Okhttp3的Interceptor/" itemprop="url">Okttp3的Interceptor</a></h1>
         
 
         <div class="post-meta">
@@ -850,8 +916,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/02/12/android/启动页的多种实现方式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/启动页的多种实现方式/" itemprop="commentCount"></span>
+                <a href="/2019/02/12/android/Okhttp3的Interceptor/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/Okhttp3的Interceptor/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -859,7 +925,7 @@
 
           
           
-             <span id="/2019/02/12/android/启动页的多种实现方式/" class="leancloud_visitors" data-flag-title="启动页的实现">
+             <span id="/2019/02/12/android/Okhttp3的Interceptor/" class="leancloud_visitors" data-flag-title="Okttp3的Interceptor">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -891,20 +957,27 @@
 
       
         
-          <h2 id="1-静态启动页"><a href="#1-静态启动页" class="headerlink" title="1. 静态启动页"></a>1. 静态启动页</h2><h3 id="1-用Theme设置启动页"><a href="#1-用Theme设置启动页" class="headerlink" title="1. 用Theme设置启动页"></a>1. 用Theme设置启动页</h3><p>先说最简单的一种启动页的实现方式，在AndroidManifest.xml 的第一个Activity添加一个theme，在theme中设置<strong>windowBackground*</strong>就行，可以用一张图片（不支持gif）或者一种颜色。</p>
-<p>values/styles.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"Theme.StartPage"</span> <span class="attr">parent</span>=<span class="string">"Theme.ReactNative.AppCompat.Light.NoActionBar.FullScreen"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowBackground"</span>&gt;</span>@drawable/splash_image<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>AndroidManifest.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">".SplashActivity"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:launchMode</span>=<span class="string">"singleTop"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:theme</span>=<span class="string">"@style/Theme.StartPage"</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>这样设置启动页是无法避免刚打开app时出现的黑屏或者白屏，启动页的意义不大。<br>
+          <p>拦截器是一个非常强大的机制，可以<strong>监视，重写和重试call</strong>（request和response）。</p>
+<p>这样可以用来很多网络请求问题：</p>
+<ul>
+<li>监视网络：获得网络请求过程中的connection，url，headers等数据</li>
+</ul>
+<ul>
+<li>重写请求：处理签名认证需要动态给予accessToken和accessSecret等问题</li>
+<li>重试：。。。。</li>
+</ul>
+<p>调用chain.proceed(request)是每个拦截器实现的一个主要部分。这个简单的方法是HTTP工作发生，产出满足请求的响应之处，</p>
+<p>拦截器可以链接，OkHttp使用列表来跟踪拦截器，并且拦截器按顺序被调用。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/12/android/启动页的多种实现方式/#more" rel="contents">
+            <a class="btn" href="/2019/02/12/android/Okhttp3的Interceptor/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
-    </p></div>
+    </div>
     
     
     
@@ -1466,341 +1539,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/Android_N的行为变更/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="想学画画的羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/12/android/Android_N的行为变更/" itemprop="url">常用功能在Android N上的变化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T00:00:00+08:00">
-                2019-02-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/02/12/android/Android_N的行为变更/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/Android_N的行为变更/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/02/12/android/Android_N的行为变更/" class="leancloud_visitors" data-flag-title="常用功能在Android N上的变化">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="主要记录对code影响比较大的行为变化"><a href="#主要记录对code影响比较大的行为变化" class="headerlink" title="主要记录对code影响比较大的行为变化"></a>主要记录对code影响比较大的行为变化</h2><h3 id="工程瘦身：后台优化"><a href="#工程瘦身：后台优化" class="headerlink" title="工程瘦身：后台优化"></a>工程瘦身：后台优化</h3><p>为了优化内存使用和电量的消耗，Android N去掉了三个隐式的广播。这个改变对用户来说绝对一大利好，因为后台注册这些广播的app在后台会经常被拉起，自然而然会影响到设备性能进而影响用户体验（很不幸，对开发者来讲，又有一些trick被限制了）。比如<a href="https://link.jianshu.com?t=http://developer.android.com/reference/android/net/ConnectivityManager.html#CONNECTIVITY_ACTION" target="_blank" rel="noopener"><code>CONNECTIVITY_ACTION</code></a>，在N之前的系统中，注册该广播的app在网络连接有变动时都会收到系统发出的广播，这样主进程被kill的app就可以复活了。此外还有<a href="https://link.jianshu.com?t=http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_PICTURE" target="_blank" rel="noopener"><code>ACTION_NEW_PICTURE</code></a><br>和 <a href="https://link.jianshu.com?t=http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_VIDEO" target="_blank" rel="noopener"><code>ACTION_NEW_VIDEO</code></a>。<br>对于这三个广播，Android N具体做了如下的优化：<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/12/android/Android_N的行为变更/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/Notification note/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Thomas.Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="想学画画的羊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/12/android/Notification note/" itemprop="url">实现兼容的Notification</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T00:00:00+08:00">
-                2019-02-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/02/12/android/Notification note/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/Notification note/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/02/12/android/Notification note/" class="leancloud_visitors" data-flag-title="实现兼容的Notification">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>通知是Android中常用的一个消息显示方式，主要是面向用户的，但是现在部分国产手机会把新安装的app的通知权限默认关闭了，需要我们去检查是否app可以发送通知，不行的话需要通知用户去开启通知开关。</p>
-<p><strong>实际上在uses-permission中并没有通知权限。</strong></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/12/android/Notification note/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/什么是Context/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1956,6 +1694,343 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/创建和生成本地或远程Maven仓库/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="想学画画的羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/12/android/创建和生成本地或远程Maven仓库/" itemprop="url">创建和生成本地或远程Maven仓库</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T00:00:00+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/12/android/创建和生成本地或远程Maven仓库/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/创建和生成本地或远程Maven仓库/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/02/12/android/创建和生成本地或远程Maven仓库/" class="leancloud_visitors" data-flag-title="创建和生成本地或远程Maven仓库">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在我们用普通方法对Libray Module进行打包为 test.jar，然后放到libs中使用的过程中，如果Library Module有远程依赖时，我们在使用test.jar的时候就会出现 ClassNotFoundException。因为远程依赖并没有被打包到test.jar中。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/12/android/创建和生成本地或远程Maven仓库/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlybenyang.github.io/2019/02/12/android/启动页的多种实现方式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Thomas.Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="想学画画的羊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/12/android/启动页的多种实现方式/" itemprop="url">启动页的实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T00:00:00+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/12/android/启动页的多种实现方式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/12/android/启动页的多种实现方式/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/02/12/android/启动页的多种实现方式/" class="leancloud_visitors" data-flag-title="启动页的实现">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="1-静态启动页"><a href="#1-静态启动页" class="headerlink" title="1. 静态启动页"></a>1. 静态启动页</h2><h3 id="1-用Theme设置启动页"><a href="#1-用Theme设置启动页" class="headerlink" title="1. 用Theme设置启动页"></a>1. 用Theme设置启动页</h3><p>先说最简单的一种启动页的实现方式，在AndroidManifest.xml 的第一个Activity添加一个theme，在theme中设置<strong>windowBackground*</strong>就行，可以用一张图片（不支持gif）或者一种颜色。</p>
+<p>values/styles.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"Theme.StartPage"</span> <span class="attr">parent</span>=<span class="string">"Theme.ReactNative.AppCompat.Light.NoActionBar.FullScreen"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowBackground"</span>&gt;</span>@drawable/splash_image<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>AndroidManifest.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">".SplashActivity"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:launchMode</span>=<span class="string">"singleTop"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:theme</span>=<span class="string">"@style/Theme.StartPage"</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这样设置启动页是无法避免刚打开app时出现的黑屏或者白屏，启动页的意义不大。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/12/android/启动页的多种实现方式/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2028,7 +2103,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="垃圾回收,">
 
 
 
@@ -80,20 +80,20 @@
 
 
 <meta name="description" content="Java的垃圾回收器按照执行机智，Java有四种垃圾回收器：  串行垃圾回收器（Serial Garbage Collector）  并行垃圾回收器（Parallel Garbage Collector）  并发标记扫描垃圾回收器（CMS Garbage Collector）  G1垃圾回收器（G1 Garbage Collector）   因为GC线程会在安全点触发STW，让应用线程暂停下来，不">
-<meta name="keywords" content="“react-native js android”">
+<meta name="keywords" content="垃圾回收">
 <meta property="og:type" content="article">
-<meta property="og:title" content="想学画画的羊">
+<meta property="og:title" content="Java的垃圾回收器">
 <meta property="og:url" content="https://onlybenyang.github.io/2019/04/14/android/垃圾回收器/index.html">
 <meta property="og:site_name" content="想学画画的羊">
 <meta property="og:description" content="Java的垃圾回收器按照执行机智，Java有四种垃圾回收器：  串行垃圾回收器（Serial Garbage Collector）  并行垃圾回收器（Parallel Garbage Collector）  并发标记扫描垃圾回收器（CMS Garbage Collector）  G1垃圾回收器（G1 Garbage Collector）   因为GC线程会在安全点触发STW，让应用线程暂停下来，不">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="e:/works/github/Note/res/垃圾回收器配置.png">
-<meta property="og:image" content="e:/works/github/Note/res/垃圾回收的优化配置.png">
-<meta property="og:updated_time" content="2019-04-14T05:00:50.000Z">
+<meta property="og:image" content="https://onlybenyang.github.io/images/垃圾回收器配置.png">
+<meta property="og:image" content="https://onlybenyang.github.io/images/垃圾回收的优化配置.png">
+<meta property="og:updated_time" content="2019-04-14T05:20:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="想学画画的羊">
+<meta name="twitter:title" content="Java的垃圾回收器">
 <meta name="twitter:description" content="Java的垃圾回收器按照执行机智，Java有四种垃圾回收器：  串行垃圾回收器（Serial Garbage Collector）  并行垃圾回收器（Parallel Garbage Collector）  并发标记扫描垃圾回收器（CMS Garbage Collector）  G1垃圾回收器（G1 Garbage Collector）   因为GC线程会在安全点触发STW，让应用线程暂停下来，不">
-<meta name="twitter:image" content="e:/works/github/Note/res/垃圾回收器配置.png">
+<meta name="twitter:image" content="https://onlybenyang.github.io/images/垃圾回收器配置.png">
 
 
 
@@ -129,7 +129,7 @@
 
 
 
-  <title> | 想学画画的羊</title>
+  <title>Java的垃圾回收器 | 想学画画的羊</title>
   
 
 
@@ -263,7 +263,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">Java的垃圾回收器</h1>
         
 
         <div class="post-meta">
@@ -275,7 +275,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-14T13:00:50+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-14T00:00:00+08:00">
                 2019-04-14
               </time>
             
@@ -285,6 +285,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -303,7 +325,7 @@
 
           
           
-             <span id="/2019/04/14/android/垃圾回收器/" class="leancloud_visitors" data-flag-title="">
+             <span id="/2019/04/14/android/垃圾回收器/" class="leancloud_visitors" data-flag-title="Java的垃圾回收器">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -355,8 +377,8 @@
 </ol>
 <p>相比并行垃圾回收器，并发标记扫描垃圾回收器使用更多的CPU来确保程序的吞吐量。如果我们可以为了更好的程序性能分配更多的CPU，那么并发标记上扫描垃圾回收器是更好的选择相比并发垃圾回收器。</p>
 <p>通过JVM参数 <strong>XX:+USeParNewGC 打开并发标记扫描垃圾回收器</strong>。</p>
-<h3 id="怎么配置JVM垃圾回收来优化GC"><a href="#怎么配置JVM垃圾回收来优化GC" class="headerlink" title="怎么配置JVM垃圾回收来优化GC"></a>怎么配置JVM垃圾回收来优化GC</h3><h4 id="垃圾回收器类型"><a href="#垃圾回收器类型" class="headerlink" title="垃圾回收器类型"></a>垃圾回收器类型</h4><p><img src="E:\works\github\Note\res\垃圾回收器配置.png" alt="垃圾回收器配置"></p>
-<h4 id="GC的优化配置"><a href="#GC的优化配置" class="headerlink" title="GC的优化配置"></a>GC的优化配置</h4><p><img src="E:\works\github\Note\res\垃圾回收的优化配置.png" alt="垃圾回收的优化配置"></p>
+<h3 id="怎么配置JVM垃圾回收来优化GC"><a href="#怎么配置JVM垃圾回收来优化GC" class="headerlink" title="怎么配置JVM垃圾回收来优化GC"></a>怎么配置JVM垃圾回收来优化GC</h3><h4 id="垃圾回收器类型"><a href="#垃圾回收器类型" class="headerlink" title="垃圾回收器类型"></a>垃圾回收器类型</h4><p><img src="/images/垃圾回收器配置.png" alt="垃圾回收器配置"></p>
+<h4 id="GC的优化配置"><a href="#GC的优化配置" class="headerlink" title="GC的优化配置"></a>GC的优化配置</h4><p><img src="/images/垃圾回收的优化配置.png" alt="垃圾回收的优化配置"></p>
 
       
     </div>
@@ -372,6 +394,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/垃圾回收/" rel="tag"># 垃圾回收</a>
+          
+        </div>
+      
 
       
       
@@ -381,8 +409,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/14/android/垃圾回收的细节知识/" rel="next" title="">
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/2019/04/14/android/垃圾回收的细节知识/" rel="next" title="垃圾回收的小知识">
+                <i class="fa fa-chevron-left"></i> 垃圾回收的小知识
               </a>
             
           </div>
@@ -390,6 +418,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/14/android/垃圾回收算法/" rel="prev" title="垃圾回收算法">
+                垃圾回收算法 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -491,7 +523,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
